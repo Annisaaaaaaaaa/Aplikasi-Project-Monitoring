@@ -1,0 +1,380 @@
+.loginn {
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100vw !important;
+    height: 100vh !important;
+
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+
+  }
+  
+  
+  .loginn .overlap {
+    height: 500px;
+    left: 0;
+    position: absolute;
+    top: 100px;
+    width: 1455px;
+  }
+  
+  .loginn .vector {
+    /* height: 683px;
+    left: 6px;
+    position: absolute;
+    top: 202px;
+    width: 1434px; */
+
+    /* Vector 2 */
+
+/* position: absolute;
+width: 1532px;
+height: 898px;
+left: -32px;
+top: 200px;
+
+background: linear-gradient(265.79deg, #DFD0F2 0.78%, #EAECF5 37.26%, rgba(246, 246, 248, 0) 77.28%);
+border-radius: 150px; */
+
+  }
+  
+  .loginn .rectangle {
+    background: linear-gradient(181.96deg, rgba(255, 255, 255, 0) 29.04%, #9AABD8 104.11%);
+    height: 446px;
+    left: 0;
+    position: relative;
+    top: 250px;
+    width: 1642px;
+  }
+  
+  .login .gerigi {
+    position: relative;
+    width: 1532px;
+    height: 898px;
+    left: -32px;
+    top: 200px;
+    background: linear-gradient(265.79deg, #DFD0F2 0.78%, #EAECF5 37.26%, rgba(246, 246, 248, 0) 77.28%);
+    border-radius: 150px;
+
+  }
+
+  .loginn .image {
+    height: 306px;
+    left: 0;
+    object-fit: cover;
+    position: absolute;
+    top: 288px;
+    width: 292px;
+  }
+  
+  .loginn .rectangle-2 {
+   /* Rectangle 42 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 466px;
+height: 525px;
+left: 110px;
+top: 0px;
+
+background: linear-gradient(209.53deg, #F2F4F5 -5.64%, #E9ECF4 75.55%, rgba(137, 163, 255, 0.46) 104.63%);
+box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(5px);
+/* Note: backdrop-filter has minimal browser support */
+border-radius: 37px;
+
+  }
+  
+  .loginn .exclusive-for-PT {
+    color: transparent;
+    font-family: "Poppins-Medium", Helvetica;
+    font-size: 18px;
+    font-weight: 500;
+    left: 148px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 153px;
+    width: 388px;
+  }
+  
+  .loginn .text-wrapper {
+    color: #3c5162cc;
+  }
+  
+  .loginn .span {
+    color: #000000d9;
+  }
+  
+  .loginn .text-wrapper-2 {
+    color: #3787ce;
+  }
+  
+  .loginn .group {
+    height: 47px;
+    left: 149px;
+    position: absolute;
+    top: 271px;
+    width: 389px;
+  }
+  
+  .loginn .overlap-group {
+    background: linear-gradient(89.96deg, rgba(14, 84, 188, 0.19) 0.04%, rgba(109, 118, 202, 0.36) 67.43%, rgba(241, 246, 255, 0.5) 120.74%);
+    border-radius: 14px;
+    border: none;
+    padding: 5px;
+    height: 47px;
+    position: relative;
+    width: 387px;
+    text-align: center;
+  }
+  
+  .loginn .user {
+    height: 21px;
+    left: 17px;
+    position: absolute;
+    top: 13px;
+    width: 27px;
+  }
+  
+  .loginn .text-wrapper-3 {
+    color: #535359;
+    font-family: "Poppins-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    left: 61px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 11px;
+    width: 134px;
+  }
+  
+  .loginn .overlap-wrapper {
+    height: 47px;
+    left: 148px;
+    position: absolute;
+    top: 334px;
+    width: 389px;
+  }
+  
+  .loginn .text-wrapper-4 {
+    color: #000000bf;
+    font-family: "Poppins-Regular", Helvetica;
+    font-size: 15px;
+    font-weight: 400;
+    left: 149px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 392px;
+    width: 374px;
+  }
+  
+  .loginn .text-wrapper-5 {
+    color: #ff0e0e80;
+    font-family: "Poppins-Medium", Helvetica;
+    font-size: 15px;
+    font-weight: 500;
+    left: 149px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    top: 239px;
+    width: 374px;
+  }
+  
+  .loginn .overlap-group-wrapper {
+    height: 32px;
+    left: 148px;
+    position: absolute;
+    top: 35px;
+    width: 104px;
+  }
+  
+  .loginn .div-wrapper {
+    background: linear-gradient(0deg, rgba(179, 179, 180, 0.49), rgba(179, 179, 180, 0.49));
+    border-radius: 14px;
+    height: 32px;
+    position: absolute;
+    width: 102px;
+  }
+  
+  .loginn .text-wrapper-6 {
+    color: #3d2525;
+    font-family: "Belleza-Regular", Helvetica;
+    font-size: 12px;
+    font-weight: 400;
+    left: 13px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 9px;
+    width: 76px;
+  }
+  
+  .loginn .text-wrapper-7 {
+    position: absolute;
+    width: 1229px;
+    height: 61px;
+    left: 148px;
+    top: 100px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 50px;
+    line-height: 61px;
+    /* identical to box height */
+
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(90.22deg, #9284E4 1.8%, #77BBDF 10.2%, #AB96DB 20.51%, #D380AD 25.15%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+
+  }
+  
+  .loginn .diamond {
+    height: 148px;
+    left: 27px;
+    position: absolute;
+    top: 174px;
+    width: 151px;
+  }
+  
+  .loginn .elm {
+    height: 505px;
+    left: 762px;
+    position: absolute;
+    top: 61px;
+    width: 693px;
+  }
+  
+  .loginn .ellipse {
+    background: linear-gradient(180deg, rgba(144.38, 112.98, 233.75, 0.75) 0%, rgba(148.75, 167.87, 212.5, 0.75) 100%);
+    border-radius: 92px/89px;
+    filter: blur(150px);
+    height: 178px;
+    left: 365px;
+    position: absolute;
+    top: 0;
+    width: 184px;
+  }
+  
+  .loginn .ellipse-2 {
+    background: linear-gradient(180deg, rgba(141.31, 187.74, 242.25, 0.67) 0%, rgba(153.5, 175.82, 209.31, 0.46) 100%);
+    border-radius: 104.5px/101.5px;
+    filter: blur(150px);
+    height: 203px;
+    left: 0;
+    position: absolute;
+    top: 240px;
+    width: 209px;
+  }
+  
+  .loginn .img {
+    height: 509px;
+    left: 734px;
+    position: absolute;
+    top: 44px;
+    width: 687px;
+  }
+  
+  .loginn .login {
+    height: 42px;
+    left: 431px;
+    position: absolute;
+    top: 449px;
+    width: 107px;
+  }
+  
+  .loginn .overlap-2 {
+    background: linear-gradient(89.96deg, rgba(141, 92, 243, 0.5) 0.04%, rgba(91, 168, 239, 0.5) 58.24%, rgba(89, 111, 132, 0.5) 122.56%);
+    border-radius: 14px;
+    height: 42px;
+    position: relative;
+    width: 105px;
+    left: 400px;
+  }
+  
+  .loginn .text-wrapper-8 {
+    color: #334061;
+    font-family: "Montserrat-Bold", Helvetica;
+    font-size: 16px;
+    font-weight: 700;
+    left: 13px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 12px;
+    white-space: nowrap;
+    width: 80px;
+  }
+  
+  .loginn .overlap-3 {
+    height: 785px;
+    left: 43px;
+    position: absolute;
+    top: -716px;
+    width: 1412px;
+  }
+  
+  .loginn .overlap-4 {
+    height: 785px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 1412px;
+  }
+  
+  .loginn .ellipse-3 {
+    background: linear-gradient(
+      180deg,
+      rgba(99.66, 111.05, 213.56, 0.45) 0%,
+      rgba(247, 247, 248, 0.45) 46.5%,
+      rgba(183.34, 174.09, 240.12, 0.45) 100%
+    );
+    border-radius: 703.5px/377.5px;
+    filter: blur(100px);
+    height: 755px;
+    left: 5px;
+    position: absolute;
+    top: 0;
+    width: 1407px;
+  }
+  
+  .loginn .median {
+    height: 48px;
+    left: 0;
+    position: absolute;
+    top: 737px;
+    width: 64px;
+  }
+  
+  .loginn .median-skill {
+
+    height: 11px;
+    left: 69px;
+    position: absolute;
+    top: 760px;
+    width: 78px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 21px;
+
+    color: rgba(0, 0, 0, 0.75);
+
+  }
+  
