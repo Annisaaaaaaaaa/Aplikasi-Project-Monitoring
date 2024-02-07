@@ -44,3 +44,8 @@ class ProjectListSearch(generics.ListCreateAPIView):
     serializer_class = ProjectSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id', 'name'] 
+
+class ProjectDestroy(generics.DestroyAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+

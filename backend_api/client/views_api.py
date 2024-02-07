@@ -44,3 +44,7 @@ class ClientListSearch(generics.ListCreateAPIView):
     serializer_class = ClientSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id', 'name'] 
+
+class ClientDestroy(generics.DestroyAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
