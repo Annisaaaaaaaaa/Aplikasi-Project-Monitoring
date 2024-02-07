@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'document',
     'payment',
     'invoice',
+    'aktivitas_project',
+    'workload',
 
     # Third Party
     'import_export',
@@ -53,7 +55,6 @@ INSTALLED_APPS = [
     'mathfilters',
     'django.contrib.humanize',
     'ckeditor',
-    'ckeditor_uploader',
     'django_ckeditor_5',
     'taggit',
     'rest_framework',
@@ -99,9 +100,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'apm-dbms',   
-        'USER': 'user',       
-        'PASSWORD': 'user123',
+        'NAME': 'apm_alam',   
+        'USER': 'mei',       
+        'PASSWORD': 'KmRzAirin',
         'HOST': 'localhost',      
         'PORT': '5433',         
     }
@@ -129,9 +130,16 @@ AUTH_PASSWORD_VALIDATORS = [
 AUTH_USER_MODEL = 'api.User'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated'
+    ],
+'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
 }
 
 SIMPLE_JWT = {
