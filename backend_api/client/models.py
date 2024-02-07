@@ -35,7 +35,7 @@ class Client(models.Model):
 
     date_joined = models.DateField()
     
-    status = models.CharField(max_length=20, choices=StatusChoice, default=StatusChoice.AKTIVE)
+    status = models.CharField(max_length=20, choices=StatusChoice.choices, default=StatusChoice.AKTIVE)
     last_activity = models.DateTimeField()
 
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
