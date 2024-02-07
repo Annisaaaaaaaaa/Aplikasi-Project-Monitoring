@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views_api
-from .views_api import PaymentRetrieveUpdate, PaymentListSearch, PaymentDestroy, export_payments_to_excel
+from .views_api import PaymentRetrieveUpdate, PaymentListSearch, PaymentDestroy, PaymentList, export_payments_to_excel
 
 urlpatterns = [
     path('', views_api.PaymentListCreate.as_view(), name='payment-list-create'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('search/', PaymentListSearch.as_view(), name='payment-list-search'),
     path('export-payments-to-excel/', export_payments_to_excel, name='export-payments-to-excel'),
     path('<int:pk>/delete/', PaymentDestroy.as_view(), name='payment-destroy'),  
+    path('order/', PaymentList.as_view(), name='project-document-list'),
 ]

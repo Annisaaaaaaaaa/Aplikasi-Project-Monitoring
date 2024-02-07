@@ -1,4 +1,5 @@
 from rest_framework import generics, filters
+from rest_framework.response import Response
 from .models import Payment
 from .serializers import PaymentSerializer
 
@@ -86,3 +87,28 @@ class PaymentListSearch(generics.ListCreateAPIView):
     serializer_class = PaymentSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id', 'payer_name'] 
+
+# ASC, DSC
+class PaymentList(generics.ListCreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+
+    def list(self, request, *args, **kwargs):
+        # Mendapatkan nilai 'order_by' dan 'order' dari parameter query string
+        order_by = request.query_params.get('order_by', 'payment_date')
+        order = request.query_params.get('order', 'asc')
+
+        # Validasi nilai 'order'
+        if order not in ['asc', 'desc']:
+            return Response({"error": "Invalid order value. Use 'asc' or 'desc'."}, status=400)
+
+        # Validasi nilai 'order_by'
+        valid_order_by_fields = ['payment_date', 'payer_name', 'receiver_name']  
+        if order_by not in valid_order_by_fields:
+            return Response({"error": f"Invalid order_by value. Use one of {valid_order_by_fields}."}, status=400)
+
+        # Mengurutkan queryset berdasarkan bidang yang dipilih
+        queryset = self.filter_queryset(self.get_queryset().order_by(f"{'-' if order == 'desc' else ''}{order_by}"))
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
