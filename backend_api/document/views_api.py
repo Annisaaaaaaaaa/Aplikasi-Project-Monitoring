@@ -1,4 +1,5 @@
 from rest_framework import generics, filters
+from rest_framework.response import Response
 from .models import ProjectDocument
 from .serializers import ProjectDocumentSerializer
 
@@ -76,9 +77,15 @@ class ProjectDocumentRetrieveUpdate(generics.RetrieveUpdateAPIView):
     queryset = ProjectDocument.objects.all()
     serializer_class = ProjectDocumentSerializer
 
+# Delete
+class ProjectDocumentDestroy(generics.DestroyAPIView):
+    queryset = ProjectDocument.objects.all()
+    serializer_class = ProjectDocumentSerializer
+
 # Search
 class ProjectDocumentListSearch(generics.ListCreateAPIView):
     queryset = ProjectDocument.objects.all()
     serializer_class = ProjectDocumentSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id', 'name'] 
+
