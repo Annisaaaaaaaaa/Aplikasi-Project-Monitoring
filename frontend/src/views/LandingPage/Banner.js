@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
-import headerImg from "../assets/img/header-img.png";
-import '../Css/Home.css'
+import headerImg from "../../assets/img/header-img.png";
+import '../../Css/Home.css'
 import {
   BrowserRouter as Router,
   Link 

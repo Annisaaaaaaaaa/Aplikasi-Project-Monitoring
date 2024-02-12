@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import AuthContext from '../context/AuthContext';
-import './../Css/loginn.css';
-import user from "./../images/User.svg";
-import dmn from "./../images/diamond.svg";
-import gr from "./../images/Group 225.svg";
-import lg from "./../images/lg.svg";
+import AuthContext from '../../context/AuthContext';
+import '../../Css/loginn.css';
+import user from "../../images/User.svg";
+import dmn from "../../images/diamond.svg";
+import gr from "../../images/Group 225.svg";
+import lg from "../../images/lg.svg";
 
 function Loginpage() {
   const { loginUser } = useContext(AuthContext);

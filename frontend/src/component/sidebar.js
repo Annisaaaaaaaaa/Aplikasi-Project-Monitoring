@@ -1,0 +1,148 @@
+import React from 'react';
+import logo from '../assets/img/logocopy.png';
+import home from '../assets/img/dashboard.png';
+import projek from '../assets/img/projek.png';
+import client from '../assets/img/client.png';
+import invoice from '../assets/img/invoice.png';
+import payment from '../assets/img/payment.png';
+import note from '../assets/img/note.png';
+import doc from '../assets/img/doc.png';
+import logout from '../assets/img/log.png';
+
+import '../Css/Dashboard.css';
+
+function Sidebar() {
+    return (
+        <div className="sidebar active">
+            <div className="menu-btn">
+                <i className="ph-bold ph-caret-left"></i>
+            </div>
+            <div className="head">
+                <div className="user-img">
+                    <img src={logo} alt="logo" />
+                </div>
+                <div className="user-details">
+                    <p className="title"><span>Median</span>Skill</p>
+                </div>
+            </div>
+            <div className="nav">
+                <div className="menu">
+                    <p className="title">Main</p>
+                    <ul>
+                        <li>
+                            <a href="admin.html">
+                                <img src={home} alt="logo" />
+                                <span className="text">Dashboard</span>
+                            </a>
+                        </li>
+                        <li className="active">
+                            <a href="#">
+                                <img src={projek} alt="logo" />
+                                <span className="text">Project</span>
+                                <i className="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul className="sub-menu">
+                                <li>
+                                    <a href="project.html">
+                                        <span className="text">Project</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Project Activity</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Statistic</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src={client} alt="logo" />
+                                <span className="text">Client</span>
+                                <i className="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul className="sub-menu">
+                                <li>
+                                    <a href="client.html">
+                                        <span className="text">Client</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Statistic</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src={invoice} alt="logo" />
+                                <span className="text">Invoice</span>
+                                <i className="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul className="sub-menu">
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Invoice</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Statistic</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src={payment} alt="logo" />
+                                <span className="text">Payment</span>
+                                <i className="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul className="sub-menu">
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Payment</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Statistic</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src={note} alt="logo" />
+                                <span className="text">Note</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src={doc} alt="logo" />
+                                <span className="text">Document</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div className="menu">
+                <ul>
+                    <li>
+                        <a href="#">
+                            <img src={logout} alt="logo" />
+                            <span className="text">Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    );
+}
+
+export default Sidebar;
