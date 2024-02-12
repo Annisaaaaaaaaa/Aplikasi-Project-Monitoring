@@ -1,5 +1,5 @@
 from django.shortcuts import render
 
 # Create your views here.
-from .models import ProjectDocument  
-from .serializers import ProjectDocumentSerializer
+from .models import Payment  
+from .serializers import PaymentSerializer

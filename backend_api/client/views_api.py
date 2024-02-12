@@ -1,4 +1,5 @@
 from rest_framework import generics, filters
+from rest_framework.response import Response
 from .models import Client
 from .serializers import ClientSerializer
 
@@ -38,9 +39,45 @@ class ClientRetrieveUpdate(generics.RetrieveUpdateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
 
+# Delete
+class ClientDestroy(generics.DestroyAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
 # Search
 class ClientListSearch(generics.ListCreateAPIView):
     queryset = Client.objects.all()
     serializer_class = ClientSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id', 'name'] 
+
+<<<<<<< HEAD
+# ASC, DSC
+class ClientList(generics.ListCreateAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+
+    def list(self, request, *args, **kwargs):
+        # Mendapatkan nilai 'order_by' dan 'order' dari parameter query string
+        order_by = request.query_params.get('order_by', 'name')
+        order = request.query_params.get('order', 'asc')
+
+        # Validasi nilai 'order'
+        if order not in ['asc', 'desc']:
+            return Response({"error": "Invalid order value. Use 'asc' or 'desc'."}, status=400)
+
+        # Validasi nilai 'order_by'
+        valid_order_by_fields = ['name', 'industry', 'company_size' , 'status', 'date_joined']  
+        if order_by not in valid_order_by_fields:
+            return Response({"error": f"Invalid order_by value. Use one of {valid_order_by_fields}."}, status=400)
+
+        # Mengurutkan queryset berdasarkan bidang yang dipilih
+        queryset = self.filter_queryset(self.get_queryset().order_by(f"{'-' if order == 'desc' else ''}{order_by}"))
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+=======
+class ClientDestroy(generics.DestroyAPIView):
+    queryset = Client.objects.all()
+    serializer_class = ClientSerializer
+>>>>>>> 9538a83761647d38049a93a353d44b0b187e73fa

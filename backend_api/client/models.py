@@ -2,6 +2,10 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
 
+from django.db.models.signals import post_delete
+from django.dispatch import receiver
+import os
+
 class StatusChoice(models.TextChoices):
   AKTIVE = "aktif", _("Aktif")
   INACTIVE = "tidak aktif", _("TIdak Aktif")
@@ -31,7 +35,7 @@ class Client(models.Model):
 
     date_joined = models.DateField()
     
-    status = models.CharField(max_length=20, choices=StatusChoice, default=StatusChoice.AKTIVE)
+    status = models.CharField(max_length=20, choices=StatusChoice.choices, default=StatusChoice.AKTIVE)
     last_activity = models.DateTimeField()
 
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
@@ -45,3 +49,12 @@ class Client(models.Model):
         db_table = 'apm_client'
         ordering = ['-created_at']
         indexes = [ models.Index(fields=['-created_at']), ]
+
+
+# Signal to delete file on post_delete
+@receiver(post_delete, sender=Client)
+def delete_client_logo(sender, instance, **kwargs):
+    # Hapus file saat objek Invoice dihapus
+    if instance.logo:
+        if os.path.isfile(instance.logo.path):
+            os.remove(instance.logo.path)
