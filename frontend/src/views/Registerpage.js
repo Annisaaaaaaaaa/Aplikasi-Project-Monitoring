@@ -136,7 +136,7 @@ function Registerpage() {
             className="text-center p-3"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}
           >
-            © 2019 - till date Copyright:
+            © 2024 - till date Copyright:
             <a className="text-dark" href="https://mdbootstrap.com/">
               desphixs.com
             </a>
