@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import useAxios from "../utils/useAxios";
+import useAxios from "../../utils/useAxios";
 import jwtDecode from 'jwt-decode';
-import Sidebar from '../component/sidebar';
-import Navbar  from '../component/header';
+import Sidebar from '../../component/sidebar';
+import Navbar  from '../../component/header';
 
 function Dashboard() {
     const [res, setRes] = useState("");
@@ -34,11 +34,10 @@ function Dashboard() {
     }, [api, token]);
 
     return (
-        <div className='Dashboard'>
+        <div>
             <Sidebar />
             <Navbar />
-            {/* Anda dapat menampilkan res atau melakukan apapun dengan data yang telah didapatkan */}
-            {/* <div>{res}</div> */}
+           
         </div>
     );
 }

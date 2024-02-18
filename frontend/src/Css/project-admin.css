@@ -312,9 +312,9 @@ body{
 
 /******* Dashboard ******/
 
-.ds-utama {
+.ds-utama-projek {
     position: relative;
-    width: calc(95% - 50px);
+    width: calc(100% - 50px);
     height: 300px;
     margin-top: 50px;
     transition: all 0.3s ease;
@@ -393,11 +393,11 @@ body{
     line-height: normal;
   }
 
-.gambarorg {
+.gambarprojek {
    position: absolute; 
-   bottom: 35%; 
-   margin-left: 5%;
-   width: 33%;
+   bottom: 34%; 
+   margin-left: 2%;
+   width: 32%;
    flex: 1;
 }
 

@@ -56,8 +56,22 @@ export const Banner = () => {
     setDelta(300);
   };
 
+  const bannerStyle = {
+    body: {
+      fontWeight: 400,
+      overflowX: 'hidden',
+      position: 'relative',
+      backgroundColor: '#120A1C',
+      color: '#fff',
+      fontFamily: "'Centra', sans-serif",
+      scrollbarColor: '#0000',
+      scrollbarWidth: 'thin',
+      height: 8000
+    }
+  };
+
   return (
-    <section className="banner" id="home">
+    <section style={bannerStyle.body} className="banner" id="home">
       <Container>
         <Row className="align-items-center">
           <Col xs={12} md={6} xl={7}>
