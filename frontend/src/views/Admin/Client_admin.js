@@ -4,6 +4,9 @@ import Navbar from '../../component/header';
 import gambarorg from '../../assets/img/gambarorg.png';
 import '../../Css/Dashboard.css';
 
+import { ClientProvider } from './../../context/ClientContext';
+import ClientTable from './../../component/Client/ClientTable';
+
 function Client_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
@@ -127,39 +130,10 @@ function Client_admin() {
                             </div>
                         </section>
                         <section className="table__body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th onClick={() => handleSort(0)}>
-                                            Id <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(1)}>
-                                            Company <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(2)}>
-                                            Nama <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(3)}>
-                                            PIC Tittle <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(4)}>
-                                            Status <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(5)}>
-                                            Total Project <span className="icon-arrow"></span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {tableRows.map((row, index) => (
-                                        <tr key={index}>
-                                            {[...row.cells].map((cell, i) => (
-                                                <td key={i}>{cell.textContent}</td>
-                                            ))}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                            <ClientProvider>
+                                    <ClientTable />
+                            </ClientProvider>
+                            
                         </section>
                     </main>
 
