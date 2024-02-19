@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import useAxios from "../utils/useAxios";
+import useAxios from "../../utils/useAxios";
 import jwtDecode from 'jwt-decode';
+<<<<<<< HEAD:frontend/src/views/Dashboard.js
 import Sidebar from '../component/sidebar';
 import Navbar  from '../component/header';
 import { ClientProvider } from '../context/ClientContext';
 import ClientTable from '../component/Client/ClientTable';
+=======
+import Sidebar from '../../component/sidebar';
+import Navbar  from '../../component/header';
+>>>>>>> 2307ed952dd39b5a593cb7e3874e950a6c218cbb:frontend/src/views/Admin/Dashboard_admin.js
 
 function Dashboard() {
     const [res, setRes] = useState("");
@@ -36,9 +41,10 @@ function Dashboard() {
     }, [api, token]);
 
     return (
-        <div className='Dashboard'>
+        <div>
             <Sidebar />
             <Navbar />
+<<<<<<< HEAD:frontend/src/views/Dashboard.js
             {/* Anda dapat menampilkan res atau melakukan apapun dengan data yang telah didapatkan */}
             {/* <div>{res}</div> */}
             <ClientProvider>
@@ -47,6 +53,9 @@ function Dashboard() {
                     <ClientTable />
                 </div>
             </ClientProvider>
+=======
+           
+>>>>>>> 2307ed952dd39b5a593cb7e3874e950a6c218cbb:frontend/src/views/Admin/Dashboard_admin.js
         </div>
     );
 }

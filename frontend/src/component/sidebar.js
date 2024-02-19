@@ -7,6 +7,7 @@ import invoice from '../assets/img/invoice.png';
 import payment from '../assets/img/payment.png';
 import note from '../assets/img/note.png';
 import doc from '../assets/img/doc.png';
+import users from '../assets/img/user.png';
 import logout from '../assets/img/log.png';
 import AuthContext from './../context/AuthContext'
 import jwt_decode from "jwt-decode"
@@ -23,8 +24,8 @@ function Sidebar() {
     }
 
     return (
-        <div className="sidebar active">
-            <div className="menu-btn">
+        <div className={`sidebar ${isActive ? "active" : ""}`}>
+            <div className="menu-btn" onClick={handleMenuClick}>
                 <i className="ph-bold ph-caret-left"></i>
             </div>
             <div className="head">
@@ -37,16 +38,15 @@ function Sidebar() {
             </div>
             <div className="nav">
                 <div className="menu">
-                    <p className="title">Main</p>
                     <ul>
-                        <li>
-                            <a href="admin.html">
+                        <li onClick={handleMenuItemClick}>
+                            <Link to="/dashboard">
                                 <img src={home} alt="logo" />
                                 <span className="text">Dashboard</span>
-                            </a>
+                            </Link>
                         </li>
-                        <li className="active">
-                            <a href="#">
+                        <li onClick={handleMenuItemClick}>
+                            <a href="/project-admin">
                                 <img src={projek} alt="logo" />
                                 <span className="text">Project</span>
                                 <i className="arrow ph-bold ph-caret-down"></i>
@@ -69,12 +69,12 @@ function Sidebar() {
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li onClick={handleMenuItemClick}>
+                            <Link to="/client-admin">
                                 <img src={client} alt="logo" />
                                 <span className="text">Client</span>
                                 <i className="arrow ph-bold ph-caret-down"></i>
-                            </a>
+                            </Link>
                             <ul className="sub-menu">
                                 <li>
                                     <a href="client.html">
@@ -88,7 +88,26 @@ function Sidebar() {
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li onClick={handleMenuItemClick}>
+                            <Link to="/users-admin">
+                                <img src={users} alt="logo" />
+                                <span className="text">Users</span>
+                                <i className="arrow ph-bold ph-caret-down"></i>
+                            </Link>
+                            <ul className="sub-menu">
+                                <li>
+                                    <a href="client.html">
+                                        <span className="text">Client</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Statistic</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li onClick={handleMenuItemClick}>
                             <a href="#">
                                 <img src={invoice} alt="logo" />
                                 <span className="text">Invoice</span>
@@ -107,7 +126,7 @@ function Sidebar() {
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li onClick={handleMenuItemClick}>
                             <a href="#">
                                 <img src={payment} alt="logo" />
                                 <span className="text">Payment</span>
@@ -126,14 +145,14 @@ function Sidebar() {
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li onClick={handleMenuItemClick}>
                             <a href="#">
                                 <img src={note} alt="logo" />
                                 <span className="text">Note</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li onClick={handleMenuItemClick}>
+                            <a href="/document-admin">
                                 <img src={doc} alt="logo" />
                                 <span className="text">Document</span>
                             </a>
@@ -148,6 +167,7 @@ function Sidebar() {
                             <img src={logout} alt="logo" />
                             <span className="text">Logout</span>
                         </a>
+
                     </li>
                 </ul>
             </div>

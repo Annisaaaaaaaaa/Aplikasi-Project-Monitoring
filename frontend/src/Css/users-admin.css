@@ -312,9 +312,9 @@ body{
 
 /******* Dashboard ******/
 
-.ds-utama {
+.ds-utama-users {
     position: relative;
-    width: calc(95% - 50px);
+    width: calc(115% - 50px);
     height: 300px;
     margin-top: 50px;
     transition: all 0.3s ease;
@@ -393,10 +393,10 @@ body{
     line-height: normal;
   }
 
-.gambarorg {
+.gambarusers {
    position: absolute; 
-   bottom: 35%; 
-   margin-left: 5%;
+   bottom: 28%; 
+   margin-left: 0%;
    width: 33%;
    flex: 1;
 }
@@ -598,8 +598,8 @@ input[type="search"]::placeholder {
        align-items: center;
    } */
    
-   main.table {
-       width: calc(100% - 50px);
+   main.table-user {
+       width: calc(115% - 50px);
        height: 90vh;
        margin-top: 20px;
        background-color: #fff5;
@@ -611,7 +611,7 @@ input[type="search"]::placeholder {
        overflow: hidden;
    }
 
-   .table h1 {
+   .table-user h1 {
     margin-top: 20px;
     font-size: 30px;
     font-weight: 600;
