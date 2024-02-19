@@ -8,6 +8,7 @@ import Loginpage from './views/Login/Loginpage'
 import Dashboard from './views/Dashboard'
 import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
+import ClientPage from './views/Client/ClientPage'
 
 
 
@@ -21,6 +22,7 @@ function App() {
           <Route component={Loginpage} path="/login" />
           {/* <Route component={Registerpage} path="/register" exact /> */}
           <Route component={Home} path="/" exact />
+          <Route component={ClientPage} path="/client" exact />
         </Switch>
       </AuthProvider>
     </Router>

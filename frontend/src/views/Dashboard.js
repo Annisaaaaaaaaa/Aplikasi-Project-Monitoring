@@ -3,6 +3,8 @@ import useAxios from "../utils/useAxios";
 import jwtDecode from 'jwt-decode';
 import Sidebar from '../component/sidebar';
 import Navbar  from '../component/header';
+import { ClientProvider } from '../context/ClientContext';
+import ClientTable from '../component/Client/ClientTable';
 
 function Dashboard() {
     const [res, setRes] = useState("");
@@ -39,6 +41,12 @@ function Dashboard() {
             <Navbar />
             {/* Anda dapat menampilkan res atau melakukan apapun dengan data yang telah didapatkan */}
             {/* <div>{res}</div> */}
+            <ClientProvider>
+                <div>
+                    <h1>Client Management Page</h1>
+                    <ClientTable />
+                </div>
+            </ClientProvider>
         </div>
     );
 }

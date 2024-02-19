@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from '../assets/img/logocopy.png';
 import home from '../assets/img/dashboard.png';
 import projek from '../assets/img/projek.png';
@@ -8,10 +8,20 @@ import payment from '../assets/img/payment.png';
 import note from '../assets/img/note.png';
 import doc from '../assets/img/doc.png';
 import logout from '../assets/img/log.png';
+import AuthContext from './../context/AuthContext'
+import jwt_decode from "jwt-decode"
 
 import '../Css/Dashboard.css';
 
 function Sidebar() {
+    const {user, logoutUser} = useContext(AuthContext)
+    const token = localStorage.getItem("authTokens")
+
+    if (token){
+        const decoded = jwt_decode(token) 
+        var user_id = decoded.user_id
+    }
+
     return (
         <div className="sidebar active">
             <div className="menu-btn">
@@ -134,7 +144,7 @@ function Sidebar() {
             <div className="menu">
                 <ul>
                     <li>
-                        <a href="#">
+                        <a onClick={logoutUser} style={{cursor:"pointer"}}>
                             <img src={logout} alt="logo" />
                             <span className="text">Logout</span>
                         </a>

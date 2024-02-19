@@ -16,11 +16,11 @@ class SizeCompany(models.TextChoices):
   KECIL = "kecil", _("Kecil")
 
 class Client(models.Model):
-    name = models.CharField(max_length=255)
-    address = models.CharField(max_length=255)
-    pic_phone = models.CharField(max_length=20)
-    pic_email = models.EmailField()
-    pic_title = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=True, null=True)
+    address = models.CharField(max_length=255, blank=True, null=True)
+    pic_phone = models.CharField(max_length=20, blank=True, null=True)
+    pic_email = models.EmailField(blank=True, null=True)
+    pic_title = models.CharField(max_length=255, blank=True, null=True)
 
     # Optional Fields
     industry = models.CharField(max_length=255, blank=True, null=True)
@@ -33,7 +33,7 @@ class Client(models.Model):
     company_phone = models.CharField(max_length=20, blank=True, null=True)
     additional_info = models.TextField(blank=True, null=True)
 
-    date_joined = models.DateField()
+    date_joined = models.DateField(blank=True, null=True)
     
     status = models.CharField(max_length=20, choices=StatusChoice.choices, default=StatusChoice.AKTIVE)
     last_activity = models.DateTimeField()

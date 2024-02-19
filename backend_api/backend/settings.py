@@ -100,11 +100,11 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'apm_alam',   
-        'USER': 'mei',       
-        'PASSWORD': 'KmRzAirin',
+        'NAME': 'apm-dbms',   
+        'USER': 'user',       
+        'PASSWORD': 'user123',
         'HOST': 'localhost',      
-        'PORT': '5433',         
+        'PORT': '5432',         
     }
 }
 
@@ -132,6 +132,7 @@ AUTH_USER_MODEL = 'api.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated'
@@ -143,7 +144,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=50),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -405,3 +406,5 @@ JAZZMIN_UI_TWEAKS = {
         "success": "btn-success",
     },
 }
+
+LOGOUT_URL = '/'

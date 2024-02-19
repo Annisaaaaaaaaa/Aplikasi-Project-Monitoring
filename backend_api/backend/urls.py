@@ -5,6 +5,7 @@ from django.urls import path
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from api.views import YourApiView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -13,7 +14,7 @@ from rest_framework_simplejwt.views import (
 api_path = 'api/v1'
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('api/', include("api.urls")),
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
@@ -28,6 +29,7 @@ urlpatterns = [
     #JWT
     path(f"{api_path}/auth/token/", TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path(f"{api_path}/auth/token/refresh/", TokenRefreshView.as_view(), name='token_refresh'),
+    path(f"{api_path}/your/", YourApiView.as_view(), name='protected-endpoint'),
 
 ]
 

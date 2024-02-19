@@ -8,6 +8,6 @@ urlpatterns = [
     path('edit/<int:pk>/', PaymentRetrieveUpdate.as_view(), name='payment-retrieve-update'),
     path('search/', PaymentListSearch.as_view(), name='payment-list-search'),
     path('export-payments-to-excel/', export_payments_to_excel, name='export-payments-to-excel'),
-    path('<int:pk>/delete/', PaymentDestroy.as_view(), name='payment-destroy'),  
+    path('delete/<int:pk>/', PaymentDestroy.as_view(), name='payment-destroy'),  
     path('order/', PaymentList.as_view(), name='project-document-list'),
 ]
