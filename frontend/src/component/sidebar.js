@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext  } from 'react';
+import { Link } from 'react-router-dom';
+
 import logo from '../assets/img/logocopy.png';
 import home from '../assets/img/dashboard.png';
 import projek from '../assets/img/projek.png';
@@ -12,9 +14,16 @@ import logout from '../assets/img/log.png';
 import AuthContext from './../context/AuthContext'
 import jwt_decode from "jwt-decode"
 
+
 import '../Css/Dashboard.css';
 
 function Sidebar() {
+    const [isActive, setIsActive] = useState(true);
+
+    const handleMenuClick = () => {
+        setIsActive(!isActive);
+    };
+
     const {user, logoutUser} = useContext(AuthContext)
     const token = localStorage.getItem("authTokens")
 
@@ -22,6 +31,30 @@ function Sidebar() {
         const decoded = jwt_decode(token) 
         var user_id = decoded.user_id
     }
+
+
+    const handleMenuItemClick = (e) => {
+        const parentLi = e.currentTarget;
+        const submenu = parentLi.querySelector("ul.sub-menu");
+        if (submenu) {
+            const isSubMenuVisible = submenu.classList.toggle("show");
+            if (!isSubMenuVisible) {
+                submenu.classList.remove("show");
+            }
+        }
+    };
+
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js';
+        script.integrity = 'sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw==';
+        script.crossOrigin = 'anonymous';
+        document.body.appendChild(script);
+        
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
 
     return (
         <div className={`sidebar ${isActive ? "active" : ""}`}>
@@ -163,7 +196,7 @@ function Sidebar() {
             <div className="menu">
                 <ul>
                     <li>
-                        <a onClick={logoutUser} style={{cursor:"pointer"}}>
+                         <a onClick={logoutUser} style={{cursor:"pointer"}}>
                             <img src={logout} alt="logo" />
                             <span className="text">Logout</span>
                         </a>

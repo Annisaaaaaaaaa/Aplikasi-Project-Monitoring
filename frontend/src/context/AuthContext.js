@@ -3,8 +3,7 @@ import jwt_decode from "jwt-decode";
 import {useHistory} from "react-router-dom";
 import {BASE_API} from "../utils/constant"
 const swal = require('sweetalert2')
-const webpack = require('webpack');
-const dotenv = require('dotenv');
+
 
 const AuthContext = createContext();
 
@@ -30,7 +29,7 @@ export const AuthProvider = ({ children }) => {
     const history = useHistory();
 
     const loginUser = async (email, password) => {
-        const response = await fetch(`{process.env.API_URL}/api/token/`, {
+        const response = await fetch(`${BASE_API}/api/token/`, {
             method: "POST",
             headers:{
                 "Content-Type":"application/json"

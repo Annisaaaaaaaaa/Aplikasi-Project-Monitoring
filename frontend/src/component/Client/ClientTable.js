@@ -1,38 +1,41 @@
-// ClientTable.js
-import React, { useEffect, useState } from 'react';
-import { useClientContext } from '../../context/ClientContext';
+import React from 'react';
+import { useClientContext } from './../../context/ClientContext';
 
-function ClientTable() {
+const ClientTable = () => {
   const { clients, error, loading } = useClientContext();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (!clients || clients.length === 0) {
+    return <p>No clients found.</p>;
   }
 
   return (
-    <div>
-      <h2>List of Clients</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          {/* Add more headers as needed */}
+        </tr>
+      </thead>
+      <tbody>
+        {clients.map((client) => (
+          <tr key={client.id}>
+            <td>{client.id}</td>
+            <td>{client.name}</td>
+            {/* Add more cells with corresponding data as needed */}
           </tr>
-        </thead>
-        <tbody>
-          {error && <div>Error: {error.message}</div>}
-          {clients.map(client => (
-            <tr key={client.id}>
-              <td>{client.id}</td>
-              <td>{client.name}</td>
-              <td>{client.address}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+        ))}
+      </tbody>
+    </table>
   );
-}
+};
 
 export default ClientTable;
