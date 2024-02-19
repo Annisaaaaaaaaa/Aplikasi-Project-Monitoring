@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
-import gambarorg from '../../assets/img/gambarorg.png';
-import '../../Css/Dashboard.css';
+import gambardoc from '../../assets/img/gambardoc.png';
+import '../../Css/document-admin.css';
 
-function Client_admin() {
+function Document_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
@@ -70,9 +70,9 @@ function Client_admin() {
             <div className="container-client">
                 <div className="navbar-admin">
                     <div className="parent">
-                        <div className="ds-utama"></div>
-                        <div className="gambarorg">
-                            <img src={gambarorg} alt="logo" />
+                        <div className="ds-utama-doc"></div>
+                        <div className="gambardoc">
+                            <img src={gambardoc} alt="logo" />
                         </div>
                         <div className="duatiga"> 0 </div>
                         <div className="total">Total Client</div>
@@ -83,12 +83,6 @@ function Client_admin() {
                         <div className="group-button">
                             <button className="button-client">
                                 <i className="fas fa-plus"></i> Tambah
-                            </button>
-                            <button className="button-client">
-                                <i className="fas fa-download"></i> Export
-                            </button>
-                            <button className="button-client">
-                                <i className="fas fa-upload"></i> Import
                             </button>
                         </div>
                         <div className="input-group">
@@ -101,9 +95,9 @@ function Client_admin() {
                         </div>
                     </div>
 
-                    <main className="table" id="customers_table">
+                    <main className="table-doc" id="customers_table">
                         <section className="table__header">
-                            <h1>Data Client</h1>
+                            <h1>Data Document</h1>
                             <div className="export__file">
                                 <label htmlFor="export-file" className="export__file-btn" title="Export File"></label>
                                 <input type="checkbox" id="export-file" />
@@ -204,4 +198,4 @@ function Client_admin() {
     );
 }
 
-export default Client_admin;
+export default Document_admin;

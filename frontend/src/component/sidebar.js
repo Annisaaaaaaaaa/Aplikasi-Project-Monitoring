@@ -9,6 +9,7 @@ import invoice from '../assets/img/invoice.png';
 import payment from '../assets/img/payment.png';
 import note from '../assets/img/note.png';
 import doc from '../assets/img/doc.png';
+import users from '../assets/img/user.png';
 import logout from '../assets/img/log.png';
 import AuthContext from './../context/AuthContext'
 import jwt_decode from "jwt-decode"
@@ -121,6 +122,25 @@ function Sidebar() {
                             </ul>
                         </li>
                         <li onClick={handleMenuItemClick}>
+                            <Link to="/users-admin">
+                                <img src={users} alt="logo" />
+                                <span className="text">Users</span>
+                                <i className="arrow ph-bold ph-caret-down"></i>
+                            </Link>
+                            <ul className="sub-menu">
+                                <li>
+                                    <a href="client.html">
+                                        <span className="text">Client</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span className="text">Statistic</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li onClick={handleMenuItemClick}>
                             <a href="#">
                                 <img src={invoice} alt="logo" />
                                 <span className="text">Invoice</span>
@@ -165,7 +185,7 @@ function Sidebar() {
                             </a>
                         </li>
                         <li onClick={handleMenuItemClick}>
-                            <a href="#">
+                            <a href="/document-admin">
                                 <img src={doc} alt="logo" />
                                 <span className="text">Document</span>
                             </a>

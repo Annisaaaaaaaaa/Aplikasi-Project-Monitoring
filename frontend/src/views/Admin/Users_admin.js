@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
-import gambarorg from '../../assets/img/gambarorg.png';
-import '../../Css/Dashboard.css';
+import gambarusers from '../../assets/img/gambaruser.png';
+import '../../Css/users-admin.css';
 
-function Client_admin() {
+function Users_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
@@ -19,12 +19,12 @@ function Client_admin() {
             initializeSortOrder[index] = true; // Default to ascending order
         });
 
-        setTableRows(Array.from(rows)); // Convert NodeList to array
-        setTableHeadings(Array.from(headings)); // Convert NodeList to array
+        setTableRows(Array.from(rows)); 
+        setTableHeadings(Array.from(headings)); 
         setSortOrder(initializeSortOrder);
 
         return () => {
-            // Clean up function
+
         };
     }, []);
 
@@ -70,9 +70,9 @@ function Client_admin() {
             <div className="container-client">
                 <div className="navbar-admin">
                     <div className="parent">
-                        <div className="ds-utama"></div>
-                        <div className="gambarorg">
-                            <img src={gambarorg} alt="logo" />
+                        <div className="ds-utama-users"></div>
+                        <div className="gambarusers">
+                            <img src={gambarusers} alt="logo" />
                         </div>
                         <div className="duatiga"> 0 </div>
                         <div className="total">Total Client</div>
@@ -87,9 +87,7 @@ function Client_admin() {
                             <button className="button-client">
                                 <i className="fas fa-download"></i> Export
                             </button>
-                            <button className="button-client">
-                                <i className="fas fa-upload"></i> Import
-                            </button>
+                        
                         </div>
                         <div className="input-group">
                             <input
@@ -101,7 +99,7 @@ function Client_admin() {
                         </div>
                     </div>
 
-                    <main className="table" id="customers_table">
+                    <main className="table-user" id="customers_table">
                         <section className="table__header">
                             <h1>Data Client</h1>
                             <div className="export__file">
@@ -204,4 +202,4 @@ function Client_admin() {
     );
 }
 
-export default Client_admin;
+export default Users_admin;

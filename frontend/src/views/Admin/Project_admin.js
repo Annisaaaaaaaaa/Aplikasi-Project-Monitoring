@@ -74,9 +74,17 @@ function Project_admin() {
                         <div className="gambarprojek">
                             <img src={gambarproject} alt="logo" />
                         </div>
-                        <div className="duatiga"> 10 </div>
-                        <div className="total">Total Client</div>
-                        <div className="garis"></div>
+                        <div className="duatiga-admin"> 0 </div>
+                        <div className="total-admin">Project <br/>Finished </div>
+                        <div className="garis-admin"></div>
+
+                        <div className="duatiga-admin2"> 0 </div>
+                        <div className="total-admin2">Project <br/>On Going </div>
+                        <div className="garis-admin2"></div>
+
+                        <div className="duatiga-admin3"> 0 </div>
+                        <div className="total-admin3">Project <br/>Finished </div>
+                        <div className="garis-admin3"></div>
                     </div>
 
                     <div className="bungkus">
@@ -86,9 +94,6 @@ function Project_admin() {
                             </button>
                             <button className="button-client">
                                 <i className="fas fa-download"></i> Export
-                            </button>
-                            <button className="button-client">
-                                <i className="fas fa-upload"></i> Import
                             </button>
                         </div>
                         <div className="input-group">
@@ -101,9 +106,9 @@ function Project_admin() {
                         </div>
                     </div>
 
-                    <main className="table" id="customers_table">
+                    <main className="table-project" id="customers_table">
                         <section className="table__header">
-                            <h1>Data Client</h1>
+                            <h1>Data Project</h1>
                             <div className="export__file">
                                 <label htmlFor="export-file" className="export__file-btn" title="Export File"></label>
                                 <input type="checkbox" id="export-file" />
