@@ -1,0 +1,85 @@
+.frame-about {
+    position: absolute;
+    top: 0;
+    left: 5px;
+    border-radius: 50%;
+    background: linear-gradient(
+      -36.36deg,
+      rgba(100, 111, 213, 0.45),
+      rgba(247, 247, 248, 0.45) 46.5%,
+      rgba(183, 174, 240, 0.45)
+    );
+    filter: blur(100px);
+    width: 1407px;
+    height: 755px;
+  }
+  .median-icon {
+    position: absolute;
+    top: 737px;
+    left: 0;
+    width: 63.6px;
+    height: 48px;
+    object-fit: cover;
+    z-index: 1;
+  }
+  .frame-home {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .medianskill {
+    position: absolute;
+    top: 756px;
+    left: 68px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.75);
+    text-align: left;
+    font-family: Poppins;
+  }
+  .login {
+    position: absolute;
+    top: 758px;
+    left: 421px;
+    background: linear-gradient(265.52deg, #2c6ba7, #97c3ec);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .about,
+  .contact,
+  .home {
+    position: absolute;
+    top: 758px;
+    left: 583px;
+    font-weight: 600;
+  }
+  .about,
+  .contact {
+    left: 746px;
+  }
+  .contact {
+    left: 892px;
+  }
+  .frame-home-parent {
+    height: 785px;
+    width: 1412px;
+    position: relative;
+    max-width: 101%;
+    flex-shrink: 0;
+  }
+  .loginn-inner {
+    width: 1397px;
+    height: 69px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+    text-align: center;
+    font-size: 17px;
+    color: #6295c6;
+    font-family: Montserrat;
+  }

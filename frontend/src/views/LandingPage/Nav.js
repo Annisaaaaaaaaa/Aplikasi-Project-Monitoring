@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import logo from '../assets/img/logo.png';
-import '../Css/Home.css'
+import logo from '../../assets/img/logo.png';
+import '../../Css/Home.css'
 import { HashLink } from 'react-router-hash-link';
 import {
   BrowserRouter as Router,

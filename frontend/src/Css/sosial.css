@@ -1,0 +1,325 @@
+.social-media-icons-child {
+    height: 439px;
+    width: 1438px;
+    position: relative;
+    background: linear-gradient(181.96deg, rgba(255, 255, 255, 0), #9aabd8);
+    display: none;
+    max-width: 100%;
+    z-index: 0;
+  }
+  .project-monitoring-system {
+    margin: 0;
+    height: 52px;
+    width: 724px;
+    position: relative;
+    font-size: inherit;
+    font-weight: 700;
+    font-family: inherit;
+    display: inline-block;
+    flex-shrink: 0;
+    max-width: 102%;
+    z-index: 2;
+  }
+  .tracks-and-records-frame {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  .versi-10 {
+    width: 105px;
+    height: 23px;
+    position: relative;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: Montserrat;
+    color: #371a1a;
+    display: inline-block;
+    flex-shrink: 0;
+    z-index: 3;
+  }
+  .login-form-title,
+  .login-form-title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+  .login-form-title {
+    align-self: stretch;
+    padding: 0 17px 0 0;
+  }
+  .login-form-title-wrapper {
+    flex: 1;
+    padding: 3px 0 0;
+  }
+  .all-rights-reserved,
+  .copyright-2024- {
+    position: relative;
+    font-weight: 500;
+    z-index: 3;
+  }
+  .copyright-2024- {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .copyright-frame1,
+  .social-media-frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  .social-media-frame {
+    align-items: center;
+    gap: 3px 0;
+  }
+  .copyright-frame1 {
+    align-items: flex-start;
+    padding: 9px 0 0;
+  }
+  .at-sign-icon,
+  .instagram-circle-icon,
+  .linkedin-circled-icon,
+  .twitterx-icon {
+    height: 42px;
+    width: 42px;
+    position: relative;
+    object-fit: cover;
+    z-index: 2;
+  }
+  .at-sign-icon,
+  .instagram-circle-icon,
+  .twitterx-icon {
+    min-height: 42px;
+    z-index: 3;
+  }
+  .at-sign-icon,
+  .instagram-circle-icon {
+    z-index: 2;
+  }
+  .median-skill-i-d {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 0 6px;
+  }
+  .medianskillid {
+    position: relative;
+    z-index: 2;
+  }
+  .medianskillid-wrapper {
+    flex-direction: row;
+    padding: 0 5px;
+  }
+  .all-rights-frame,
+  .footer-frame,
+  .medianskillid-wrapper,
+  .twitter-instagram-icon {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .twitter-instagram-icon {
+    flex-direction: column;
+    gap: 17px 0;
+  }
+  .all-rights-frame,
+  .footer-frame {
+    flex-direction: row;
+    font-size: 14px;
+  }
+  .footer-frame {
+    width: 592px;
+    align-items: center;
+    gap: 0 338px;
+    max-width: 100%;
+    font-size: 15px;
+    color: #1c2948;
+    font-family: Montserrat;
+  }
+  .qt {
+    height: 127.8px;
+    width: 212.7px;
+    position: relative;
+    border-radius: 15px 35px 0 35px;
+    background: linear-gradient(
+      -77.65deg,
+      rgba(130, 95, 175, 0.25),
+      rgba(59, 111, 172, 0.25) 43%
+    );
+    border: 0.5px solid #97949d;
+    box-sizing: border-box;
+    display: none;
+  }
+  .efficiently,
+  .tracks-and-records {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .tracks-and-records {
+    background: linear-gradient(95.94deg, rgba(57, 71, 91, 0.66));
+  }
+  .efficiently {
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 800;
+    background: linear-gradient(
+      95.94deg,
+      #245fb8 8.5%,
+      #7f48bd 65.5%,
+      rgba(138, 73, 149, 0.64)
+    );
+  }
+  .tracks-and-records-container {
+    align-self: stretch;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+  .project-monitor {
+    height: 128px;
+    width: 214px;
+    margin: 0 !important;
+    position: absolute;
+    bottom: 400px;
+    left: 9px;
+    border-radius: 15px 35px 0 35px;
+    background: linear-gradient(
+      -77.65deg,
+      rgba(130, 95, 175, 0.25),
+      rgba(59, 111, 172, 0.25) 43%
+    );
+    border: 0.5px solid #97949d;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 19px 27px;
+  }
+  .img-icon,
+  .login-form-group {
+    position: relative;
+    max-width: 100%;
+  }
+  .img-icon {
+    height: 509.4px;
+    flex: 1;
+    overflow: hidden;
+    object-fit: contain;
+    z-index: 2;
+  }
+  .login-form-group {
+    align-self: stretch;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-size: 18px;
+    font-family: Inter;
+  }
+  .h2 {
+    margin: 0;
+    position: relative;
+    font-size: inherit;
+    line-height: 25px;
+    font-weight: 400;
+    font-family: inherit;
+    z-index: 1;
+  }
+  .frames-separator {
+    width: 228px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .h21 {
+    margin: 0;
+    position: relative;
+    font-size: inherit;
+    line-height: 25px;
+    font-weight: 400;
+    font-family: inherit;
+    transform: rotate(180deg);
+    z-index: 1;
+  }
+  .frames-separator1 {
+    width: 228px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  .login-form-group-parent,
+  .social-media-icons {
+    margin: 0 !important;
+    position: absolute;
+    display: flex;
+    justify-content: flex-start;
+    box-sizing: border-box;
+  }
+  .login-form-group-parent {
+    height: 1067px;
+    width: 1146px;
+    top: -402px;
+    right: 19px;
+    flex-direction: column;
+    align-items: center;
+    padding: 349px 0 63px;
+    gap: 49px;
+    max-width: 100%;
+    z-index: 6;
+    text-align: center;
+    font-size: 25px;
+    color: #385a74;
+    font-family: Butcherman;
+  }
+  .social-media-icons {
+    width: 100%;
+    right: -2px;
+    bottom: -1px;
+    left: 0;
+    background: linear-gradient(181.96deg, rgba(255, 255, 255, 0), #9aabd8);
+    flex-direction: row;
+    align-items: flex-end;
+    padding: 37px 62px;
+    min-height: 441px;
+    z-index: 1;
+    text-align: left;
+    font-size: 23px;
+    color: #184773;
+    font-family: Poppins;
+  }
+  @media screen and (max-width: 925px) {
+    .footer-frame {
+      flex-wrap: wrap;
+      gap: 0 338px;
+    }
+    .social-media-icons {
+      padding-left: 31px;
+      padding-right: 31px;
+      box-sizing: border-box;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .project-monitoring-system {
+      font-size: 18px;
+    }
+    .footer-frame {
+      gap: 0 338px;
+    }
+    .h2,
+    .h21 {
+      font-size: 20px;
+      line-height: 20px;
+    }
+  }
+  

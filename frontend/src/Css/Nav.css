@@ -1,0 +1,165 @@
+.dashboard-engineer .group-19 {
+    position: relative;
+    width: 100%;
+}
+
+.dashboard-engineer .menu-toggle {
+    display: none;
+    cursor: pointer;
+}
+
+.dashboard-engineer .menu-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.dashboard-engineer .menu-items .text-wrapper {
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #6296c6;
+    font-size: 17px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+@media only screen and (max-width: 600px) {
+    .dashboard-engineer .menu-items {
+        display: none;
+    }
+
+    .dashboard-engineer .menu-toggle {
+        display: block;
+    }
+
+    .dashboard-engineer .menu-toggle .hamburger {
+        width: 30px;
+        height: 3px;
+        background-color: #6296c6;
+        margin: 6px 0;
+    }
+
+    .dashboard-engineer .menu-items.show {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #ffffff;
+        padding: 10px;
+        z-index: 999;
+    }
+}
+
+.welcome .judul {
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(180deg, #598BAA 15.5%, #5DA9BA 40.22%, #9C9FDF 66.11%, #6982A8 93.88%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.profile-dropdown {
+    margin-right: 10%;
+    position: relative;
+    width: fit-content;
+}
+
+.profile-dropdown-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    font-weight: 500;
+    width: 150px;
+    border-radius: 50px;
+    color: var(--black);
+    cursor: pointer;
+    transition: box-shadow 0.2s ease-in, background-color 0.2s ease-in, border 0.3s;
+    background: linear-gradient(268.91deg, rgba(144, 201, 242, 0.5) -6.45%, rgba(176, 191, 231, 0.644512) 26.66%, rgba(219, 228, 251, 0.5) 71%);
+}
+
+.profile-dropdown-btn:hover {
+    background: linear-gradient(268.91deg, rgba(144, 201, 242, 0.5) -6.45%, rgba(176, 191, 231, 0.644512) 26.66%, rgba(219, 228, 251, 0.5) 71%);
+    box-shadow: var(--shadow);
+}
+
+.profile-img {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-size: cover;
+}
+
+.profile-img i {
+    position: absolute;
+    right: 0;
+    bottom: 0.3rem;
+    font-size: 0.5rem;
+    background: linear-gradient(268.91deg, rgba(144, 201, 242, 0.5) -6.45%, rgba(176, 191, 231, 0.644512) 26.66%, rgba(219, 228, 251, 0.5) 71%);
+}
+
+.profile-dropdown-btn span {
+    margin: 0 0.5rem;
+    margin-right: 0;
+}
+
+.profile-dropdown-list {
+    position: absolute;
+    top: 68px;
+    width: 220px;
+    right: 0;
+    background-color: var(--white);
+    border-radius: 10px;
+    max-height: 0;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: max-height 0.5s;
+}
+
+.profile-dropdown-list hr {
+    border: 0.5px solid var(--green);
+}
+
+.profile-dropdown-list.active {
+    max-height: 500px;
+}
+
+.profile-dropdown-list-item {
+    padding: 0.5rem 0rem 0.5rem 1rem;
+    transition: background-color 0.2s ease-in, padding-left 0.2s;
+}
+
+.profile-dropdown-list-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: linear-gradient(268.91deg, rgba(144, 201, 242, 0.5) -6.45%, rgba(176, 191, 231, 0.644512) 26.66%, rgba(219, 228, 251, 0.5) 71%);
+}
+
+.profile-dropdown-list-item a i {
+    margin-right: 0.8rem;
+    font-size: 1.1rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    background-color: var(--secondary);
+    color: var(--white);
+    line-height: 2.3rem;
+    text-align: center;
+    margin-right: 1rem;
+    border-radius: 50%;
+    transition: margin-right 0.3s;
+}
+
+.profile-dropdown-list-item:hover {
+    padding-left: 1.5rem;
+    background-color: var(--secondary-light);
+}
