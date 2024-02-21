@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
-import AuthContext from './AuthContext'; // Assuming your AuthContext file is in the same directory
+import AuthContext from './AuthContext';
 
 const ClientContext = createContext();
 
@@ -40,11 +39,59 @@ export const ClientProvider = ({ children }) => {
     }
   };
 
+  const editClient = async (clientId, newData) => {
+    try {
+      const token = authTokens ? authTokens.access : null;
+      if (!token) {
+        throw new Error('Authentication token is missing');
+      }
+
+      const response = await axios.put(`http://localhost:8000/api/v1/client/edit/${clientId}/`, newData, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setClients(clients.map(client => client.id === clientId ? response.data : client));
+      setError(null);
+    } catch (error) {
+      console.error('Error editing client:', error.message);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteClient = async (clientId) => {
+    try {
+      const token = authTokens ? authTokens.access : null;
+      if (!token) {
+        throw new Error('Authentication token is missing');
+      }
+
+      await axios.delete(`http://localhost:8000/api/v1/client/delete/${clientId}/`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      setClients(clients.filter(client => client.id !== clientId));
+      setError(null);
+    } catch (error) {
+      console.error('Error deleting client:', error.message);
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const contextData = {
     clients,
     error,
     loading,
     fetchData,
+    editClient,
+    deleteClient,
   };
 
   return (
