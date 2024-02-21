@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import AuthContext from '../../context/AuthContext';
 import '../../Css/loginn.css';
 import user from "../../images/User.svg";
@@ -11,18 +11,49 @@ function Loginpage() {
   const { loginUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+  // Mendapatkan objek history dari useHistory
   const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(email, password);
+      const loginData = await loginUser(email, password, history);
       console.log('Login successful');
-      history.push('/dashboard'); // Redirect to /dashboard after successful login
+  
+      // Redirect user based on their group
+      if (loginData && loginData.user && loginData.user.groups && loginData.user.groups.length > 0) {
+        const userGroup = loginData.user.groups[0];
+        switch (userGroup) {
+          case 'pm':
+            history.push('/pm/dashboard');
+            break;
+          case 'sales':
+            history.push('/sales/dashboard');
+            break;
+          case 'administrator':
+            history.push('/administrator/dashboard');
+            break;
+          case 'admin':
+            history.push('/admin/dashboard');
+            break;
+          case 'engineer':
+            history.push('/engineer/dashboard');
+            break;
+          default:
+            history.push('/default-dashboard'); // Redirect to a default dashboard if user's group is not recognized
+        }
+      } else {
+        console.error("User groups not found in token");
+        // Handle error or redirect to a default page
+      }
     } catch (error) {
       console.error('Login failed', error);
+      setError('Email or password is incorrect');
     }
   };
+  
 
   return (
     <div className="loginn">
@@ -32,11 +63,6 @@ function Loginpage() {
           <div className="gerigi" />
           <div className="rectangle" />
           <div className="as" />
-          {/* <img
-            className="image"
-            alt="Image"
-            src="https://w0.peakpx.com/wallpaper/276/540/HD-wallpaper-harith-mlbb-epic-evos-hero-legend-legends-mage-magic-moba-mobile-skin.jpg"
-          /> */}
           <div className="rectangle-2" />
           <p className="exclusive-for-PT">
             <span className="text-wrapper">Exclusive for</span>
@@ -95,7 +121,7 @@ function Loginpage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Loginpage
+export default Loginpage;

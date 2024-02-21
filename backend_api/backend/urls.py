@@ -25,11 +25,16 @@ urlpatterns = [
     path(f"{api_path}/payment/", include(("payment.urls_api", "user-api"), namespace="payment-api")),
     path(f"{api_path}/invoice/", include(("invoice.urls_api", "invoice-api"), namespace="invoice-api")),
     path(f"{api_path}/project/", include(("project.urls_api", "project-api"), namespace="project-api")),
+    path(f"{api_path}/user/", include(("api.urls", "project-api"), namespace="user-api")),
 
     #JWT
     path(f"{api_path}/auth/token/", TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path(f"{api_path}/auth/token/refresh/", TokenRefreshView.as_view(), name='token_refresh'),
     path(f"{api_path}/your/", YourApiView.as_view(), name='protected-endpoint'),
+
+    #gw udah muak
+    path(f"{api_path}/auth/token/", TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path(f"{api_path}/auth/token/refresh/", TokenRefreshView.as_view(), name='token_refresh'),
 
 ]
 

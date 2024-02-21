@@ -3,8 +3,8 @@ import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambarorg from '../../assets/img/gambarorg.png';
 import '../../Css/Dashboard.css';
-
-import { ClientProvider } from './../../context/ClientContext';
+import axios from 'axios';
+import { ClientProvider, useClientContext } from './../../context/ClientContext';
 import ClientTable from './../../component/Client/ClientTable';
 
 function Client_admin() {
@@ -64,7 +64,10 @@ function Client_admin() {
         setSortOrder(newSortOrder);
         setTableRows(sortedRows);
     };
-
+    
+    const context = useClientContext();
+    const handleExportToExcel = context ? context.handleExportToExcel : () => {};
+    
     return (
         <div>
             <Sidebar />
@@ -87,9 +90,10 @@ function Client_admin() {
                             <button className="button-client">
                                 <i className="fas fa-plus"></i> Tambah
                             </button>
-                            <button className="button-client">
+                            <button className="button-client" onClick={handleExportToExcel}>
                                 <i className="fas fa-download"></i> Export
                             </button>
+
                             <button className="button-client">
                                 <i className="fas fa-upload"></i> Import
                             </button>
@@ -131,9 +135,8 @@ function Client_admin() {
                         </section>
                         <section className="table__body">
                             <ClientProvider>
-                                    <ClientTable />
+                                <ClientTable />
                             </ClientProvider>
-                            
                         </section>
                     </main>
 

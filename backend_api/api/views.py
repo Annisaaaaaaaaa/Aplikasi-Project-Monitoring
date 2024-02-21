@@ -13,6 +13,44 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 
 
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import UserLoginSerializer, ClientSerializer
+
+
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.validated_data['user']
+            if user.groups.filter(name='administrator').exists():
+                # Logic for Administrator login
+                return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            elif user.groups.filter(name='pm').exists():
+                # Logic for Project Manager login
+                return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            elif user.groups.filter(name='sales').exists():
+                # Logic for Sales login
+                return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            # Add more conditions for other groups
+            elif user.groups.filter(name='engineer').exists():
+                # Logic for Sales login
+                return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            # Add more conditions for other groups
+            elif user.groups.filter(name='admin').exists():
+                # Logic for Sales login
+                return Response(serializer.validated_data, status=status.HTTP_200_OK)
+            # Add more conditions for other groups
+            else:
+                return Response({"error": "Invalid group"}, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
 
@@ -23,6 +61,10 @@ class RegisterView(generics.CreateAPIView):
 
 
 # Get All Routes
+class ClientListCreate(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = ClientSerializer
+
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -77,3 +119,14 @@ class YourApiView(View):
         api_data = api_response.json()
 
         return JsonResponse(api_data)
+
+
+
+
+class UserLoginView(APIView):
+    serializer_class = UserLoginSerializer
+
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)

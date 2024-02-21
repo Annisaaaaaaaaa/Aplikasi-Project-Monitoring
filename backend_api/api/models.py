@@ -8,12 +8,16 @@ from django.utils import timezone
 class User(AbstractUser):
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
+    is_active = models.BooleanField(default=True)  # Set default to True
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
     def profile(self):
         profile = Profile.objects.get(user=self)
+        self.is_staff()
+        self.is_superuser = True
+        self.save()
 
     class Meta:
         db_table = 'api_profile2'
@@ -21,18 +25,18 @@ class User(AbstractUser):
 
 # Role Choices
 class UserRoleChoice(models.TextChoices):
-  PM = "PM", _("Project Manager")
-  SALES = "SALES", _("Sales")
-  ENGINEER = "ENGINEER", _("Engineer")
-  ADMIN = "ADMIN", _("Admin Tender")
+    PM = "PM", _("Project Manager")
+    SALES = "SALES", _("Sales")
+    ENGINEER = "ENGINEER", _("Engineer")
+    ADMIN = "ADMIN", _("Admin Tender")
 
 class UserGenderChoice(models.TextChoices):
-  MALE = "M", _("Male")
-  FEMALE = "F", _("Female")
+    MALE = "M", _("Male")
+    FEMALE = "F", _("Female")
 
 class UserStatusChoice(models.TextChoices):
-  INTERNAL = "internal", _("Internal")
-  EXTERNAL = "external", _("External")
+    INTERNAL = "internal", _("Internal")
+    EXTERNAL = "external", _("External")
 
 
 class Profile(models.Model):
@@ -44,7 +48,6 @@ class Profile(models.Model):
     role = models.CharField(max_length=20, choices=UserRoleChoice.choices, default=True)
     status = models.CharField(blank=True, max_length=10, 
                                 choices=UserStatusChoice.choices, default=UserStatusChoice.INTERNAL)
-    is_active = models.BooleanField(blank=True, default=True)
 
     phone = models.CharField(max_length=20, blank=True)
     

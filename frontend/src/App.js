@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from "./utils/PrivateRoute"
 import { AuthProvider } from './context/AuthContext'
 
@@ -16,29 +16,31 @@ import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
 
 
+// Import dashboard components
+import PMDashboard from './component/PM/PMDashboard';
+import SalesDashboard from './component/Sales/SalesDashboard';
+import AdministratorDashboard from './component/Administrator/AdministratorDashboard';
+import AdminDashboard from './component/Admin/AdminDashboard';
+import EngineerDashboard from './component/Engineer/EngineerDashboard';
+
+// ...
 
 function App() {
   return (
-    <Router>
-      <AuthProvider>
-        {/* < Navbar/> */}
+    <AuthProvider>
+      <Router>
         <Switch>
-          <PrivateRoute component={Dashboard} path="/dashboard" exact />
-          <Route component={Loginpage} path="/login" />
-
-          {/* Admin */}
-          <Route component={ ClientAdminFunction} path="/client-admin" />
-          <Route component={ ProjectAdminFunctionn } path="/project-admin" />
-          <Route component={ DocumentAdminFunctionn } path="/document-admin" />
-          <Route component={ UsersAdminFunctionn } path="/users-admin" />
-
-          {/* <Route component={Registerpage} path="/register" exact /> */}
-          <Route component={Home} path="/" exact />
-          <Route component={ClientPage} path="/client" exact />
+          <Route exact path="/login" component={Loginpage} />
+          <PrivateRoute exact path="/pm/dashboard" component={PMDashboard} />
+          <PrivateRoute exact path="/sales/dashboard" component={SalesDashboard} />
+          <PrivateRoute exact path="/administrator/dashboard" component={AdministratorDashboard} />
+          <PrivateRoute exact path="/admin/dashboard" component={AdminDashboard} />
+          <PrivateRoute exact path="/engineer/dashboard" component={EngineerDashboard} />
+          {/* Add more PrivateRoute components for other routes */}
         </Switch>
-      </AuthProvider>
-    </Router>
-  )
+      </Router>
+    </AuthProvider>
+  );
 }
 
 function Home() {

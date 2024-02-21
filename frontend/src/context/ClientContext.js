@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
-import AuthContext from './AuthContext'; // Assuming your AuthContext file is in the same directory
+import AuthContext from './AuthContext';
 
 const ClientContext = createContext();
 
@@ -40,11 +39,35 @@ export const ClientProvider = ({ children }) => {
     }
   };
 
+  const handleExportToExcel = async () => {
+    try {
+      const response = await axios.get('http://localhost:8000/api/v1/client/export-clients-to-excel/', {
+        responseType: 'blob',
+        headers: {
+          Authorization: `Bearer ${authTokens.access}`
+        }
+      });
+
+      const blob = new Blob([response.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'clients.xlsx');
+      document.body.appendChild(link);
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error('Error exporting clients to Excel:', error);
+      // Handle errors
+    }
+  };
+
   const contextData = {
     clients,
     error,
     loading,
     fetchData,
+    handleExportToExcel,
   };
 
   return (
