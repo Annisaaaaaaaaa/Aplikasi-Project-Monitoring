@@ -1,0 +1,313 @@
+
+
+
+.bg-form-atas {
+    position: absolute;
+    width: 287px;
+    height: 80px;
+    left: 145px;
+    top: 124px;
+    background: #C0CFF8;
+    backdrop-filter: blur(22.5px);
+    border-radius: 20px;
+    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 80%);
+}
+  
+.bg-form-bawah{
+    position: absolute;
+    width: 58%;
+    height: 50%;
+    left: 145px;
+    top: 184px;
+    background: #C0CFF8;
+    backdrop-filter: blur(22.5px);
+    border-radius: 5px 20px 20px 20px;
+}
+
+.bg-form-atas p{
+    width: 146px;
+    height: 38px;
+    left: 229px;
+    margin-left: 35%;
+    margin-top: 10%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    color: #4F5B96;
+}
+
+.container-form {
+    display: flex;
+}
+
+.left,
+.right {
+    display: inline-block;
+}
+
+.left img {
+    width: 130%;
+    margin-left: 70%;
+    margin-top: 45%;
+}
+
+.ess p {
+    width: 169px;
+    height: 23px;
+    margin-left: 3%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4F5B96;
+}
+
+.ess2 p {
+    width: 169px;
+    height: 23px;
+    margin-left: 3%;
+    margin-top: 2%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4F5B96;
+}
+
+.tittle-form{
+    margin-left: 3%;
+    margin-top: 4%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+}
+
+.input-form input {
+    width: 350px;
+    height: 40px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 15px; /* Tambahkan padding kiri di sini */
+}
+
+.input-form2 input {
+    width: 600px;
+    height: 40px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 15px; /* Tambahkan padding kiri di sini */
+}
+
+.input-form3 input {
+    width: 1290px;
+    height: 100px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 15px; /* Tambahkan padding kiri di sini */
+}
+
+input::placeholder{
+    padding-left: 5%;
+    color: #4D547A;
+}
+
+.miau{
+    display: flex;
+    
+}
+
+.miau .kiri{
+    margin-left: 2%;
+    float: left;
+}
+
+.miau .kanan{
+    margin-left: 5%;
+    float: right;
+}
+
+.miau .error{
+    color: red;
+    margin-left: 5%;
+
+}
+
+.miau2{
+    display: flex;
+    margin-top: 2%;
+}
+
+.miau2 .kiri{
+    margin-left: 2%;
+    float: left;
+}
+
+.miau2 .kanan{
+    margin-left: 5%;
+    float: right;
+}
+
+.miau3 {
+    clear: both;
+}
+
+
+.exel-form {
+    position: absolute;
+    width: 29%;
+    height: 50%;
+    left: 68%;
+    top: 184px;
+    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.25) 0.65%, rgba(192, 191, 242, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 20px;
+   
+}
+
+.exel-content img {
+    width: 40%; 
+   margin-left: 30%;
+   margin-top: 8%
+}
+
+.exel-des {
+    width: 319px;
+    height: 53px;
+    margin-left: 17%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #1B3442;
+}
+
+.exel-des span {
+    width: 319px;
+    height: 53px;
+    left: 1045px;
+    top: 375px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #073E0C;
+}
+
+.exel-des button {
+    margin-left: 30%;
+    padding: 14px;
+    width: 130px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 2px 2px 4px rgba(44, 62, 80, 0.6);
+    color: #ffff;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 4%;
+}
+
+.exel-des button:nth-child(1) {
+    background-color: #2C904D; 
+}
+
+.form-bawah{
+    position: absolute;
+    width: 1500px;
+    height: 680px;
+    left: 145px;
+    margin-top: 30%;
+    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.25) 0.65%, rgba(192, 191, 242, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 20px;
+}
+
+.miau3 textarea{
+    margin-left: 3%;
+    width: 85%;
+    height: 250%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;    
+    padding: 0.7%;
+}
+
+textarea:focus {
+    border: none;
+}
+
+.tambah-client {
+    position: relative; 
+}
+
+.tambah-client button {
+    padding: 14px;
+    width: 130px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 2px 2px 4px rgba(44, 62, 80, 0.6);
+    color: #ffff;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 4%;
+    position: absolute; 
+    bottom: 228px; 
+    left: 93%; 
+    background: linear-gradient(89.96deg, #7CBCF7 0.04%, #80ADE5 63.75%, #548ADA 110.92%);
+    border-radius: 14px;
+    
+}
+
+.file-input-container {
+   margin-top: 5%;
+   margin-left: 3%;
+}
+
+.label-file {
+    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.5) 0.65%, rgba(140, 99, 206, 0.5) 100%);
+    border: 0.2px solid #BBAAB8;
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    color: #4D547A;
+    padding: 10px 50px;
+    cursor: pointer;
+}
+
+.label-file:hover {
+    background-color: #548ADA;
+}
+
+/* Mengatur posisi label di bawah tombol "Choose File" */
+.label-file + input[type="file"] {
+    position: absolute;
+    top: 100%; /* Menggeser ke bawah sesuai dengan tinggi label */
+    left: 0;
+    opacity: 0;
+}

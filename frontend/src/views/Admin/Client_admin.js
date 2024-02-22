@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambarorg from '../../assets/img/gambarorg.png';
+import { Link } from 'react-router-dom';
 import '../../Css/Dashboard.css';
 
 import { ClientProvider } from './../../context/ClientContext';
@@ -84,9 +85,9 @@ function Client_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                            <button className="button-client">
-                                <i className="fas fa-plus"></i> Tambah
-                            </button>
+                        <Link to="/form_tambah_client" className="button-client" style={{ textDecoration: 'none' }}>
+                            <i className="fas fa-plus"></i> Tambah
+                        </Link>
                             <button className="button-client">
                                 <i className="fas fa-download"></i> Export
                             </button>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { useClientContext } from './../../context/ClientContext';
 import gambarorg from '../../assets/img/gambarorg.png';
+import sad from '../../assets/img/found.png';
+import '../../Css/Dashboard.css'
 
 const ClientTable = () => {
   const { clients, error, loading } = useClientContext();
@@ -17,8 +19,8 @@ const ClientTable = () => {
 
   if (loading) {
     return <div className="gambarorg">
-              <img src={gambarorg} alt="logo" />
-          </div>;
+      <img src={gambarorg} alt="logo" />
+      </div>;
   }
 
   if (error) {
@@ -26,7 +28,11 @@ const ClientTable = () => {
   }
 
   if (!clients || clients.length === 0) {
-    return <p>No clients found.</p>;
+    return <div className="gambarfound">
+    <img src={sad} alt="logo" />
+    <br/>No Clients Found
+</div>
+    
   }
 
   return (

@@ -16,6 +16,19 @@ body{
     overflow-x: hidden;
 }
 
+.gambarfound br{
+    background: transparent;
+    font-size: 30px;
+    font-family: 'Poppins';
+    font-style: normal;
+    padding-bottom: 280px;
+    font-weight: 800;
+    line-height: 150px;
+    text-align: center;
+   color: #bebebe;
+
+}
+
 /* .container {
     width: 100%;
     min-height: 100vh;
@@ -56,9 +69,10 @@ body{
     font-family: 'Montserrat', sans-serif;
 }
 
-.welcome .halaman{
+.welcome .halaman p{
     font-size: 15px;
     font-weight: 500;
+    text-align: left;
     color: #838690;
 }
 
@@ -401,6 +415,14 @@ body{
    flex: 1;
 }
 
+.gambarfound {
+    margin-top: 5%;
+    bottom: 15%; 
+    margin-left: 35%;
+    width: 28%;
+    flex: 1;
+ }
+
 /* Group 160 */
 
 /* position: absolute;
@@ -537,6 +559,9 @@ top: 202px; */
     font-size: 15px;
     font-weight: 800;
     cursor: pointer;
+    text-decoration: none;
+    display: inline-block; 
+    text-align: center; 
 }
 
 .button-client:nth-child(1) {

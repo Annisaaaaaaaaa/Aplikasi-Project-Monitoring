@@ -14,6 +14,7 @@ import Users_admin from './views/Admin/Users_admin'
 import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
+import Form_Tambah_Client from './views/Admin/Tambah_Form_Client'
 
 
 
@@ -21,24 +22,31 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        {/* < Navbar/> */}
         <Switch>
           <PrivateRoute component={Dashboard} path="/dashboard" exact />
           <Route component={Loginpage} path="/login" />
 
           {/* Admin */}
-          <Route component={ ClientAdminFunction} path="/client-admin" />
-          <Route component={ ProjectAdminFunctionn } path="/project-admin" />
-          <Route component={ DocumentAdminFunctionn } path="/document-admin" />
-          <Route component={ UsersAdminFunctionn } path="/users-admin" />
-
-          {/* <Route component={Registerpage} path="/register" exact /> */}
+          <Route component={ClientAdminFunction} path="/client-admin" />
+          <Route component={ProjectAdminFunctionn} path="/project-admin" />
+          <Route component={DocumentAdminFunctionn} path="/document-admin" />
+          <Route component={UsersAdminFunctionn} path="/users-admin" />
+          <Route component={formTambahClientFunction} path="/Form_Tambah_Client" />
           <Route component={Home} path="/" exact />
           <Route component={ClientPage} path="/client" exact />
         </Switch>
       </AuthProvider>
     </Router>
   )
+}
+
+
+function formTambahClientFunction() {
+  return (
+    <div>
+      <Form_Tambah_Client />
+    </div>
+  );
 }
 
 function Home() {
