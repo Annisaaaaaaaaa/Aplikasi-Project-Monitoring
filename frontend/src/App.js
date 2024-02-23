@@ -14,6 +14,7 @@ import Users_admin from './views/Admin/Users_admin'
 import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
+import { DocumentProvider } from './context/DocumentContext'
 
 
 
@@ -71,7 +72,9 @@ function ProjectAdminFunctionn() {
 function DocumentAdminFunctionn() {
   return (
     <div>
-      <Document_admin />
+      <DocumentProvider>
+        <Document_admin />
+      </DocumentProvider>
     </div>
   );
 }
