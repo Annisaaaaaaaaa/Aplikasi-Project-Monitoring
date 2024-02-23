@@ -141,7 +141,7 @@ function Sidebar() {
                             </ul>
                         </li>
                         <li onClick={handleMenuItemClick}>
-                            <a href="#">
+                            <a href="/invoice-admin">
                                 <img src={invoice} alt="logo" />
                                 <span className="text">Invoice</span>
                                 <i className="arrow ph-bold ph-caret-down"></i>

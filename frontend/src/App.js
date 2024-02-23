@@ -11,6 +11,7 @@ import Client_admin from './views/Admin/Client_admin'
 import Project_admin from './views/Admin/Project_admin'
 import Document_admin from './views/Admin/Document_admin'
 import Users_admin from './views/Admin/Users_admin'
+import Invoice_admin from './views/Admin/Invoice_admin'
 import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
@@ -22,24 +23,32 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        {/* < Navbar/> */}
         <Switch>
           <PrivateRoute component={Dashboard} path="/dashboard" exact />
           <Route component={Loginpage} path="/login" />
 
           {/* Admin */}
-          <Route component={ ClientAdminFunction} path="/client-admin" />
-          <Route component={ ProjectAdminFunctionn } path="/project-admin" />
-          <Route component={ DocumentAdminFunctionn } path="/document-admin" />
-          <Route component={ UsersAdminFunctionn } path="/users-admin" />
-
-          {/* <Route component={Registerpage} path="/register" exact /> */}
+          <Route component={ClientAdminFunction} path="/client-admin" />
+          <Route component={ProjectAdminFunctionn} path="/project-admin" />
+          <Route component={DocumentAdminFunctionn} path="/document-admin" />
+          <Route component={UsersAdminFunctionn} path="/users-admin" />
+          <Route component={InvoiceAdminFunctionn} path="/invoice-admin" />
+          <Route component={formTambahClientFunction} path="/Form_Tambah_Client" />
           <Route component={Home} path="/" exact />
           <Route component={ClientPage} path="/client" exact />
         </Switch>
       </AuthProvider>
     </Router>
   )
+}
+
+
+function formTambahClientFunction() {
+  return (
+    <div>
+      <Form_Tambah_Client />
+    </div>
+  );
 }
 
 function Home() {
@@ -83,6 +92,14 @@ function UsersAdminFunctionn() {
   return (
     <div>
       <Users_admin />
+    </div>
+  );
+}
+
+function InvoiceAdminFunctionn() {
+  return (
+    <div>
+      <Invoice_admin/>
     </div>
   );
 }

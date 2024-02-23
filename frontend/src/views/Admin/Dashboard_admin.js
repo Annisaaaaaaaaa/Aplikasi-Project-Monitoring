@@ -41,12 +41,12 @@ function Dashboard() {
             <Navbar />
             {/* Anda dapat menampilkan res atau melakukan apapun dengan data yang telah didapatkan */}
             {/* <div>{res}</div> */}
-            <ClientProvider>
+            {/* <ClientProvider>
                 <div>
                     <h1>Client Management Page</h1>
                     <ClientTable />
                 </div>
-            </ClientProvider>
+            </ClientProvider> */}
            
         </div>
     );
