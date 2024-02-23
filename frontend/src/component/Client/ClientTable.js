@@ -5,7 +5,7 @@ import sad from '../../assets/img/found.png';
 import '../../Css/Dashboard.css'
 
 const ClientTable = () => {
-  const { clients, error, loading } = useClientContext();
+  const { clients, error, loading, editClient, deleteClient } = useClientContext();
 
   const tableStyle = {
     width: '100%',
@@ -17,6 +17,19 @@ const ClientTable = () => {
     padding: '8px',
   };
 
+  const handleEdit = (clientId) => {
+    const newData = {}; 
+    editClient(clientId, newData);
+  };
+
+  const confirmDelete = (clientId) => {
+    console.log('Menghapus klien dengan ID:', clientId);
+  
+    if (window.confirm('Apakah Anda yakin ingin menghapus klien ini?')) {
+      deleteClient(clientId);
+    }
+  };
+  
   if (loading) {
     return <div className="gambarorg">
       <img src={gambarorg} alt="logo" />
@@ -45,6 +58,7 @@ const ClientTable = () => {
           <th style={cellStyle}>PIC Title</th>
           <th style={cellStyle}>Status</th>
           <th style={cellStyle}>Logo</th>
+          <th style={cellStyle}>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -56,6 +70,10 @@ const ClientTable = () => {
             <td style={cellStyle}>{client.pic_title}</td>
             <td style={cellStyle}>{client.status}</td>
             <td style={cellStyle}>{client.logo}</td>
+            <td style={cellStyle}>
+              <button onClick={() => handleEdit(client.id)}>Edit</button>
+              <button onClick={() => confirmDelete(client.id)}>Delete</button>
+            </td>
           </tr>
         ))}
       </tbody>
