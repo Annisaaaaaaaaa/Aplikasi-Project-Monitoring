@@ -1,9 +1,11 @@
 import React from 'react';
 import { useClientContext } from './../../context/ClientContext';
 import gambarorg from '../../assets/img/gambarorg.png';
+import sad from '../../assets/img/found.png';
+import '../../Css/Dashboard.css'
 
 const ClientTable = () => {
-  const { clients, error, loading } = useClientContext();
+  const { clients, error, loading, editClient, deleteClient } = useClientContext();
 
   const tableStyle = {
     width: '100%',
@@ -15,10 +17,23 @@ const ClientTable = () => {
     padding: '8px',
   };
 
+  const handleEdit = (clientId) => {
+    const newData = {}; 
+    editClient(clientId, newData);
+  };
+
+  const confirmDelete = (clientId) => {
+    console.log('Menghapus klien dengan ID:', clientId);
+  
+    if (window.confirm('Apakah Anda yakin ingin menghapus klien ini?')) {
+      deleteClient(clientId);
+    }
+  };
+  
   if (loading) {
     return <div className="gambarorg">
-              <img src={gambarorg} alt="logo" />
-          </div>;
+      <img src={gambarorg} alt="logo" />
+      </div>;
   }
 
   if (error) {
@@ -26,7 +41,11 @@ const ClientTable = () => {
   }
 
   if (!clients || clients.length === 0) {
-    return <p>No clients found.</p>;
+    return <div className="gambarfound">
+    <img src={sad} alt="logo" />
+    <br/>No Clients Found
+</div>
+    
   }
 
   return (
@@ -39,6 +58,7 @@ const ClientTable = () => {
           <th style={cellStyle}>PIC Title</th>
           <th style={cellStyle}>Status</th>
           <th style={cellStyle}>Logo</th>
+          <th style={cellStyle}>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -50,6 +70,10 @@ const ClientTable = () => {
             <td style={cellStyle}>{client.pic_title}</td>
             <td style={cellStyle}>{client.status}</td>
             <td style={cellStyle}>{client.logo}</td>
+            <td style={cellStyle}>
+              <button onClick={() => handleEdit(client.id)}>Edit</button>
+              <button onClick={() => confirmDelete(client.id)}>Delete</button>
+            </td>
           </tr>
         ))}
       </tbody>

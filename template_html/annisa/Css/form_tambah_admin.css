@@ -1,0 +1,639 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Reset Css */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    background: url('img/bg4.png');
+}
+  /* Lebar scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px; /* Sesuaikan dengan lebar yang diinginkan */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #fff; /* Warna latar belakang track */
+}
+
+/* Handle atau thumb */
+::-webkit-scrollbar-thumb {
+    background: #fff; /* Warna thumb */
+}
+
+/* Handle pada hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #fff; /* Warna thumb saat hover */
+}
+
+body{
+    background-color: #F4F4F4;
+    background: url('img/bg4.png');
+    overflow-x: hidden;
+    height: fit-content;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-image: url('Img/bg3.png');
+}
+
+.navbar {
+   flex: 1;
+   padding-left: 50px;
+   padding-top: 30px;
+   margin-bottom: 3%;
+}
+
+/* .navbar img {
+    margin-right: 4%;
+    margin-top: 20px;
+    margin-left: 20px;
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(137.73deg, #9CAFDE 18.79%, #989EDA 76.19%);
+	border-radius: 100%;
+} */
+
+.welcome .judul{
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(180deg, #598BAA 15.5%, #5DA9BA 40.22%, #9C9FDF 66.11%, #6982A8 93.88%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.welcome .halaman{
+    font-size: 15px;
+    font-weight: 500;
+    color: #838690;
+}
+
+.profile {
+    background: linear-gradient(268.91deg, rgba(144, 201, 242, 0.5) -6.45%, rgba(176, 191, 231, 0.644512) 26.66%, rgba(219, 228, 251, 0.5) 71%);
+    border-radius: 25px 0 0 25px;
+    color: #000;
+    padding: 18px;
+    float: right;
+}
+
+/* .navbar img {
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(137.73deg, #9CAFDE 18.79%, #989EDA 76.19%);
+	border-radius: 100%;
+    float: right;
+} */
+
+.profile .atas {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.profile .bawah {
+    font-size: 15px;
+    font-weight: 300;
+}
+
+.sidebar{
+    position: sticky;
+    width: 256px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(180deg, rgba(191, 212, 243, 0.5) 2.38%, rgba(193, 173, 249, 0.315) 74.33%, rgba(165, 127, 244, 0.5) 98.75%);
+    padding: 20px;
+    gap: 20px;
+    top: 0;
+    border-radius: 30px;
+    transition: all 0.3s;
+    float: left;
+}
+
+.sidebar .head{
+    display: flex;
+    gap: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.user-img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden; 
+}
+
+ .user-img img{
+    width: 100%;
+    object-fit: cover;
+}  
+
+.user-details {
+    margin-right: 30px; 
+}
+
+
+.user-details .title {
+    padding-top: 18px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #25364F;
+    margin-bottom: 10px;
+}
+
+.user-details .title span{
+    padding-top: 18px;
+    font-size: 18px;
+    font-weight: 800;
+    color: #25364F;
+}
+
+.nav{
+    flex: 1;
+}
+
+.menu .title{
+    font-size: 10px;
+    font-weight: 500;
+    color: #757575;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.menu ul li {
+    position: relative;
+    list-style: none;
+    margin-bottom: 5px;
+}
+
+.menu ul li a{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #686868;
+    text-decoration: none;
+    padding: 12px 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.menu ul li > a:hover,
+.menu ul li.active > a
+{
+    color: #112D55;
+    background-color: #f6f6f6;
+}
+
+.menu ul li .text {
+    flex: 1;
+}
+
+.menu ul li .arrow {
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.menu ul li.active .arrow {
+    transform: rotate(180deg);
+}
+
+.menu .sub-menu{
+    display: none;
+    margin-left: 20px;
+    padding-left: 20px;
+    padding-top: 5px;
+    border-left: 1px solid transparent;
+}
+
+.menu .sub-menu li a{
+    padding: 10px 8px;
+    font-size: 12px;
+}
+
+.menu:not(:last-child) {
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f6f6f6;
+}
+
+.menu-btn{
+    position: absolute;
+    right: -14px;
+    top: 3.5%;
+    width: 35px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #757575;
+    border: 2px solid #f6f6f6;
+    background: linear-gradient(180deg, rgba(191, 212, 243, 0.5) 2.38%, rgba(193, 173, 249, 0.315) 74.33%, rgba(165, 127, 244, 0.5) 98.75%);
+}
+
+.menu-btn:hover i {
+    color: #000;
+}
+
+.menu-btn i {
+    transition: all 0.3s;
+}
+
+.sidebar.active {
+    width: 92px;
+}
+
+.sidebar.active .menu-btn i {
+    transform: rotate(180deg);
+}
+
+.sidebar.active .user-details {
+    display: none;
+}
+
+.sidebar.active .menu .title {
+    text-align: center;
+}
+
+.sidebar.active .menu ul li .arrow {
+    display: none;
+}
+
+.sidebar.active .menu > ul > li > a {
+    position: relative;
+    display:  flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar.active .menu > ul > li > a .text {
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.sidebar.active .menu > ul > li > a .text::after{
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 20%;
+    width: 20px;
+    height: 20px;
+    border-radius: 2px;
+    background-color: #000;
+    transform: rotate(45deg);
+    z-index: -1;
+}
+
+.sidebar.active .menu > ul > li > a:hover .text{
+    left: 50px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar.active .menu .sub-menu {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    width: 200px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: 1px solid #f6f6f6;
+    background-color: #fff;
+    box-shadow: 0px 10px 8px rgba (0, 0, 0, 0.1);
+}
+
+
+/******* Dashboard ******/
+
+.ds-utama {
+    position: relative;
+    width: calc(95% - 50px);
+    height: 300px;
+    margin-top: 50px;
+    transition: all 0.3s ease;
+    background: linear-gradient(87.42deg, rgba(129, 123, 200, 0.5) 4.46%, rgba(212, 208, 255, 0.5) 43.68%, rgba(239, 238, 255, 0.5) 56.38%, rgba(212, 208, 255, 0.5) 79.91%, rgba(160, 192, 240, 0.5) 92.97%, rgba(184, 212, 255, 0.5) 98.22%);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+}
+
+
+
+
+/**** Form Tambah ***/
+
+
+.bg-form-atas {
+    position: absolute;
+    width: 287px;
+    height: 80px;
+    left: 145px;
+    top: 124px;
+    background: #C0CFF8;
+    backdrop-filter: blur(22.5px);
+    border-radius: 20px;
+    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 80%);
+}
+  
+.bg-form-bawah{
+    position: absolute;
+    width: 58%;
+    height: 50%;
+    left: 145px;
+    top: 184px;
+    background: #C0CFF8;
+    backdrop-filter: blur(22.5px);
+    border-radius: 5px 20px 20px 20px;
+}
+
+.bg-form-atas p{
+    width: 146px;
+    height: 38px;
+    left: 229px;
+    margin-left: 35%;
+    margin-top: 10%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    color: #4F5B96;
+}
+
+.container-form {
+    display: flex;
+}
+
+.left,
+.right {
+    display: inline-block;
+}
+
+.left img {
+    width: 130%;
+    margin-left: 70%;
+    margin-top: 45%;
+}
+
+.ess p {
+    width: 169px;
+    height: 23px;
+    margin-left: 3%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4F5B96;
+}
+
+.ess2 p {
+    width: 169px;
+    height: 23px;
+    margin-left: 3%;
+    margin-top: 2%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4F5B96;
+}
+
+.tittle-form{
+    margin-left: 3%;
+    margin-top: 4%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+}
+
+.input-form input{
+    width: 350px;
+    height: 40px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+}
+.input-form2 input{
+    width: 600px;
+    height: 40px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+}
+.input-form3 input{
+    width: 1290px;
+    height: 100px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+}
+
+input::placeholder{
+    padding-left: 5%;
+    color: #4D547A;
+}
+
+.miau{
+    display: flex;
+    
+}
+
+.miau .kiri{
+    margin-left: 2%;
+    float: left;
+}
+
+.miau .kanan{
+    margin-left: 5%;
+    float: right;
+}
+
+.miau .error{
+    color: red;
+    margin-left: 5%;
+
+}
+
+.miau2{
+    display: flex;
+    margin-top: 2%;
+}
+
+.miau2 .kiri{
+    margin-left: 2%;
+    float: left;
+}
+
+.miau2 .kanan{
+    margin-left: 5%;
+    float: right;
+}
+
+.miau3 {
+    clear: both;
+}
+
+
+.exel-form {
+    position: absolute;
+    width: 29%;
+    height: 50%;
+    left: 68%;
+    top: 184px;
+    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.25) 0.65%, rgba(192, 191, 242, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 20px;
+   
+}
+
+.exel-content img {
+    width: 40%; 
+   margin-left: 30%;
+   margin-top: 8%
+}
+
+.exel-des {
+    width: 319px;
+    height: 53px;
+    margin-left: 17%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    color: #1B3442;
+}
+
+.exel-des span {
+    width: 319px;
+    height: 53px;
+    left: 1045px;
+    top: 375px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #073E0C;
+}
+
+button {
+    padding: 14px;
+    width: 130px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 2px 2px 4px rgba(44, 62, 80, 0.6);
+    color: #ffff;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: 4%;
+}
+
+button:nth-child(1) {
+    background-color: #2C904D; 
+}
+
+.form-bawah{
+    position: absolute;
+    width: 1500px;
+    height: 579px;
+    left: 145px;
+    margin-top: 30%;
+    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.25) 0.65%, rgba(192, 191, 242, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 20px;
+}
+
+.miau3 textarea{
+    margin-left: 3%;
+    width: 85%;
+    height: 250%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;    
+    padding: 0.7%;
+}
+
+textarea:focus {
+    border: none;
+}
+
+.tambah-client {
+    position: relative; 
+}
+
+.tambah-client button {
+    position: absolute; 
+    bottom: 228px; 
+    left: 93%; 
+    background: linear-gradient(89.96deg, #7CBCF7 0.04%, #80ADE5 63.75%, #548ADA 110.92%);
+    border-radius: 14px;
+}
+
+.file-input-container {
+   margin-top: 5%;
+   margin-left: 3%;
+}
+
+.label-file {
+    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.5) 0.65%, rgba(140, 99, 206, 0.5) 100%);
+    border: 0.2px solid #BBAAB8;
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    color: #4D547A;
+    padding: 10px 50px;
+    cursor: pointer;
+}
+
+.label-file:hover {
+    background-color: #548ADA;
+}
+
+/* Mengatur posisi label di bawah tombol "Choose File" */
+.label-file + input[type="file"] {
+    position: absolute;
+    top: 100%; /* Menggeser ke bawah sesuai dengan tinggi label */
+    left: 0;
+    opacity: 0;
+}
+

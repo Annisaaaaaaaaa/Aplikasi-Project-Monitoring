@@ -11,9 +11,11 @@ import Client_admin from './views/Admin/Client_admin'
 import Project_admin from './views/Admin/Project_admin'
 import Document_admin from './views/Admin/Document_admin'
 import Users_admin from './views/Admin/Users_admin'
+import Invoice_admin from './views/Admin/Invoice_admin'
 import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
+import { DocumentProvider } from './context/DocumentContext'
 
 
 // Import dashboard components
@@ -39,6 +41,15 @@ function App() {
         </Switch>
       </Router>
     </AuthProvider>
+  );
+}
+
+
+function formTambahClientFunction() {
+  return (
+    <div>
+      <Form_Tambah_Client />
+    </div>
   );
 }
 
@@ -72,7 +83,9 @@ function ProjectAdminFunctionn() {
 function DocumentAdminFunctionn() {
   return (
     <div>
-      <Document_admin />
+      <DocumentProvider>
+        <Document_admin />
+      </DocumentProvider>
     </div>
   );
 }
@@ -81,6 +94,14 @@ function UsersAdminFunctionn() {
   return (
     <div>
       <Users_admin />
+    </div>
+  );
+}
+
+function InvoiceAdminFunctionn() {
+  return (
+    <div>
+      <Invoice_admin/>
     </div>
   );
 }

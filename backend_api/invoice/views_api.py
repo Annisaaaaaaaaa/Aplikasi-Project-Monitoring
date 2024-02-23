@@ -10,6 +10,50 @@ from openpyxl.styles import NamedStyle, Font
 from django.http import FileResponse
 import tempfile
 
+
+import csv
+from django.http import HttpResponse
+
+def export_invoices_to_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=invoices.csv'
+
+    # Create a CSV writer using the HttpResponse object as the "file."
+    writer = csv.writer(response)
+
+    # Write the header row to the CSV file
+    field_names = ['Project', 'To Contact', 'Sent Date', 'Due Date', 'Date', 'Amount', 'Status', 'Note', 'Download Link']
+    writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
+
+    invoices = Invoice.objects.all()
+
+    # Write data rows to the CSV file
+    for invoice in invoices:
+        # Convert date fields to string without timezone information
+        sent_date_str = invoice.sent_date.strftime('%Y-%m-%d') if invoice.sent_date else ''
+        due_date_str = invoice.due_date.strftime('%Y-%m-%d') if invoice.due_date else ''
+        date_str = invoice.date.strftime('%Y-%m-%d') if invoice.date else ''
+
+        # Create a list with formatted values
+        row_data = [
+            invoice.project.name if invoice.project else '',
+            invoice.to_contact.name if invoice.to_contact else '',
+            sent_date_str,
+            due_date_str,
+            date_str,
+            str(invoice.amount) if invoice.amount else '',
+            invoice.get_status_display(),
+            invoice.note if invoice.note else '',
+            request.build_absolute_uri(invoice.document_file.url),  # Download Link
+        ]
+
+        # Write the row to the CSV file
+        writer.writerow(row_data[:-1])  # Exclude the 'Download Link' field
+
+    return response
+
+
 def export_invoices_to_excel(request):
     # Create a new Excel workbook and add a worksheet
     wb = Workbook()
