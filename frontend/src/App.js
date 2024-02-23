@@ -16,7 +16,7 @@ import Payment_admin from './views/Admin/Payment_admin'
 import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
-import Form_Tambah_Client from './views/Admin/Tambah_Form_Client'
+import { DocumentProvider } from './context/DocumentContext'
 
 
 
@@ -83,7 +83,9 @@ function ProjectAdminFunctionn() {
 function DocumentAdminFunctionn() {
   return (
     <div>
-      <Document_admin />
+      <DocumentProvider>
+        <Document_admin />
+      </DocumentProvider>
     </div>
   );
 }

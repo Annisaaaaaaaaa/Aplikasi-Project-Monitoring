@@ -34,21 +34,31 @@ function Client_admin() {
 
     const searchTable = () => {
         tableRows.forEach((row, i) => {
-            let tableData = row.textContent.toLowerCase(),
-                searchData = searchValue.toLowerCase();
-
-            row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
+            const rowData = {
+                industry: row.querySelectorAll('td')[1].textContent.toLowerCase(),
+                name: row.querySelectorAll('td')[2].textContent.toLowerCase(),
+            };
+    
+            const searchData = searchValue.toLowerCase();
+    
+            const industryMatch = rowData.industry.indexOf(searchData) >= 0;
+            const nameMatch = rowData.name.indexOf(searchData) >= 0;
+    
+            row.classList.toggle('hide', !(industryMatch || nameMatch));
             row.style.setProperty('--delay', i / 25 + 's');
         });
-
+    
         document.querySelectorAll('tbody tr:not(.hide)').forEach((visibleRow, i) => {
             visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
         });
     };
+    
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
+        searchTable(); // Call searchTable whenever searchValue changes
     };
+    
 
     const handleSort = (index) => {
         const newSortOrder = { ...sortOrder };

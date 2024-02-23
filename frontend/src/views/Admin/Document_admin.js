@@ -3,12 +3,17 @@ import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambardoc from '../../assets/img/gambardoc.png';
 import '../../Css/document-admin.css';
+import { useDocumentContext } from './../../context/DocumentContext';
+
+import { DocumentProvider } from './../../context/DocumentContext';
+import DocumentTable from './../../component/Document/DocumentTable';
 
 function Document_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
+    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf } = useDocumentContext(); 
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
@@ -30,20 +35,29 @@ function Document_admin() {
 
     const searchTable = () => {
         tableRows.forEach((row, i) => {
-            let tableData = row.textContent.toLowerCase(),
-                searchData = searchValue.toLowerCase();
-
-            row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
+            const rowData = {
+                title: row.querySelectorAll('td')[1].textContent.toLowerCase(),
+                category: row.querySelectorAll('td')[4].textContent.toLowerCase(),
+            };
+    
+            const searchData = searchValue.toLowerCase();
+    
+            const titleMatch = rowData.title.indexOf(searchData) >= 0;
+            const categoryMatch = rowData.category.indexOf(searchData) >= 0;
+    
+            row.classList.toggle('hide', !(titleMatch || categoryMatch));
             row.style.setProperty('--delay', i / 25 + 's');
         });
-
+    
         document.querySelectorAll('tbody tr:not(.hide)').forEach((visibleRow, i) => {
             visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
         });
     };
+    
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
+        searchTable(); // Call searchTable whenever searchValue changes
     };
 
     const handleSort = (index) => {
@@ -62,7 +76,40 @@ function Document_admin() {
         setTableRows(sortedRows);
     };
 
+    const handleExportExcel = async () => {
+        try {
+            await exportToExcel();
+        } catch (error) {
+            console.error('Error handling export to Excel:', error.message);
+        }
+    };
+
+    const handleExportCsv = async () => {
+        try {
+            await exportToCsv();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
+    const handleExportPdf = async () => {
+        try {
+            await exportToPdf();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
+    const handleExportJson = async () => {
+        try {
+            await exportToJson();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
     return (
+        <DocumentProvider>
         <div>
             <Sidebar />
             <Navbar />
@@ -105,55 +152,24 @@ function Document_admin() {
                                     <label>
                                         Export As &nbsp; &#10140;
                                     </label>
-                                    <label htmlFor="export-file" id="toPDF">
-                                        PDF <img src="images/pdf.png" alt="pdf" />
+                                    <label htmlFor="export-file" id="toPDF" onClick={handleExportPdf}>
+                                        PDF 
                                     </label>
-                                    <label htmlFor="export-file" id="toJSON">
-                                        JSON <img src="images/json.png" alt="json" />
+                                    <label htmlFor="export-file" id="toJSON" onClick={handleExportJson}>
+                                        JSON 
                                     </label>
-                                    <label htmlFor="export-file" id="toCSV">
-                                        CSV <img src="images/csv.png" alt="csv" />
+                                    <label htmlFor="export-file" id="toCSV" onClick={handleExportCsv}>
+                                        CSV 
                                     </label>
-                                    <label htmlFor="export-file" id="toEXCEL">
-                                        EXCEL <img src="images/excel.png" alt="excel" />
+                                    <label htmlFor="export-file" id="toEXCEL" onClick={handleExportExcel}>
+                                        EXCEL 
                                     </label>
                                 </div>
                             </div>
                         </section>
                         <section className="table__body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th onClick={() => handleSort(0)}>
-                                            Id <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(1)}>
-                                            Company <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(2)}>
-                                            Nama <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(3)}>
-                                            PIC Tittle <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(4)}>
-                                            Status <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(5)}>
-                                            Total Project <span className="icon-arrow"></span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {tableRows.map((row, index) => (
-                                        <tr key={index}>
-                                            {[...row.cells].map((cell, i) => (
-                                                <td key={i}>{cell.textContent}</td>
-                                            ))}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                                
+                                        <DocumentTable />
                         </section>
                     </main>
 
@@ -195,6 +211,7 @@ function Document_admin() {
                 </div>
             </div>
         </div>
+        </DocumentProvider>
     );
 }
 
