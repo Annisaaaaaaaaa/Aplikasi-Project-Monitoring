@@ -33,12 +33,13 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'email')
 
+
+# Class Buat Bikin Token
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
     def get_token(cls, user):
         token = super().get_token(user)
         
-        # These are claims, you can add custom claims
         token['full_name'] = user.profile.full_name
         token['username'] = user.username
         token['email'] = user.email
@@ -47,8 +48,9 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['verified'] = user.profile.verified
 
         token['groups'] = [user.groups.first().id]
-        # ...
+        
         return token
+    
 
 
 class RegisterSerializer(serializers.ModelSerializer):

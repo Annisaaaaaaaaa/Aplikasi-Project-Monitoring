@@ -23,7 +23,6 @@ import AdministratorDashboard from './component/Administrator/AdministratorDashb
 import AdminDashboard from './component/Admin/AdminDashboard';
 import EngineerDashboard from './component/Engineer/EngineerDashboard';
 
-// ...
 
 function App() {
   return (
