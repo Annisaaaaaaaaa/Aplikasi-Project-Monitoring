@@ -415,6 +415,13 @@ body{
    flex: 1;
 }
 
+.gambarinvoice {
+    position: absolute; 
+    bottom: 30%; 
+    width: 43%;
+    flex: 1;
+ }
+
 .gambarfound {
     margin-top: 5%;
     bottom: 15%; 
