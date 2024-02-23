@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambarorg from '../../assets/img/gambarorg.png';
+import { Link } from 'react-router-dom';
 import '../../Css/Dashboard.css';
 
 import { ClientProvider } from './../../context/ClientContext';
@@ -33,21 +34,31 @@ function Client_admin() {
 
     const searchTable = () => {
         tableRows.forEach((row, i) => {
-            let tableData = row.textContent.toLowerCase(),
-                searchData = searchValue.toLowerCase();
-
-            row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
+            const rowData = {
+                industry: row.querySelectorAll('td')[1].textContent.toLowerCase(),
+                name: row.querySelectorAll('td')[2].textContent.toLowerCase(),
+            };
+    
+            const searchData = searchValue.toLowerCase();
+    
+            const industryMatch = rowData.industry.indexOf(searchData) >= 0;
+            const nameMatch = rowData.name.indexOf(searchData) >= 0;
+    
+            row.classList.toggle('hide', !(industryMatch || nameMatch));
             row.style.setProperty('--delay', i / 25 + 's');
         });
-
+    
         document.querySelectorAll('tbody tr:not(.hide)').forEach((visibleRow, i) => {
             visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
         });
     };
+    
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
+        searchTable(); // Call searchTable whenever searchValue changes
     };
+    
 
     const handleSort = (index) => {
         const newSortOrder = { ...sortOrder };
@@ -84,9 +95,9 @@ function Client_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                            <button className="button-client">
-                                <i className="fas fa-plus"></i> Tambah
-                            </button>
+                        <Link to="/form_tambah_client" className="button-client" style={{ textDecoration: 'none' }}>
+                            <i className="fas fa-plus"></i> Tambah
+                        </Link>
                             <button className="button-client">
                                 <i className="fas fa-download"></i> Export
                             </button>
@@ -107,36 +118,13 @@ function Client_admin() {
                     <main className="table" id="customers_table">
                         <section className="table__header">
                             <h1>Data Client</h1>
-                            <div className="export__file">
-                                <label htmlFor="export-file" className="export__file-btn" title="Export File"></label>
-                                <input type="checkbox" id="export-file" />
-                                <div className="export__file-options">
-                                    <label>
-                                        Export As &nbsp; &#10140;
-                                    </label>
-                                    <label htmlFor="export-file" id="toPDF">
-                                        PDF <img src="images/pdf.png" alt="pdf" />
-                                    </label>
-                                    <label htmlFor="export-file" id="toJSON">
-                                        JSON <img src="images/json.png" alt="json" />
-                                    </label>
-                                    <label htmlFor="export-file" id="toCSV">
-                                        CSV <img src="images/csv.png" alt="csv" />
-                                    </label>
-                                    <label htmlFor="export-file" id="toEXCEL">
-                                        EXCEL <img src="images/excel.png" alt="excel" />
-                                    </label>
-                                </div>
-                            </div>
                         </section>
                         <section className="table__body">
                             <ClientProvider>
-                                    <ClientTable />
+                                <ClientTable />
                             </ClientProvider>
-                            
                         </section>
                     </main>
-
                     <div className="pagination">
                         <ul>
                             <li>

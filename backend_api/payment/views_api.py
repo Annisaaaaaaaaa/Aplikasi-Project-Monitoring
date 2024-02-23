@@ -11,6 +11,47 @@ from openpyxl.styles import NamedStyle, Font
 from django.http import FileResponse
 import tempfile
 
+
+import csv
+from django.http import HttpResponse
+
+def export_payments_to_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=payments.csv'
+
+    # Create a CSV writer using the HttpResponse object as the "file."
+    writer = csv.writer(response)
+
+    # Write the header row to the CSV file
+    field_names = ['Project', 'Payment Date', 'Amount', 'Note', 'Payer Name', 'Payer Account Number', 'Receiver Name', 'Receiver Account Number', 'Download Link']
+    writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
+
+    payments = Payment.objects.all()
+
+    # Write data rows to the CSV file
+    for payment in payments:
+        # Convert payment_date to string without timezone information
+        payment_date_str = payment.payment_date.strftime('%Y-%m-%d') if payment.payment_date else ''
+
+        # Create a list with formatted values
+        row_data = [
+            payment.project.name if payment.project else '',
+            payment_date_str,
+            str(payment.amount) if payment.amount else '',
+            payment.note if payment.note else '',
+            payment.payer_name if payment.payer_name else '',
+            payment.payer_account_number if payment.payer_account_number else '',
+            payment.receiver_name if payment.receiver_name else '',
+            payment.receiver_account_number if payment.receiver_account_number else '',
+            request.build_absolute_uri(payment.document_file.url) if payment.document_file else '',
+        ]
+
+        # Write the row to the CSV file
+        writer.writerow(row_data[:-1])  # Exclude the 'Download Link' field
+
+    return response
+
 def export_payments_to_excel(request):
     # Create a new Excel workbook and add a worksheet
     wb = Workbook()
