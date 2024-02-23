@@ -12,6 +12,7 @@ import Project_admin from './views/Admin/Project_admin'
 import Document_admin from './views/Admin/Document_admin'
 import Users_admin from './views/Admin/Users_admin'
 import Invoice_admin from './views/Admin/Invoice_admin'
+import Payment_admin from './views/Admin/Payment_admin'
 import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
@@ -33,6 +34,7 @@ function App() {
           <Route component={DocumentAdminFunctionn} path="/document-admin" />
           <Route component={UsersAdminFunctionn} path="/users-admin" />
           <Route component={InvoiceAdminFunctionn} path="/invoice-admin" />
+          <Route component={PaymentAdminFunctionn} path="/payment-admin" />
           <Route component={formTambahClientFunction} path="/Form_Tambah_Client" />
           <Route component={Home} path="/" exact />
           <Route component={ClientPage} path="/client" exact />
@@ -98,6 +100,14 @@ function InvoiceAdminFunctionn() {
   return (
     <div>
       <Invoice_admin/>
+    </div>
+  );
+}
+
+function PaymentAdminFunctionn() {
+  return (
+    <div>
+      <Payment_admin/>
     </div>
   );
 }

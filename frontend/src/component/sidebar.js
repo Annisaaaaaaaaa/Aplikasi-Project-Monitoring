@@ -160,7 +160,7 @@ function Sidebar() {
                             </ul>
                         </li>
                         <li onClick={handleMenuItemClick}>
-                            <a href="#">
+                            <a href="/payment-admin">
                                 <img src={payment} alt="logo" />
                                 <span className="text">Payment</span>
                                 <i className="arrow ph-bold ph-caret-down"></i>
