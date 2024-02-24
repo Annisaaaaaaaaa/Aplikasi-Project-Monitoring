@@ -9,7 +9,7 @@ import { DocumentProvider } from './../../context/DocumentContext';
 import DocumentTable from './../../component/Document/DocumentTable';
 
 function Document_admin() {
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue, handleSearch] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
@@ -128,25 +128,13 @@ function Document_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                            <button className="button-client">
+                            <button className="button-client-doc" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
                                 <i className="fas fa-plus"></i> Tambah
                             </button>
-                        </div>
-                        <div className="input-group">
-                            <input
-                                type="search"
-                                placeholder="Cari Berdasarkan Nama atau ID..."
-                                value={searchValue}
-                                onChange={handleSearchChange}
-                            />
-                        </div>
-                    </div>
-
-                    <main className="table-doc" id="customers_table">
-                        <section className="table__header">
-                            <h1>Data Document</h1>
+                            
                             <div className="export__file">
-                                <label htmlFor="export-file" className="export__file-btn" title="Export File"></label>
+                            <label htmlFor="export-file" className="export__file-btn" title="Export File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Export</label>
+
                                 <input type="checkbox" id="export-file" />
                                 <div className="export__file-options">
                                     <label>
@@ -166,6 +154,21 @@ function Document_admin() {
                                     </label>
                                 </div>
                             </div>
+                        </div>
+                        <div className="input-group" style={{ marginTop: '34px'}}>
+                            <input
+                                type="search"
+                                placeholder="Cari Berdasarkan Nama atau ID..."
+                                value={searchValue}
+                                onChange={handleSearchChange}
+                            />
+                        </div>
+                    </div>
+
+                    <main className="table-doc" id="customers_table">
+                        <section className="table__header">
+                            <h1>Data Document</h1>
+                            
                         </section>
                         <section className="table__body">
                                 
