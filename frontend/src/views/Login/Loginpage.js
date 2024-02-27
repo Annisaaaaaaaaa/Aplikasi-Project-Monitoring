@@ -7,7 +7,7 @@ import dmn from "../../images/diamond.svg";
 import gr from "../../images/Group 225.svg";
 import lg from "../../images/lg.svg";
 
-function Loginpage() {
+const Loginpage = () => {
   const { loginUser } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');

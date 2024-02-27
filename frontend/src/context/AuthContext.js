@@ -1,3 +1,4 @@
+// context/AuthContext.js
 import React, { createContext, useState, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router-dom"; 
@@ -19,6 +20,12 @@ export const AuthProvider = ({ children }) => {
         localStorage.getItem("authTokens")
             ? jwt_decode(localStorage.getItem("authTokens")).user
             : null
+    );
+
+    const [userGroups, setUserGroups] = useState(() => 
+        localStorage.getItem("authTokens")
+            ? jwt_decode(localStorage.getItem("authTokens")).groups
+            : []
     );
 
     const [loading, setLoading] = useState(true);
@@ -48,6 +55,7 @@ export const AuthProvider = ({ children }) => {
                     if (decodedToken && decodedToken.groups && decodedToken.groups.length > 0) {
                         const userGroups = decodedToken.groups;
                         setUser(decodedToken.user);
+                        setUserGroups(userGroups);
                         setAuthTokens(data);
                         localStorage.setItem("authTokens", JSON.stringify(data));
                 
@@ -69,9 +77,8 @@ export const AuthProvider = ({ children }) => {
                             case 5:
                                 history.push('/engineer/dashboard');
                                 break;
-                            // Tambahkan kasus lain sesuai dengan grup yang mungkin ada
                             default:
-                                history.push('/default-dashboard');
+                                history.push('/login');
                                 break;
                         }
                 
@@ -115,6 +122,7 @@ export const AuthProvider = ({ children }) => {
     const logoutUser = () => {
         setAuthTokens(null);
         setUser(null);
+        setUserGroups([]);
         localStorage.removeItem("authTokens");
         history.push("/login");
         swal.fire({
@@ -133,6 +141,7 @@ export const AuthProvider = ({ children }) => {
         setUser,
         authTokens,
         setAuthTokens,
+        userGroups,
         loginUser,
         logoutUser,
     };
@@ -140,6 +149,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (authTokens) {
             setUser(jwt_decode(authTokens.access));
+            setUserGroups(jwt_decode(authTokens.access).groups);
         }
         setLoading(false);
     }, [authTokens]);
