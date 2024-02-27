@@ -96,7 +96,7 @@ function Document_admin() {
         try {
             await exportToPdf();
         } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
+            console.error('Error handling export to Pdf:', error.message);
         }
     };
 
@@ -104,7 +104,7 @@ function Document_admin() {
         try {
             await exportToJson();
         } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
+            console.error('Error handling export to Json:', error.message);
         }
     };
 

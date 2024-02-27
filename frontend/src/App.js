@@ -17,6 +17,8 @@ import { MyNav } from './views/LandingPage/Nav'
 import { Banner } from './views/LandingPage/Banner'
 import ClientPage from './views/Client/ClientPage'
 import { DocumentProvider } from './context/DocumentContext'
+import { ClientProvider } from './context/ClientContext'
+import { ProjectProvider } from './context/ProjectContext'
 
 
 
@@ -66,7 +68,9 @@ function Home() {
 function ClientAdminFunction() {
   return (
     <div>
-      <Client_admin />
+      <ClientProvider>
+        <Client_admin />
+      </ClientProvider>
     </div>
   );
 }
@@ -74,7 +78,9 @@ function ClientAdminFunction() {
 function ProjectAdminFunctionn() {
   return (
     <div>
-      <Project_admin />
+      <ProjectProvider>
+        <Project_admin />
+      </ProjectProvider>
     </div>
   );
 }
