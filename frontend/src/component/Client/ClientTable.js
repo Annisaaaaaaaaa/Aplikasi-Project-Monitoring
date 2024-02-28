@@ -1,11 +1,13 @@
 import React from 'react';
 import { useClientContext } from './../../context/ClientContext';
+import { useHistory } from 'react-router-dom'; // import useHistory
 import gambarorg from '../../assets/img/gambarorg.png';
 import sad from '../../assets/img/found.png';
-import '../../Css/Dashboard.css'
+import '../../Css/Dashboard.css';
 
 const ClientTable = () => {
   const { clients, error, loading, editClient, deleteClient } = useClientContext();
+  const history = useHistory(); // mendapatkan objek history dari useHistory
 
   const tableStyle = {
     width: '100%',
@@ -18,9 +20,10 @@ const ClientTable = () => {
   };
 
   const handleEdit = (clientId) => {
-    const newData = {}; 
-    editClient(clientId, newData);
+    // Mengarahkan pengguna ke halaman edit menggunakan history.push
+    history.push(`/admin/Edit_Form_Client/${clientId}`);
   };
+
 
   const confirmDelete = (clientId) => {
     console.log('Menghapus klien dengan ID:', clientId);
@@ -31,9 +34,11 @@ const ClientTable = () => {
   };
   
   if (loading) {
-    return <div className="gambarorg">
-      <img src={gambarorg} alt="logo" />
-      </div>;
+    return (
+      <div className="gambarorg">
+        <img src={gambarorg} alt="logo" />
+      </div>
+    );
   }
 
   if (error) {
@@ -41,11 +46,12 @@ const ClientTable = () => {
   }
 
   if (!clients || clients.length === 0) {
-    return <div className="gambarfound">
-    <img src={sad} alt="logo" />
-    <br/>No Clients Found
-</div>
-    
+    return (
+      <div className="gambarfound">
+        <img src={sad} alt="logo" />
+        <br/>No Clients Found
+      </div>
+    );
   }
 
   return (
@@ -71,8 +77,9 @@ const ClientTable = () => {
             <td style={cellStyle}>{client.status}</td>
             <td style={cellStyle}>{client.logo}</td>
             <td style={cellStyle}>
-              <button onClick={() => handleEdit(client.id)}>Edit</button>
-              <button onClick={() => confirmDelete(client.id)}>Delete</button>
+              <button class="edit-button" onClick={() => handleEdit(client.id)}>Edit</button>
+              <button class="delete-button" onClick={() => confirmDelete(client.id)}>Delete</button>
+
             </td>
           </tr>
         ))}

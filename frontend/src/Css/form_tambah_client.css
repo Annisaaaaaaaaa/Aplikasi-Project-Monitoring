@@ -1,6 +1,4 @@
 
-
-
 .bg-form-atas {
     position: absolute;
     width: 287px;
@@ -130,6 +128,12 @@ input::placeholder{
     color: #4D547A;
 }
 
+.file-input-container label{
+    font-weight: 800;
+    color: #0C1751;
+    border: none;
+}
+
 .miau{
     display: flex;
     
@@ -148,7 +152,6 @@ input::placeholder{
 .miau .error{
     color: red;
     margin-left: 5%;
-
 }
 
 .miau2{
@@ -304,7 +307,6 @@ textarea:focus {
     background-color: #548ADA;
 }
 
-/* Mengatur posisi label di bawah tombol "Choose File" */
 .label-file + input[type="file"] {
     position: absolute;
     top: 100%; /* Menggeser ke bawah sesuai dengan tinggi label */

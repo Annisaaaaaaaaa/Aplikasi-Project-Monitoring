@@ -314,7 +314,7 @@ body{
 
 .ds-utama-doc {
     position: relative;
-    width: calc(130% - 50px);
+    width: calc(100% - 50px);
     height: 300px;
     margin-top: 50px;
     transition: all 0.3s ease;
@@ -599,7 +599,7 @@ input[type="search"]::placeholder {
    } */
    
    main.table-doc {
-       width: calc(130% - 50px);
+       width: calc(100% - 50px);
        height: 90vh;
        margin-top: 20px;
        background-color: #fff5;
@@ -861,13 +861,10 @@ input[type="search"]::placeholder {
        border-radius: .5rem;
        overflow: hidden;
        text-align: center;
-   
        opacity: 0;
        transform: scale(.8);
        transform-origin: top right;
-       
        box-shadow: 0 .2rem .5rem #0004;
-       
        transition: .2s;
    }
    
@@ -882,7 +879,6 @@ input[type="search"]::placeholder {
        width: 100%;
        padding: .6rem 0;
        background-color: #f2f2f2;
-       
        display: flex;
        justify-content: space-around;
        align-items: center;

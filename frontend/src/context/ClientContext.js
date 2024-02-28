@@ -39,6 +39,8 @@ export const ClientProvider = ({ children }) => {
     }
   };
 
+  
+
   const editClient = async (clientId, newData) => {
     try {
       const token = authTokens ? authTokens.access : null;

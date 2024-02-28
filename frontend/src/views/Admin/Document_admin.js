@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambardoc from '../../assets/img/gambardoc.png';
@@ -128,8 +129,11 @@ function Document_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
+                        <Link to="/form_tambah_doc" className="button-client" style={{ textDecoration: 'none' }}>
+                            <i className="fas fa-plus"></i> Tambah
+                        </Link>
                             <button className="button-client">
-                                <i className="fas fa-plus"></i> Tambah
+                                <i className="fas fa-download"></i> Export
                             </button>
                         </div>
                         <div className="input-group">

@@ -995,3 +995,30 @@ input[type="search"]::placeholder {
     color: #fff;
     background: linear-gradient(150.12deg, #ADB0FF 20.5%, #C9CAF5 86.16%);
   }
+
+
+  .edit-button {
+    background-color: #4caf50; /* Warna latar belakang hijau */
+    color: white; /* Warna teks putih */
+    padding: 10px 20px; /* Padding 10px atas/bawah, 20px kiri/kanan */
+    border: none; /* Tanpa border */
+    border-radius: 5px; /* Sudut border diberi radius 5px */
+    cursor: pointer; /* Menjadikan kursor berbentuk tangan saat diarahkan ke tombol */
+    margin-right: 10px; /* Margin kanan 10px */
+  }
+  
+  .delete-button {
+    background-color: #f44336; /* Warna latar belakang merah */
+    color: white; /* Warna teks putih */
+    padding: 10px 20px; /* Padding 10px atas/bawah, 20px kiri/kanan */
+    border: none; /* Tanpa border */
+    border-radius: 5px; /* Sudut border diberi radius 5px */
+    cursor: pointer; /* Menjadikan kursor berbentuk tangan saat diarahkan ke tombol */
+  }
+  
+  .delete-button:hover, .edit-button:hover {
+    opacity: 0.8; /* Mengurangi opacity saat tombol dihover */
+  }
+
+  
+  
