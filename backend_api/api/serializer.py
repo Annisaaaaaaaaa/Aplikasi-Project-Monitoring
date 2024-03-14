@@ -8,7 +8,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import User
+from .models import User, Profile
 
 from django.contrib.auth.models import Group
 
@@ -26,12 +26,6 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
             if user.check_password(password):
                 return data
         raise serializers.ValidationError('Incorrect credentials')
-
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email')
 
 
 # Class Buat Bikin Token
@@ -116,7 +110,13 @@ class UserLoginSerializer(TokenObtainPairSerializer):
         
 
 
-class ClientSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
+        fields = '__all__'
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
         fields = '__all__'

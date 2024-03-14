@@ -1,4 +1,3 @@
-// App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
@@ -6,6 +5,7 @@ import {MyNav} from './views/LandingPage/Nav'
 import {Banner} from './views/LandingPage/Banner'
 import Navigation from './routes/Navigation'; // Correct path
 import Login from './views/Login/Loginpage'
+import PrivateRoute from "./utils/PrivateRoute";
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
         <Switch>
             <Route component={Home} path="/" exact />          
             <Route component={Login} path="/login" exact />          
-            <Navigation />
+            <PrivateRoute component={Navigation} />
         </Switch>
       </Router>
     </AuthProvider>
@@ -34,3 +34,4 @@ function Home() {
 }
 
 export default App;
+

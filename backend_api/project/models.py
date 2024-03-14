@@ -44,6 +44,8 @@ class Project(models.Model):
     market_segment = models.CharField(max_length=255, blank=True, null=True)
     tech_use = models.TextField(blank=True, null=True)
     resiko = models.CharField(max_length=255, blank=True, null=True)
+
+    beban_proyek = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     completion_percentage = models.IntegerField(blank=True, null=True)
 
     # Default
@@ -52,9 +54,19 @@ class Project(models.Model):
 
     def __str__(self):
         return self.name
-
+    
     class Meta:
         verbose_name = 'Project'
         db_table = 'apm_project'
         ordering = ['-created_at']
         indexes = [ models.Index(fields=['-created_at']), ]
+
+
+
+class EngineerProject(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='engineers')
+    engineer = models.ForeignKey(User, on_delete=models.CASCADE)
+    presentase_beban_kerja = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+
+    class Meta:
+        unique_together = ('project', 'engineer')

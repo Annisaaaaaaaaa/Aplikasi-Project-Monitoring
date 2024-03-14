@@ -4,7 +4,7 @@ from . import views
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
-from .views import CustomTokenObtainPairView, ClientListCreate
+from .views import CustomTokenObtainPairView
 
 
 
@@ -29,7 +29,12 @@ urlpatterns = [
     path('login/', views.UserLoginView.as_view(), name='login'),  # Endpoint baru untuk login
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
-    path('hai/', views.ClientListCreate.as_view(), name='client-list-create'),
+
+
+    #ini user crud
+    path('user/', views.UserListView.as_view(), name='user-list'),
+    path('profile/', views.ProfileListView.as_view(), name='user-list'),
+    path('api/user/add/', views.add_user),
 
 
 ]

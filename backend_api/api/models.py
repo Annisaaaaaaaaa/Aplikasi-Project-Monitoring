@@ -8,13 +8,12 @@ from django.utils import timezone
 class User(AbstractUser):
     username = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
-    is_active = models.BooleanField(default=True)  # Set default to True
+    is_active = models.BooleanField(default=True)  
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['username']
 
     def profile(self):
-        profile = Profile.objects.get(user=self)
         self.is_staff()
         self.is_superuser = True
         self.save()

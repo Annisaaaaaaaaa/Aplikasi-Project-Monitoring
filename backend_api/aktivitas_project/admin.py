@@ -1,17 +1,25 @@
 from django.contrib import admin
-from import_export import resources
-from .models import AktivitiesProject
-from import_export.admin import ImportExportModelAdmin
+from .models import AktivitiesProject, EngineerActivity
 
-class ActivityResource(resources.ModelResource):
-    class Meta:
-        model = AktivitiesProject
+class EngineerActivityInline(admin.TabularInline):
+    model = EngineerActivity
+    extra = 1
 
-class AcitivtyAdmin(ImportExportModelAdmin):
-    resource_class = ActivityResource
-    list_display = ['name', 'project', 'status', 'created_at']
+@admin.register(AktivitiesProject)
+class AktivitiesProjectAdmin(admin.ModelAdmin):
+    list_display = ('name', 'project', 'pm', 'date_start', 'date_finish', 'status')
+    search_fields = ('name', 'project__name', 'pm__user__username')
     list_filter = ('status',)
-    search_fields = ('name', 'project', 'status')
-    ordering = ['-created_at', 'name']
+    inlines = [EngineerActivityInline]
 
-admin.site.register(AktivitiesProject, AcitivtyAdmin)
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'project', 'pm', 'date_start', 'date_finish', 'description')
+        }),
+        ('Additional Information', {
+            'fields': ('date_estimated', 'note', 'status')
+        }),
+        ('Workload', {
+            'fields': ('tanggung_jawab',)
+        }),
+    )

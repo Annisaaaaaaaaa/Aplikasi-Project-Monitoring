@@ -1,17 +1,15 @@
+# app/admin.py
+
 from django.contrib import admin
-from import_export import resources
-from .models import EngineerWorkload
-from import_export.admin import ImportExportModelAdmin
+from .models import Workload
 
-class WorkloadResource(resources.ModelResource):
-    class Meta:
-        model = EngineerWorkload
+class WorkloadAdmin(admin.ModelAdmin):
+    list_display = ('user', 'default_allocation', 'project_contribution', 'activity_contribution', 'total_workload', 'workload_percentage', 'created_at', 'updated_at')
+    list_filter = ('user',)
+    search_fields = ('user__username', 'user__full_name')
 
-class WorkloadAdmin(ImportExportModelAdmin):
-    resource_class = WorkloadResource
-    list_display = ['engineer', 'project', 'percent_allocation']
-    list_filter = ('project',)
-    search_fields = ('engineer', 'project')
-    ordering = ['-created_at', 'engineer']
+    def workload_percentage(self, obj):
+        return obj.calculate_workload_percentage()
+    workload_percentage.short_description = 'Workload Percentage'
 
-admin.site.register(EngineerWorkload, WorkloadAdmin)
+admin.site.register(Workload, WorkloadAdmin)

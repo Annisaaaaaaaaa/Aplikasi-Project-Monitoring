@@ -1,31 +1,44 @@
 from django.db import models
+from django.utils import timezone
 from api.models import Profile
 from project.models import Project
-from django.core.validators import MinValueValidator, MaxValueValidator
-from django.utils import timezone
+from aktivitas_project.models import AktivitiesProject
 
+class Workload(models.Model):
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    default_allocation = models.FloatField(default=0)
+    project_contribution = models.FloatField(default=0)
+    activity_contribution = models.FloatField(default=0)
+    total_workload = models.FloatField(default=0)
 
-class EngineerWorkload(models.Model):
-    id = models.AutoField(primary_key=True)
-    engineer = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    default_allocation = models.FloatField(default=100)    
-    percent_allocation = models.FloatField(
-        validators=[MinValueValidator(0), MaxValueValidator(200)]
-    )    
-
-    # Default
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
-    def engineer_name(self):
-        return self.engineer.get_name() if self.engineer.get_name() else self.engineer.name
+    def calculate_project_contribution(self):
+        # Mengambil total beban kerja dari projek yang melibatkan user ini
+        total_project_contribution = Project.objects.filter(engineers=self.user).aggregate(total=models.Sum('beban_proyek'))['total'] or 0
+        return total_project_contribution
 
-    def __str__(self):
-        return f"{self.engineer_name()} - {self.project}"
+    def calculate_activity_contribution(self):
+        # Mengambil total beban kerja dari aktivitas projek yang melibatkan user ini
+        total_activity_contribution = AktivitiesProject.objects.filter(engineers=self.user).aggregate(total=models.Sum('tanggung_jawab'))['total'] or 0
+        return total_activity_contribution
+
+    def calculate_workload_percentage(self):
+        total_allocated = self.default_allocation + self.project_contribution + self.activity_contribution
+        if total_allocated <= 0:
+            return 0
+        return (self.default_allocation / total_allocated) * 100
+
+    def save(self, *args, **kwargs):
+        # Hitung total workload dari projek dan aktivitas projek
+        self.project_contribution = self.calculate_project_contribution()
+        self.activity_contribution = self.calculate_activity_contribution()
+        self.total_workload = self.default_allocation + self.project_contribution + self.activity_contribution
+        super().save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "Engineer's Worklod"
+        verbose_name = 'Workload'
         db_table = 'apm_workload'
         ordering = ['-created_at']
-        indexes = [ models.Index(fields=['-created_at']), ]
+        indexes = [models.Index(fields=['-created_at']), ]

@@ -1,20 +1,16 @@
-// Navigation.js
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import PrivateRoute from '../utils/PrivateRoute';
 import routes from './index';
-import Login from '../views/Login/Loginpage'; 
-import React, { useContext } from 'react'; 
+import React from 'react';
 import AuthContext from '../context/AuthContext';
-
-
+import { useContext } from 'react';
+import Login from '../views/Login/Loginpage';
 
 const Navigation = () => {
-  const { authTokens } = useContext(AuthContext); 
+  const { authTokens } = useContext(AuthContext);
 
   return (
     <Switch>
-      <Route path="/login" exact component={Login} />
-
       {routes.map((route, index) => (
         <PrivateRoute
           key={index}
@@ -24,11 +20,10 @@ const Navigation = () => {
           allowedRoles={route.allowedRoles}
         />
       ))}
+      <Route path="/login" exact component={Login} />
       <Redirect to="/login" />
     </Switch>
   );
 };
 
 export default Navigation;
-
-

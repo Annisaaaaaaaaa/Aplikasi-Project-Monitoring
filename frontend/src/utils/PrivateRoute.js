@@ -17,7 +17,7 @@ const PrivateRoute = ({ component: Component, allowedRoles, ...rest }) => {
   } catch (error) {
     console.error('Error decoding token:', error);
     console.error('Token yang gagal di-decode:', authTokens.access);
-    // Redirect ke halaman login jika terjadi kesalahan saat decoding token
+    
     return <Redirect to="/login" />;
   }
 
