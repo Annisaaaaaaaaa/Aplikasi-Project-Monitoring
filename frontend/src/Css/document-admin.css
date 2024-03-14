@@ -526,28 +526,30 @@ top: 202px; */
     gap: 20px; 
 }
 
-.button-client {
+.button-client-doc {
+    display: inline-block;
     padding: 14px;
     width: 130px;
+    margin-top: 15%;
     border-radius: 10px;
-    border: none;
-    outline: none;
-    box-shadow: 2px 2px 4px rgba(44, 62, 80, 0.6);
     color: #100B32;
     font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
+    font-weight: 500;
+    background-color: #95C6FF;
+    transition: .2s ease-in-out;
 }
 
-.button-client:nth-child(1) {
+
+
+.button-client-doc:nth-child(1) {
     background-color: #DAA1DB; 
 }
 
-.button-client:nth-child(2) {
+.button-client-doc:nth-child(2) {
     background-color: #95C6FF; 
 }
 
-.button-client:nth-child(3) {
+.button-client-doc:nth-child(3) {
     background-color: #95C6FF; 
 }
 
@@ -559,7 +561,7 @@ input[type="search"] {
     margin-left: 30px;
     width: 900px;
     padding: 14px;
-    margin-top: 20px;
+    margin-top: 35px;
     border-radius: 15px;
     background: linear-gradient(89.94deg, rgba(172, 180, 252, 0.35) 2.11%, rgba(146, 158, 201, 0.35) 75.47%, rgba(71, 67, 247, 0.35) 102.23%);
     outline: none;
@@ -830,30 +832,31 @@ input[type="search"]::placeholder {
        color: #6c00bd;
    }
    
-   .export__file {
+   .group-button.export__file {
        position: relative;
    }
    
-   .export__file .export__file-btn {
-       display: inline-block;
-       width: 2rem;
-       height: 2rem;
-       /* background: rgba(126, 218, 247, 0.4) url(img/export.png) center / 80% no-repeat; */
-       border-radius: 50%;
-       transition: .2s ease-in-out;
+   .group-button.export__file .export__file-btn {
+    display: inline-block;
+    padding: 14px;
+    width: 130px;
+    margin-top: 30%;
+    border-radius: 10px;
+    background-color: #95C6FF;
+    transition: .2s ease-in-out;
    }
    
-   .export__file .export__file-btn:hover { 
+   .group-button.export__file .export__file-btn:hover { 
        background-color: #fff;
        transform: scale(1.15);
        cursor: pointer;
    }
    
-   .export__file input {
+   .group-button.export__file input {
        display: none;
    }
    
-   .export__file .export__file-options {
+   .group-button.export__file .export__file-options {
        position: absolute;
        right: 0;
        
@@ -868,13 +871,13 @@ input[type="search"]::placeholder {
        transition: .2s;
    }
    
-   .export__file input:checked + .export__file-options {
+   .group-button.export__file input:checked + .export__file-options {
        opacity: 1;
        transform: scale(1);
        z-index: 100;
    }
    
-   .export__file .export__file-options label{
+   .group-button.export__file .export__file-options label{
        display: block;
        width: 100%;
        padding: .6rem 0;
@@ -886,18 +889,18 @@ input[type="search"]::placeholder {
        transition: .2s ease-in-out;
    }
    
-   .export__file .export__file-options label:first-of-type{
+   .group-button.export__file .export__file-options label:first-of-type{
        padding: 1rem 0;
        background-color: #86e49d !important;
    }
    
-   .export__file .export__file-options label:hover{
+   .group-button.export__file .export__file-options label:hover{
        transform: scale(1.05);
        background-color: #fff;
        cursor: pointer;
    }
    
-   .export__file .export__file-options img{
+   .group-button.export__file .export__file-options img{
        width: 2rem;
        height: auto;
    }

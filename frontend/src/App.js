@@ -5,6 +5,7 @@ import { AuthProvider } from './context/AuthContext';
 import Loginpage from './views/Login/Loginpage';
 import Registerpage from './views/Registerpage';
 import Dashboard from './views/Admin/Dashboard_admin';
+
 import Client_admin from './views/Admin/Client_admin';
 import Project_admin from './views/Admin/Project_admin';
 import Document_admin from './views/Admin/Document_admin';
@@ -15,10 +16,14 @@ import Form_Tambah_Client from './views/Admin/Tambah_Form_Client';
 import Form_Tambah_Doc from './views/Admin/Tambah_Form_Doc';
 import Add_user from './views/Admin/Add_user';
 import Form_Edit_Client from './views/Admin/Edit_Form_Client';
+
 import { MyNav } from './views/LandingPage/Nav';
 import { Banner } from './views/LandingPage/Banner';
 import ClientPage from './views/Client/ClientPage';
 import { DocumentProvider } from './context/DocumentContext';
+import { ProjectProvider} from './context/ProjectContext';
+import { ClientProvider } from './context/ClientContext';
+
 
 function App() {
   return (
@@ -93,7 +98,9 @@ function Home() {
 function ClientAdminFunction() {
   return (
     <div>
-      <Client_admin />
+      <ClientProvider>
+        <Client_admin />
+      </ClientProvider>
     </div>
   );
 }
@@ -101,7 +108,9 @@ function ClientAdminFunction() {
 function ProjectAdminFunction() {
   return (
     <div>
-      <Project_admin />
+      <ProjectProvider>
+        <Project_admin />
+      </ProjectProvider>
     </div>
   );
 }

@@ -328,7 +328,7 @@ body{
 
 .ds-utama {
     position: relative;
-    width: calc(95% - 50px);
+    width: calc(100% - 50px);
     height: 300px;
     margin-top: 50px;
     transition: all 0.3s ease;
@@ -418,7 +418,7 @@ body{
 .gambarinvoice {
     position: absolute; 
     bottom: 30%; 
-    width: 43%;
+    width: 45%;
     flex: 1;
  }
 
@@ -563,20 +563,16 @@ top: 202px; */
 }
 
 .button-client {
+    display: inline-block;
     padding: 14px;
     width: 130px;
+    margin-top: 15%;
     border-radius: 10px;
-    border: none;
-    outline: none;
-    box-shadow: 2px 2px 4px rgba(44, 62, 80, 0.6);
     color: #100B32;
     font-size: 15px;
-    font-weight: 800;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block; 
-    text-align: center; 
-}
+    font-weight: 500;
+    background-color: #95C6FF;
+    transition: .2s ease-in-out;}
 
 .button-client:nth-child(1) {
     background-color: #DAA1DB; 
@@ -869,30 +865,31 @@ input[type="search"]::placeholder {
        color: #6c00bd;
    }
    
-   .export__file {
+   .group-button.export__file {
        position: relative;
    }
    
-   .export__file .export__file-btn {
-       display: inline-block;
-       width: 2rem;
-       height: 2rem;
-       /* background: rgba(126, 218, 247, 0.4) url(img/export.png) center / 80% no-repeat; */
-       border-radius: 50%;
-       transition: .2s ease-in-out;
+   .group-button.export__file .export__file-btn {
+    display: inline-block;
+    padding: 14px;
+    width: 130px;
+    margin-top: 30%;
+    border-radius: 10px;
+    background-color: #95C6FF;
+    transition: .2s ease-in-out;
    }
    
-   .export__file .export__file-btn:hover { 
+   .group-button.export__file .export__file-btn:hover { 
        background-color: #fff;
        transform: scale(1.15);
        cursor: pointer;
    }
    
-   .export__file input {
+   .group-button.export__file input {
        display: none;
    }
    
-   .export__file .export__file-options {
+   .group-button.export__file .export__file-options {
        position: absolute;
        right: 0;
        
@@ -910,13 +907,13 @@ input[type="search"]::placeholder {
        transition: .2s;
    }
    
-   .export__file input:checked + .export__file-options {
+   .group-button.export__file input:checked + .export__file-options {
        opacity: 1;
        transform: scale(1);
        z-index: 100;
    }
    
-   .export__file .export__file-options label{
+   .group-button .export__file-options label{
        display: block;
        width: 100%;
        padding: .6rem 0;
@@ -929,22 +926,99 @@ input[type="search"]::placeholder {
        transition: .2s ease-in-out;
    }
    
-   .export__file .export__file-options label:first-of-type{
+   .group-button.export__file .export__file-options label:first-of-type{
        padding: 1rem 0;
        background-color: #86e49d !important;
    }
    
-   .export__file .export__file-options label:hover{
+   .group-button.export__file .export__file-options label:hover{
        transform: scale(1.05);
        background-color: #fff;
        cursor: pointer;
    }
    
-   .export__file .export__file-options img{
+   .group-button .export__file-options img{
        width: 2rem;
        height: auto;
    }
 
+   .group-button.import__file {
+    position: relative;
+    }
+
+    .group-button.import__file .import__file-btn {
+    display: inline-block;
+    padding: 14px;
+    width: 130px;
+    margin-top: 30%;
+    border-radius: 10px;
+    background-color: #95C6FF;
+    transition: .2s ease-in-out;
+    }
+
+    .group-button.import__file .import__file-btn:hover { 
+        background-color: #fff;
+        transform: scale(1.15);
+        cursor: pointer;
+    }
+    
+    .group-button.import__file input {
+        display: none;
+    }
+ 
+    .group-button.import__file .import__file-options {
+        position: absolute;
+        right: 0;
+        
+        width: 12rem;
+        border-radius: .5rem;
+        overflow: hidden;
+        text-align: center;
+    
+        opacity: 0;
+        transform: scale(.8);
+        transform-origin: top right;
+        
+        box-shadow: 0 .2rem .5rem #0004;
+        
+        transition: .2s;
+    }
+    
+    .group-button.import__file input:checked + .import__file-options {
+        opacity: 1;
+        transform: scale(1);
+        z-index: 100;
+    }
+    
+    .group-button .import__file-options label{
+        display: block;
+        width: 100%;
+        padding: .6rem 0;
+        background-color: #f2f2f2;
+        
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    
+        transition: .2s ease-in-out;
+    }
+    
+    .group-button.import__file .import__file-options label:first-of-type{
+        padding: 1rem 0;
+        background-color: #86e49d !important;
+    }
+    
+    .group-button.import__file .import__file-options label:hover{
+        transform: scale(1.05);
+        background-color: #fff;
+        cursor: pointer;
+    }
+    
+    .group-button .import__file-options img{
+        width: 2rem;
+        height: auto;
+    }
+ 
    .pagination ul{
     position: relative;
     margin-top: 30px;
@@ -1009,15 +1083,15 @@ input[type="search"]::placeholder {
   
   .delete-button {
     background-color: #f44336; /* Warna latar belakang merah */
-    color: white; /* Warna teks putih */
-    padding: 10px 20px; /* Padding 10px atas/bawah, 20px kiri/kanan */
-    border: none; /* Tanpa border */
-    border-radius: 5px; /* Sudut border diberi radius 5px */
-    cursor: pointer; /* Menjadikan kursor berbentuk tangan saat diarahkan ke tombol */
+    color: white;
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 5px; 
+    cursor: pointer; 
   }
   
   .delete-button:hover, .edit-button:hover {
-    opacity: 0.8; /* Mengurangi opacity saat tombol dihover */
+    opacity: 0.8; 
   }
 
   

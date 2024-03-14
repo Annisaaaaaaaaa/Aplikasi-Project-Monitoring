@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../Css/form_tambah_client.css';
 
+
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambarpop from '../../assets/img/popular.png';
@@ -17,19 +18,46 @@ function Form_Tambah_Client() {
     const [companyEmail, setCompanyEmail] = useState('');
     const [webURL, setWebURL] = useState('');
     const [notes, setNotes] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
 
     const handleInputChange = (e, setter) => {
         setter(e.target.value);
     };
 
-    const handleFileInputChange = (e) => {
-        // Handle file input change if needed
-    };
-
     const handleSubmit = () => {
-        // Handle form submission
+        const newData = {
+            companyName,
+            picTitle,
+            picPhone,
+            picEmail,
+            companyAddress,
+            companyPhone,
+            companySize,
+            companyEmail,
+            webURL,
+            notes
+        };
+
+        setCompanyName('');
+        setPicTitle('');
+        setPicPhone('');
+        setPicEmail('');
+        setCompanyAddress('');
+        setCompanyPhone('');
+        setCompanySize('');
+        setCompanyEmail('');
+        setWebURL('');
+        setNotes('');
     };
 
+
+    const handleFileInputChange = (e) => {
+        const file = e.target.files[0];
+        // Lakukan sesuatu dengan file yang diunggah, misalnya tampilkan nama file
+        document.getElementById('file-name').innerText = file.name;
+        // Atau simpan file di state jika Anda ingin mengirimkannya bersama data lain saat menambahkan client
+        setSelectedFile(file);
+    };
     return (
         <div>
             <Sidebar />
@@ -216,7 +244,7 @@ function Form_Tambah_Client() {
                         </div>
                     </div>
                     <div className="miau3">
-                        <div className="tittle-form">
+                        <div className="tittle-form-notes">
                             <p>Notes</p>
                         </div>
                         <textarea 
@@ -227,6 +255,7 @@ function Form_Tambah_Client() {
                             onChange={(e) => handleInputChange(e, setNotes)} 
                         />
                     </div>
+
                     <div className="tambah-client">
                         <button onClick={handleSubmit}>Tambah</button>
                     </div>

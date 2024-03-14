@@ -139,7 +139,7 @@ function Add_user() {
                           <p>Atau Import Informasi Dari Excel</p>
                           <span>dengan klik button berikut</span>
                           <div className="group-button">
-                              <button>Import</button>
+                            <button style={{ marginLeft: '30%' }}>Import</button>
                           </div>
                       </div>
                   </div>

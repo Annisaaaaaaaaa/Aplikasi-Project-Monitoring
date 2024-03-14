@@ -67,6 +67,8 @@ function Form_Edit_Client() {
         setter(e.target.value);
     };
 
+    
+
     const handleSubmit = async () => {
         try {
             const token = authTokens ? authTokens.access : null;
@@ -238,6 +240,10 @@ function Form_Edit_Client() {
                     </div>
                 </div>
 
+                <div className="exel-form">
+                  
+                </div>
+
                 <div className="form-bawah">
                     <div className="ess2">
                         <p>Additional Information. </p>
@@ -267,6 +273,19 @@ function Form_Edit_Client() {
                                     placeholder="Ex. PT Bongkar Turet" 
                                     onChange={(e) => handleInputChange(e, setCompanyPhone)} 
                                 />
+                            </div>
+
+                            <div className="tittle-form">
+                                <p>Company Logo</p>
+                            </div>
+                            <div className="file-input-container">
+                                <label htmlFor="file-upload" className="label-file">Upload</label>
+                                <input 
+                                    id="file-upload" 
+                                    type="file" 
+                                    
+                                />
+                                <span id="file-name"></span>
                             </div>
                         </div>
 
@@ -309,7 +328,7 @@ function Form_Edit_Client() {
                         </div>
                     </div>
                     <div className="miau3">
-                        <div className="tittle-form">
+                        <div className="tittle-form-notes">
                             <p>Notes</p>
                         </div>
                         <textarea 
