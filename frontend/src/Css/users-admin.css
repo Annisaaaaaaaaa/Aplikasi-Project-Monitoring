@@ -835,12 +835,13 @@ input[type="search"]::placeholder {
    }
    
    .export__file .export__file-btn {
-       display: inline-block;
-       width: 2rem;
-       height: 2rem;
-       /* background: rgba(126, 218, 247, 0.4) url(img/export.png) center / 80% no-repeat; */
-       border-radius: 50%;
-       transition: .2s ease-in-out;
+    display: inline-block;
+    padding: 14px;
+    width: 130px;
+    margin-top: 30%;
+    border-radius: 10px;
+    background-color: #95C6FF;
+    transition: .2s ease-in-out;
    }
    
    .export__file .export__file-btn:hover { 

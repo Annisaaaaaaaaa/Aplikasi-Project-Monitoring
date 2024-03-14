@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from api.models import User, Profile
 
 from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer, UserSerializer, ProfileSerializer
+from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer, UserSerializer, ProfileSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -24,7 +25,6 @@ from rest_framework.views import APIView
 
 from django.http import JsonResponse
 from django.views import View
-import requests
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):
@@ -79,7 +79,9 @@ def getRoutes(request):
     routes = [
         '/api/token/',
         '/api/register/',
-        '/api/token/refresh/'
+        '/api/token/refresh/',
+        '/api/user/',
+        '/api/profile/'
     ]
     return Response(routes)
 

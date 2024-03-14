@@ -13,8 +13,10 @@ export const DocumentProvider = ({ children }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pdfData, setPdfData] = useState(null);
-
-
+  const [searchValue, setSearchValue] = useState('');
+  const [projects, setProjects] = useState([]);
+  const [users, setUsers] = useState([]);
+  
 
   const fetchData = async () => {
     try {
@@ -22,45 +24,48 @@ export const DocumentProvider = ({ children }) => {
       if (!token) {
         throw new Error('Authentication token is missing');
       }
-
-      const response = await axios.get('http://localhost:8000/api/v1/document/', {
+  
+      // Fetch Document data
+      const documentResponse = await axios.get('http://localhost:8000/api/v1/document/', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-
-      setDocument(response.data);
+  
+      // Fetch Project data
+      const projectResponse = await axios.get('http://localhost:8000/api/v1/project/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      // Fetch User data
+      const userResponse = await axios.get('http://localhost:8000/api/user/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      setDocument(documentResponse.data);
+      setProjects(projectResponse.data);
+      setUsers(userResponse.data);
       setError(null);
     } catch (error) {
-      console.error('Error fetching Document data:', error.message);
+      console.error('Error fetching data:', error.message);
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchData();
   }, [authTokens]);
-
-  const handleSearch = async () => {
-    try {
-        const response = await fetch('http://localhost:8000/api/v1/document/search/', {
-            method: 'GET',
-            // You can add more headers or parameters as needed
-        });
-
-        if (response.ok) {
-            const searchData = await response.json();
-            // Process the search data received from the API
-            console.log(searchData);
-        } else {
-            console.error('Error searching documents:', response.statusText);
-        }
-    } catch (error) {
-        console.error('Error searching documents:', error.message);
-    }
-};
+  
+  console.log('Documents:', documents);
+  console.log('Projects:', projects);
+  console.log('Users:', users);
+     
 
 
 const exportToExcel = async () => {
@@ -172,17 +177,88 @@ const exportToJson = async () => {
   }
 };
 
+const editDocument = async (documentId, newData) => {
+  try {
+    const token = authTokens ? authTokens.access : null;
+    if (!token) {
+      throw new Error('Authentication token is missing');
+    }
+
+    const response = await axios.put(`http://localhost:8000/api/v1/document/edit/${documentId}/`, newData, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    setDocument(documents.map(document => document.id === documentId ? response.data : document));
+    setError(null);
+  } catch (error) {
+    console.error('Error editing client:', error.message);
+    setError(error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const deleteDocument = async (documentId) => {
+  try {
+    const token = authTokens ? authTokens.access : null;
+    if (!token) {
+      throw new Error('Authentication token is missing');
+    }
+
+    await axios.delete(`http://localhost:8000/api/v1/document/delete/${documentId}/`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    setDocument(documents.filter(document => document.id !== documentId));
+    setError(null);
+  } catch (error) {
+    console.error('Error deleting client:', error.message);
+    setError(error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
+const handleSearch = async (searchTerm) => {
+  try {
+      const token = authTokens ? authTokens.access : null;
+      if (!token) {
+          throw new Error('Authentication token is missing');
+      }
+
+      const response = await axios.get(`http://localhost:8000/api/v1/document/search/?search=${searchTerm}`, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      });
+
+      // Process the search data received from the API
+      console.log(response.data);
+  } catch (error) {
+      console.error('Error searching documents:', error.message);
+  }
+};
+
 
 const contextData = {
+  projects,
+  users,
   documents,
   error,
   loading,
   fetchData,
+  searchValue,
+  setSearchValue,
   handleSearch,
   exportToExcel, 
   exportToJson, 
   exportToCsv,
-  exportToPdf
+  exportToPdf,
+  deleteDocument
 };
 
 return (

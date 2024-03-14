@@ -4,33 +4,36 @@ import Navbar from '../../component/header';
 import gambarinvoice from '../../assets/img/gambarinvoice.png';
 import { Link } from 'react-router-dom';
 import '../../Css/Dashboard.css';
+import { useInvoiceContext } from './../../context/InvoiceContext';
 
-import { ClientProvider } from './../../context/ClientContext';
-import ClientTable from './../../component/Client/ClientTable';
+import { InvoiceProvider } from './../../context/InvoiceContext';
+import InvoiceTable from './../../component/Invoice/InvoiceTable';
 
 function Invoice_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
+    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importInvoices } = useInvoiceContext(); 
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
         const headings = document.querySelectorAll('thead th');
-
+    
         const initializeSortOrder = {};
         headings.forEach((_, index) => {
             initializeSortOrder[index] = true; // Default to ascending order
         });
-
+    
         setTableRows(Array.from(rows)); // Convert NodeList to array
         setTableHeadings(Array.from(headings)); // Convert NodeList to array
         setSortOrder(initializeSortOrder);
-
+    
         return () => {
             // Clean up function
         };
     }, []);
+      
 
     const searchTable = () => {
         tableRows.forEach((row, i) => {
@@ -50,24 +53,60 @@ function Invoice_admin() {
         setSearchValue(e.target.value);
     };
 
-    const handleSort = (index) => {
-        const newSortOrder = { ...sortOrder };
-        newSortOrder[index] = !newSortOrder[index];
-
-        // Sort the table rows based on the clicked column
-        const sortedRows = [...tableRows].sort((a, b) => {
-            let firstRowData = a.querySelectorAll('td')[index].textContent.toLowerCase(),
-                secondRowData = b.querySelectorAll('td')[index].textContent.toLowerCase();
-
-            return newSortOrder[index] ? (firstRowData > secondRowData ? 1 : -1) : (firstRowData < secondRowData ? 1 : -1);
-        });
-
-        setSortOrder(newSortOrder);
-        setTableRows(sortedRows);
+    const handleExportExcel = async () => {
+        try {
+            await exportToExcel();
+        } catch (error) {
+            console.error('Error handling export to Excel:', error.message);
+        }
     };
+
+    const handleExportCsv = async () => {
+        try {
+            await exportToCsv();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
+    const handleExportPdf = async () => {
+        try {
+            await exportToPdf();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
+    const handleExportJson = async () => {
+        try {
+            await exportToJson();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
+    const handleImport = async () => {
+        const fileInput = document.getElementById('import-file');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                await importInvoices(formData);
+                // Refresh the data after import
+                fetchData();
+            } catch (error) {
+                console.error('Error handling import:', error.message);
+            }
+        }
+    };
+
 
     return (
         <div>
+            <InvoiceProvider>
             <Sidebar />
             <Navbar />
 
@@ -85,15 +124,40 @@ function Invoice_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                        <Link to="/" className="button-client" style={{ textDecoration: 'none' }}>
-                            <i className="fas fa-plus"></i> Tambah
+                        <Link to="/form_tambah_invoice" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
+                       Tambah
                         </Link>
-                            <button className="button-client">
-                                <i className="fas fa-download"></i> Export
-                            </button>
-                            <button className="button-client">
+
+                        <div className="export__file">
+                            <label htmlFor="export-file" className="export__file-btn" title="Export File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Export</label>
+
+                                <input type="checkbox" id="export-file" />
+                                <div className="export__file-options">
+                                    <label>
+                                        Export As &nbsp; &#10140;
+                                    </label>
+                                    <label htmlFor="export-file" id="toPDF" onClick={handleExportPdf}>
+                                        PDF 
+                                    </label>
+                                    <label htmlFor="export-file" id="toJSON" onClick={handleExportJson}>
+                                        JSON 
+                                    </label>
+                                    <label htmlFor="export-file" id="toCSV" onClick={handleExportCsv}>
+                                        CSV 
+                                    </label>
+                                    <label htmlFor="export-file" id="toEXCEL" onClick={handleExportExcel}>
+                                        EXCEL 
+                                    </label>
+                                </div>
+                                </div>
+                            <button className="button-client-doc" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
                                 <i className="fas fa-upload"></i> Import
                             </button>
+
+                            <div className="import__file">
+                        <label htmlFor="import-file" className="import__file-btn" title="Import File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Import</label>
+                        <input type="file" id="import-file" onChange={handleImport} style={{ display: 'none' }} />
+                    </div>
                         </div>
                         <div className="input-group">
                             <input
@@ -108,32 +172,12 @@ function Invoice_admin() {
                     <main className="table" id="customers_table">
                         <section className="table__header">
                             <h1>Data Invoice</h1>
-                            <div className="export__file">
-                                <label htmlFor="export-file" className="export__file-btn" title="Export File"></label>
-                                <input type="checkbox" id="export-file" />
-                                <div className="export__file-options">
-                                    <label>
-                                        Export As &nbsp; &#10140;
-                                    </label>
-                                    <label htmlFor="export-file" id="toPDF">
-                                        PDF <img src="images/pdf.png" alt="pdf" />
-                                    </label>
-                                    <label htmlFor="export-file" id="toJSON">
-                                        JSON <img src="images/json.png" alt="json" />
-                                    </label>
-                                    <label htmlFor="export-file" id="toCSV">
-                                        CSV <img src="images/csv.png" alt="csv" />
-                                    </label>
-                                    <label htmlFor="export-file" id="toEXCEL">
-                                        EXCEL <img src="images/excel.png" alt="excel" />
-                                    </label>
-                                </div>
-                            </div>
+                            
                         </section>
                         <section className="table__body">
-                            <ClientProvider>
-                                    <ClientTable />
-                            </ClientProvider>
+                            
+                                    <InvoiceTable/>
+                            
                             
                         </section>
                     </main>
@@ -175,6 +219,7 @@ function Invoice_admin() {
                     </div>
                 </div>
             </div>
+            </InvoiceProvider>
         </div>
     );
 }

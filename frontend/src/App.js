@@ -33,5 +33,63 @@ function Home() {
   );
 }
 
+function ClientAdminFunction() {
+  return (
+    <div>
+      <ClientProvider>
+        <Client_admin />
+      </ClientProvider>
+    </div>
+  );
+}
+
+function ProjectAdminFunction() {
+  return (
+    <div>
+      <ProjectProvider>
+        <Project_admin />
+      </ProjectProvider>
+    </div>
+  );
+}
+
+function DocumentAdminFunction() {
+  return (
+    <div>
+      <DocumentProvider>
+        <Document_admin />
+      </DocumentProvider>
+    </div>
+  );
+}
+
+function UsersAdminFunction() {
+  return (
+    <div>
+      <Users_admin />
+    </div>
+  );
+}
+
+function InvoiceAdminFunction() {
+  return (
+    <div>
+      <InvoiceProvider>
+        <Invoice_admin />
+      </InvoiceProvider>
+    </div>
+  );
+}
+
+function PaymentAdminFunction() {
+  return (
+    <div>
+      <PaymentProvider>
+        <Payment_admin/>
+      </PaymentProvider>
+    </div>
+  );
+}
+
 export default App;
 
