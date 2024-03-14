@@ -3,20 +3,20 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import AuthContext from './AuthContext';
 
-const DocumentContext = createContext();
+const PaymentContext = createContext();
 
-export const useDocumentContext = () => useContext(DocumentContext);
+export const usePaymentContext = () => useContext(PaymentContext);
 
-export const DocumentProvider = ({ children }) => {
+export const PaymentProvider = ({ children }) => {
   const { authTokens } = useContext(AuthContext);
-  const [documents, setDocument] = useState([]);
+  const [payments, setPayment] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [pdfData, setPdfData] = useState(null);
   const [searchValue, setSearchValue] = useState('');
   const [projects, setProjects] = useState([]);
-  const [users, setUsers] = useState([]);
-  
+  const [clients, setClients] = useState([]);
+
 
   const fetchData = async () => {
     try {
@@ -25,8 +25,8 @@ export const DocumentProvider = ({ children }) => {
         throw new Error('Authentication token is missing');
       }
   
-      // Fetch Document data
-      const documentResponse = await axios.get('http://localhost:8000/api/v1/document/', {
+      // Fetch Invoice data
+      const paymentResponse = await axios.get('http://localhost:8000/api/v1/payment/', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -39,16 +39,8 @@ export const DocumentProvider = ({ children }) => {
         }
       });
   
-      // Fetch User data
-      const userResponse = await axios.get('http://localhost:8000/api/user/', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-  
-      setDocument(documentResponse.data);
+      setPayment(paymentResponse.data);
       setProjects(projectResponse.data);
-      setUsers(userResponse.data);
       setError(null);
     } catch (error) {
       console.error('Error fetching data:', error.message);
@@ -62,10 +54,9 @@ export const DocumentProvider = ({ children }) => {
     fetchData();
   }, [authTokens]);
   
-  console.log('Documents:', documents);
+  console.log('Payments:', payments);
   console.log('Projects:', projects);
-  console.log('Users:', users);
-     
+    
 
 
 const exportToExcel = async () => {
@@ -76,7 +67,7 @@ const exportToExcel = async () => {
     }
 
     // Make a request to the backend to trigger the Excel export
-    const response = await fetch('http://localhost:8000/api/v1/document/export-documents-to-excel/', {
+    const response = await fetch('http://localhost:8000/api/v1/payment/export-payments-to-excel/', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
@@ -104,7 +95,7 @@ const exportToCsv = async () => {
     }
 
     // Make a request to the backend to trigger the Excel export
-    const response = await fetch('http://localhost:8000/api/v1/document/export-documents-to-csv/', {
+    const response = await fetch('http://localhost:8000/api/v1/payment/export-payments-to-csv/', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
@@ -131,7 +122,7 @@ const exportToPdf = async () => {
     }
 
     // Make a request to the backend to trigger the Excel export
-    const response = await fetch('http://localhost:8000/api/v1/document/export-documents-to-pdf/', {
+    const response = await fetch('http://localhost:8000/api/v1/payment/export-payments-to-pdf/', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
@@ -158,7 +149,7 @@ const exportToJson = async () => {
     }
 
     // Make a request to the backend to trigger the Excel export
-    const response = await fetch('http://localhost:8000/api/v1/document/export-documents-to-json/', {
+    const response = await fetch('http://localhost:8000/api/v1/payment/export-payments-to-json/', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
@@ -177,46 +168,75 @@ const exportToJson = async () => {
   }
 };
 
-const editDocument = async (documentId, newData) => {
+const importPayment = async (formData) => {
   try {
     const token = authTokens ? authTokens.access : null;
     if (!token) {
       throw new Error('Authentication token is missing');
     }
 
-    const response = await axios.put(`http://localhost:8000/api/v1/document/edit/${documentId}/`, newData, {
+    // Make a request to the backend to trigger the import
+    const response = await fetch('http://localhost:8000/api/v1/payment/import-payments/', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    // Check if the request was successful (status code 200)
+    if (response.ok) {
+      console.log('Import successful');
+    } else {
+      console.error('Error importing invoices:', response.statusText);
+      throw new Error('Import failed');
+    }
+  } catch (error) {
+    console.error('Error importing invoices:', error.message);
+    throw error;
+  }
+};
+
+const editPayment = async (paymentId, newData) => {
+  try {
+    const token = authTokens ? authTokens.access : null;
+    if (!token) {
+      throw new Error('Authentication token is missing');
+    }
+
+    const response = await axios.get(`http://localhost:8000/api/v1/payment/edit/${paymentId}/`, newData, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
 
-    setDocument(documents.map(document => document.id === documentId ? response.data : document));
+    setPayment(payments.map(payment => payment.id === paymentId ? response.data : payment));
     setError(null);
   } catch (error) {
-    console.error('Error editing client:', error.message);
+    console.error('Error editing payment:', error.message);
     setError(error.message);
   } finally {
     setLoading(false);
   }
 };
 
-const deleteDocument = async (documentId) => {
+const deletePayment = async (paymentId) => {
   try {
     const token = authTokens ? authTokens.access : null;
     if (!token) {
       throw new Error('Authentication token is missing');
     }
 
-    await axios.delete(`http://localhost:8000/api/v1/document/delete/${documentId}/`, {
+    await axios.delete(`http://localhost:8000/api/v1/payment/delete/${paymentId}/`, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
 
-    setDocument(documents.filter(document => document.id !== documentId));
+    setPayment(payments.filter(payment => payment.id !== paymentId));
     setError(null);
   } catch (error) {
-    console.error('Error deleting client:', error.message);
+    console.error('Error deleting payment:', error.message);
     setError(error.message);
   } finally {
     setLoading(false);
@@ -230,7 +250,7 @@ const handleSearch = async (searchTerm) => {
           throw new Error('Authentication token is missing');
       }
 
-      const response = await axios.get(`http://localhost:8000/api/v1/document/search/?search=${searchTerm}`, {
+      const response = await axios.get(`http://localhost:8000/api/v1/payment/search/?search=${searchTerm}`, {
           headers: {
               Authorization: `Bearer ${token}`
           }
@@ -246,8 +266,7 @@ const handleSearch = async (searchTerm) => {
 
 const contextData = {
   projects,
-  users,
-  documents,
+  payments,
   error,
   loading,
   fetchData,
@@ -258,12 +277,14 @@ const contextData = {
   exportToJson, 
   exportToCsv,
   exportToPdf,
-  deleteDocument
+  deletePayment,
+  importPayment,
+  editPayment
 };
 
 return (
-  <DocumentContext.Provider value={contextData}>
+  <PaymentContext.Provider value={contextData}>
     {children}
-  </DocumentContext.Provider>
+  </PaymentContext.Provider>
 );
 };

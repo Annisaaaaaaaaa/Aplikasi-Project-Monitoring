@@ -4,6 +4,9 @@ import Navbar from '../../component/header';
 import gambarusers from '../../assets/img/gambaruser.png';
 import '../../Css/users-admin.css';
 
+import { UserProvider } from './../../context/UserContext'
+import UserTable from '../../component/User/UserTable';
+
 function Users_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
@@ -64,6 +67,7 @@ function Users_admin() {
 
     return (
         <div>
+            <UserProvider>
             <Sidebar />
             <Navbar />
 
@@ -125,39 +129,7 @@ function Users_admin() {
                             </div>
                         </section>
                         <section className="table__body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th onClick={() => handleSort(0)}>
-                                            Id <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(1)}>
-                                            Company <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(2)}>
-                                            Nama <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(3)}>
-                                            PIC Tittle <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(4)}>
-                                            Status <span className="icon-arrow"></span>
-                                        </th>
-                                        <th onClick={() => handleSort(5)}>
-                                            Total Project <span className="icon-arrow"></span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {tableRows.map((row, index) => (
-                                        <tr key={index}>
-                                            {[...row.cells].map((cell, i) => (
-                                                <td key={i}>{cell.textContent}</td>
-                                            ))}
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
+                        <UserTable />
                         </section>
                     </main>
 
@@ -198,6 +170,7 @@ function Users_admin() {
                     </div>
                 </div>
             </div>
+            </UserProvider>
         </div>
     );
 }

@@ -1,39 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
-import gambarinvoice from '../../assets/img/gambarinvoice.png';
+import gambarpayment from '../../assets/img/gambarpayment.png';
 import { Link } from 'react-router-dom';
 import '../../Css/Dashboard.css';
-import { useInvoiceContext } from './../../context/InvoiceContext';
+import { PaymentProvider } from '../../context/PaymentContext';
+import PaymentTable from '../../component/Payment/PaymentTable';
 
-import { InvoiceProvider } from './../../context/InvoiceContext';
-import InvoiceTable from './../../component/Invoice/InvoiceTable';
+import { usePaymentContext } from '../../context/PaymentContext';
 
-function Invoice_admin() {
+function Payment_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
-    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importInvoices } = useInvoiceContext(); 
+    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importInvoices } = usePaymentContext(); 
+
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
         const headings = document.querySelectorAll('thead th');
-    
+
         const initializeSortOrder = {};
         headings.forEach((_, index) => {
             initializeSortOrder[index] = true; // Default to ascending order
         });
-    
+
         setTableRows(Array.from(rows)); // Convert NodeList to array
         setTableHeadings(Array.from(headings)); // Convert NodeList to array
         setSortOrder(initializeSortOrder);
-    
+
         return () => {
             // Clean up function
         };
     }, []);
-      
 
     const searchTable = () => {
         tableRows.forEach((row, i) => {
@@ -51,6 +51,22 @@ function Invoice_admin() {
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
+    };
+
+    const handleSort = (index) => {
+        const newSortOrder = { ...sortOrder };
+        newSortOrder[index] = !newSortOrder[index];
+
+        // Sort the table rows based on the clicked column
+        const sortedRows = [...tableRows].sort((a, b) => {
+            let firstRowData = a.querySelectorAll('td')[index].textContent.toLowerCase(),
+                secondRowData = b.querySelectorAll('td')[index].textContent.toLowerCase();
+
+            return newSortOrder[index] ? (firstRowData > secondRowData ? 1 : -1) : (firstRowData < secondRowData ? 1 : -1);
+        });
+
+        setSortOrder(newSortOrder);
+        setTableRows(sortedRows);
     };
 
     const handleExportExcel = async () => {
@@ -85,28 +101,9 @@ function Invoice_admin() {
         }
     };
 
-    const handleImport = async () => {
-        const fileInput = document.getElementById('import-file');
-        const file = fileInput.files[0];
-
-        if (file) {
-            const formData = new FormData();
-            formData.append('file', file);
-
-            try {
-                await importInvoices(formData);
-                // Refresh the data after import
-                fetchData();
-            } catch (error) {
-                console.error('Error handling import:', error.message);
-            }
-        }
-    };
-
-
     return (
         <div>
-            <InvoiceProvider>
+            <PaymentProvider>
             <Sidebar />
             <Navbar />
 
@@ -114,20 +111,19 @@ function Invoice_admin() {
                 <div className="navbar-admin">
                     <div className="parent">
                         <div className="ds-utama"></div>
-                        <div className="gambarinvoice">
-                            <img src={gambarinvoice} alt="logo" />
+                        <div className="gambarpayment">
+                            <img src={gambarpayment} alt="logo" />
                         </div>
-                        {/* <div className="duatiga"> 0 </div>
+                        <div className="duatiga"> 0 </div>
                         <div className="total">Total Client</div>
-                        <div className="garis"></div> */}
+                        <div className="garis"></div>
                     </div>
 
                     <div className="bungkus">
                         <div className="group-button">
-                        <Link to="/form_tambah_invoice" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
-                       Tambah
+                        <Link to="/form_tambah_client" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
+                            <i className="fas fa-plus"></i> Tambah
                         </Link>
-
                         <div className="export__file">
                             <label htmlFor="export-file" className="export__file-btn" title="Export File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Export</label>
 
@@ -150,14 +146,9 @@ function Invoice_admin() {
                                     </label>
                                 </div>
                                 </div>
-                            <button className="button-client-doc" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
+                            <button className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
                                 <i className="fas fa-upload"></i> Import
                             </button>
-
-                            <div className="import__file">
-                        <label htmlFor="import-file" className="import__file-btn" title="Import File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Import</label>
-                        <input type="file" id="import-file" onChange={handleImport} style={{ display: 'none' }} />
-                    </div>
                         </div>
                         <div className="input-group">
                             <input
@@ -171,17 +162,12 @@ function Invoice_admin() {
 
                     <main className="table" id="customers_table">
                         <section className="table__header">
-                            <h1>Data Invoice</h1>
-                            
+                            <h1>Data Payment</h1>
                         </section>
                         <section className="table__body">
-                            
-                                    <InvoiceTable/>
-                            
-                            
+                           <PaymentTable/>
                         </section>
                     </main>
-
                     <div className="pagination">
                         <ul>
                             <li>
@@ -219,9 +205,9 @@ function Invoice_admin() {
                     </div>
                 </div>
             </div>
-            </InvoiceProvider>
+            </PaymentProvider>
         </div>
     );
 }
 
-export default Invoice_admin;
+export default Payment_admin;

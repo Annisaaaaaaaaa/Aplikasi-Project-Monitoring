@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from api.models import User
+from api.models import Profile
 
-from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer
+from api.serializer import MyTokenObtainPairSerializer, RegisterSerializer, UserSerializer, ProfileSerializer
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -21,6 +22,14 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = (AllowAny,)
     serializer_class = RegisterSerializer
 
+#Create dan List
+class UserListCreate(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+class ProfileListCreate(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
 
 # Get All Routes
 
@@ -29,7 +38,9 @@ def getRoutes(request):
     routes = [
         '/api/token/',
         '/api/register/',
-        '/api/token/refresh/'
+        '/api/token/refresh/',
+        '/api/user/',
+        '/api/profile/'
     ]
     return Response(routes)
 
