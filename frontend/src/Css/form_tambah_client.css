@@ -1,6 +1,4 @@
 
-
-
 .bg-form-atas {
     position: absolute;
     width: 287px;
@@ -89,6 +87,17 @@
     color: #4D547A;
 }
 
+.tittle-form-notes{
+    margin-left: 3%;
+    margin-top: 2%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+}
+
 .input-form input {
     width: 350px;
     height: 40px;
@@ -130,6 +139,12 @@ input::placeholder{
     color: #4D547A;
 }
 
+.file-input-container label{
+    font-weight: 800;
+    color: #0C1751;
+    border: none;
+}
+
 .miau{
     display: flex;
     
@@ -148,7 +163,6 @@ input::placeholder{
 .miau .error{
     color: red;
     margin-left: 5%;
-
 }
 
 .miau2{
@@ -168,6 +182,10 @@ input::placeholder{
 
 .miau3 {
     clear: both;
+}
+
+.miau3 textarea{
+    margin-top: 0;
 }
 
 
@@ -304,7 +322,6 @@ textarea:focus {
     background-color: #548ADA;
 }
 
-/* Mengatur posisi label di bawah tombol "Choose File" */
 .label-file + input[type="file"] {
     position: absolute;
     top: 100%; /* Menggeser ke bawah sesuai dengan tinggi label */

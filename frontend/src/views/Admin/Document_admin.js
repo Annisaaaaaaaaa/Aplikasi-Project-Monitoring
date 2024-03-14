@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambardoc from '../../assets/img/gambardoc.png';
 import '../../Css/document-admin.css';
 import { useDocumentContext } from './../../context/DocumentContext';
-
 import { DocumentProvider } from './../../context/DocumentContext';
 import DocumentTable from './../../component/Document/DocumentTable';
 
@@ -96,7 +96,7 @@ function Document_admin() {
         try {
             await exportToPdf();
         } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
+            console.error('Error handling export to Pdf:', error.message);
         }
     };
 
@@ -104,7 +104,7 @@ function Document_admin() {
         try {
             await exportToJson();
         } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
+            console.error('Error handling export to Json:', error.message);
         }
     };
 
@@ -128,8 +128,11 @@ function Document_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                            <button className="button-client-doc" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
-                                <i className="fas fa-plus"></i> Tambah
+                        <Link to="/form_tambah_doc" className="button-client" style={{ textDecoration: 'none' }}>
+                            <i className="fas fa-plus"></i> Tambah
+                        </Link>
+                            <button className="button-client">
+                                <i className="fas fa-download"></i> Export
                             </button>
                             
                             <div className="export__file">

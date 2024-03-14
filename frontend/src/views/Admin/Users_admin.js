@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
+import { Link } from 'react-router-dom';
 import gambarusers from '../../assets/img/gambaruser.png';
 import '../../Css/users-admin.css';
 
@@ -85,9 +86,10 @@ function Users_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                            <button className="button-client">
-                                <i className="fas fa-plus"></i> Tambah
-                            </button>
+                        <Link to="/add-user" className="button-client">
+                            <i className="fas fa-plus"></i> Tambah
+                        </Link>
+
                             <button className="button-client">
                                 <i className="fas fa-download"></i> Export
                             </button>

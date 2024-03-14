@@ -87,7 +87,9 @@ function Home() {
 function ClientAdminFunction() {
   return (
     <div>
-      <Client_admin />
+      <ClientProvider>
+        <Client_admin />
+      </ClientProvider>
     </div>
   );
 }
@@ -95,7 +97,9 @@ function ClientAdminFunction() {
 function ProjectAdminFunction() {
   return (
     <div>
-      <Project_admin />
+      <ProjectProvider>
+        <Project_admin />
+      </ProjectProvider>
     </div>
   );
 }

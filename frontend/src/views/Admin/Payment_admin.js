@@ -4,18 +4,27 @@ import Navbar from '../../component/header';
 import gambarpayment from '../../assets/img/gambarpayment.png';
 import { Link } from 'react-router-dom';
 import '../../Css/Dashboard.css';
+<<<<<<< HEAD
 import { PaymentProvider } from '../../context/PaymentContext';
 import PaymentTable from '../../component/Payment/PaymentTable';
 
 import { usePaymentContext } from '../../context/PaymentContext';
+=======
+
+import { ClientProvider } from './../../context/ClientContext';
+import ClientTable from './../../component/Client/ClientTable';
+>>>>>>> 9c358dfce7d9d7abec47b2d2dfc78f475babde3e
 
 function Payment_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
+<<<<<<< HEAD
     const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importInvoices } = usePaymentContext(); 
 
+=======
+>>>>>>> 9c358dfce7d9d7abec47b2d2dfc78f475babde3e
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
@@ -69,6 +78,7 @@ function Payment_admin() {
         setTableRows(sortedRows);
     };
 
+<<<<<<< HEAD
     const handleExportExcel = async () => {
         try {
             await exportToExcel();
@@ -104,6 +114,10 @@ function Payment_admin() {
     return (
         <div>
             <PaymentProvider>
+=======
+    return (
+        <div>
+>>>>>>> 9c358dfce7d9d7abec47b2d2dfc78f475babde3e
             <Sidebar />
             <Navbar />
 
@@ -121,6 +135,7 @@ function Payment_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
+<<<<<<< HEAD
                         <Link to="/form_tambah_client" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
                             <i className="fas fa-plus"></i> Tambah
                         </Link>
@@ -147,6 +162,15 @@ function Payment_admin() {
                                 </div>
                                 </div>
                             <button className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
+=======
+                        <Link to="/form_tambah_client" className="button-client" style={{ textDecoration: 'none' }}>
+                            <i className="fas fa-plus"></i> Tambah
+                        </Link>
+                            <button className="button-client">
+                                <i className="fas fa-download"></i> Export
+                            </button>
+                            <button className="button-client">
+>>>>>>> 9c358dfce7d9d7abec47b2d2dfc78f475babde3e
                                 <i className="fas fa-upload"></i> Import
                             </button>
                         </div>
@@ -165,7 +189,13 @@ function Payment_admin() {
                             <h1>Data Payment</h1>
                         </section>
                         <section className="table__body">
+<<<<<<< HEAD
                            <PaymentTable/>
+=======
+                            <ClientProvider>
+                                <ClientTable />
+                            </ClientProvider>
+>>>>>>> 9c358dfce7d9d7abec47b2d2dfc78f475babde3e
                         </section>
                     </main>
                     <div className="pagination">
@@ -205,9 +235,16 @@ function Payment_admin() {
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
             </PaymentProvider>
+=======
+>>>>>>> 9c358dfce7d9d7abec47b2d2dfc78f475babde3e
         </div>
     );
 }
 
+<<<<<<< HEAD
 export default Payment_admin;
+=======
+export default Payment_admin;
+>>>>>>> 9c358dfce7d9d7abec47b2d2dfc78f475babde3e

@@ -314,7 +314,7 @@ body{
 
 .ds-utama-projek {
     position: relative;
-    width: calc(115% - 50px);
+    width: calc(100% - 50px);
     height: 300px;
     margin-top: 50px;
     transition: all 0.3s ease;
@@ -687,7 +687,7 @@ input[type="search"]::placeholder {
    } */
    
    main.table-project {
-       width: calc(115% - 50px);
+       width: calc(100% - 50px);
        height: 90vh;
        margin-top: 20px;
        background-color: #fff5;
