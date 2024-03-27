@@ -1,28 +1,14 @@
-from django.urls import path, include
-from .models import Project
-from rest_framework import routers, serializers, viewsets
-from api.models import User
-from client.models import Client
+from rest_framework import serializers
+from .models import Project, EngineerProject
 
-class ClientSerializer(serializers.ModelSerializer):
+class EngineerProjectSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Client
-        fields = ['id', 'name']
+        model = EngineerProject
+        fields = '__all__'
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'email']  # Adjust the fields based on your User model
-
-# Serializers define the API representation.
 class ProjectSerializer(serializers.ModelSerializer):
-    customer = ClientSerializer()
-    am = UserSerializer()
-    pic = UserSerializer()
-    pm = UserSerializer()
-    sales = UserSerializer()
-
+    engineer_projects = EngineerProjectSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Project
         fields = '__all__'
-

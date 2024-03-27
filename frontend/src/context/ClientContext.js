@@ -14,8 +14,6 @@ export const ClientProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [pdfData, setPdfData] = useState(null);
   const [searchValue, setSearchValue] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
-
 
   const fetchData = async () => {
     try {
@@ -44,6 +42,8 @@ export const ClientProvider = ({ children }) => {
     fetchData();
   }, [authTokens]);
 
+  console.log('Clients:', clients);
+
   const editClient = async (clientId, newData) => {
     try {
       const token = authTokens ? authTokens.access : null;
@@ -51,7 +51,7 @@ export const ClientProvider = ({ children }) => {
         throw new Error('Authentication token is missing');
       }
 
-      const response = await axios.put('http://localhost:8000/api/v1/client/edit/${clientId}/', newData, {
+      const response = await axios.put(`http://localhost:8000/api/v1/client/edit/${clientId}/`, newData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -74,7 +74,7 @@ export const ClientProvider = ({ children }) => {
         throw new Error('Authentication token is missing');
       }
 
-      await axios.delete('http://localhost:8000/api/v1/client/delete/${clientId}/', {
+      await axios.delete(`http://localhost:8000/api/v1/client/delete/${clientId}/`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -97,7 +97,7 @@ export const ClientProvider = ({ children }) => {
             throw new Error('Authentication token is missing');
         }
   
-        const response = await axios.get('http://localhost:8000/api/v1/client/search/?search=${searchTerm}', {
+        const response = await axios.get(`http://localhost:8000/api/v1/client/search/?search=${searchTerm}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
@@ -220,112 +220,32 @@ const exportToJson = async () => {
   }
 };
 
-const importFromExcel = async () => {
+const importClients = async (formData) => {
   try {
     const token = authTokens ? authTokens.access : null;
     if (!token) {
       throw new Error('Authentication token is missing');
     }
 
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/client/import-clients-from-excel/', {
-      method: 'GET',
+    // Make a request to the backend to trigger the import
+    const response = await fetch('http://localhost:8000/api/v1/client/import-clients/', {
+      method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
+      body: formData,
     });
 
     // Check if the request was successful (status code 200)
     if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
+      console.log('Import successful');
     } else {
-      console.error('Error exporting to Excel:', response.statusText);
+      console.error('Error importing clients:', response.statusText);
+      throw new Error('Import failed');
     }
   } catch (error) {
-    console.error('Error exporting to Excel:', error.message);
-  }
-};
-
-
-const importFromCsv = async () => {
-  try {
-    const token = authTokens ? authTokens.access : null;
-    if (!token) {
-      throw new Error('Authentication token is missing');
-    }
-
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/client/import-clients-from-csv/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    });
-
-    // Check if the request was successful (status code 200)
-    if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
-    } else {
-      console.error('Error exporting to Csv:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error exporting to Csv:', error.message);
-  }
-};
-
-const importFromPdf = async () => {
-  try {
-    const token = authTokens ? authTokens.access : null;
-    if (!token) {
-      throw new Error('Authentication token is missing');
-    }
-
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/client/import-clients-from-pdf/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    });
-
-    // Check if the request was successful (status code 200)
-    if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
-    } else {
-      console.error('Error exporting to Pdf:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error exporting to Pdf:', error.message);
-  }
-};
-
-const importFromJson = async () => {
-  try {
-    const token = authTokens ? authTokens.access : null;
-    if (!token) {
-      throw new Error('Authentication token is missing');
-    }
-
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/client/import-clients-from-json/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    });
-
-    // Check if the request was successful (status code 200)
-    if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
-    } else {
-      console.error('Error exporting to Json:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error exporting to Json:', error.message);
+    console.error('Error importing clients:', error.message);
+    throw error;
   }
 };
 
@@ -343,11 +263,7 @@ const importFromJson = async () => {
     exportToJson, 
     exportToCsv,
     exportToPdf,
-    importFromExcel, 
-    importFromJson, 
-    importFromCsv,
-    importFromPdf,
-    setSelectedFile
+    importClients
   };
 
   return (

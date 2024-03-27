@@ -1,10 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useProjectContext } from './../../context/ProjectContext';
 import gambarorg from '../../assets/img/gambarorg.png';
+import { useHistory } from 'react-router-dom'; 
+import Swal from 'sweetalert2';
 
 const ProjectTable = () => {
-  const { projects, error, loading, editProject, deleteProject } = useProjectContext();
+  const { projects, users, clients, error, loading, editProject, deleteProject } = useProjectContext();
   const [searchTerm, setSearchTerm] = useState('');
+  const [visibleRows, setVisibleRows] = useState([]);
+  const history = useHistory();
+  const [sortOrder, setSortOrder] = useState({
+    id: 'asc',
+    name: 'asc',
+    year: 'asc',
+    customer: 'asc',
+    start_date: 'asc',
+    end_date: 'asc',
+  });
+
+  const handleSort = (column) => {
+    const newOrder = sortOrder[column] === 'asc' ? 'desc' : 'asc';
+    setSortOrder({ ...sortOrder, [column]: newOrder });
+  };
+
+  const filteredProjects = projects.map((project) => {
+    const customerName = clients.find((client) => client.id === project.customer)?.name || 'N/A';
+
+    return {
+        ...project,
+        customerName,
+    };
+}).filter(
+    (project) =>
+        project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.year.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.start_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        project.end_date.toLowerCase().includes(searchTerm.toLowerCase()) 
+);
+
+  const sortedProjects = filteredProjects.sort((a, b) => {
+    const column = Object.keys(sortOrder).find((key) => sortOrder[key] !== 'asc');
+    const order = sortOrder[column] === 'asc' ? 1 : -1;
+
+    if (a[column] < b[column]) return -1 * order;
+    if (a[column] > b[column]) return 1 * order;
+    return 0;
+  });
+
+  useEffect(() => {
+    animateRows();
+  }, [projects, searchTerm]);
+
+  const animateRows = () => {
+    const rows = document.querySelectorAll('tbody tr');
+  
+    rows.forEach((row, i) => {
+      let tableData = row.innerText.toLowerCase(),
+          searchData = searchTerm.toLowerCase();
+  
+      row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
+      row.style.setProperty('--delay', i / 25 + 's');
+    });
+  
+    const visibleRows = Array.from(rows).filter((row) => !row.classList.contains('hide'));
+    setVisibleRows(visibleRows);
+  
+    visibleRows.forEach((visibleRow, i) => {
+      visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
+    });
+  };
 
   const tableStyle = {
     width: '100%',
@@ -19,23 +84,32 @@ const ProjectTable = () => {
   const handleEdit = (projectId) => {
     const newData = {}; 
     editProject(projectId, newData);
+    history.push(`/project-edit/${projectId}/`);
   };
 
   const confirmDelete = (projectId) => {
     console.log('Menghapus klien dengan ID:', projectId);
-  
-    if (window.confirm('Apakah Anda yakin ingin menghapus klien ini?')) {
-      deleteProject(projectId);
-    }
+
+    Swal.fire({
+      title: 'Apakah Anda yakin?',
+      text: 'Anda tidak akan dapat mengembalikan ini!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Ya, hapus!',
+      cancelButtonText: 'Batal'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteProject(projectId);
+        Swal.fire(
+          'Dihapus!',
+          'Proyek telah dihapus.',
+          'success'
+        )
+      }
+    });
   };
-  
-  const filteredProjects = projects.filter(project =>
-    project.contract_no.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.contract_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.am.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.pic.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    project.pm.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
   if (loading) {
     return (
@@ -55,35 +129,47 @@ const ProjectTable = () => {
 
   return (
     <div>
-      <div className="input-group" style={{ marginTop: '34px'}}>
-      <input
-        type="search"
-        placeholder="Search by name"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <div className="input-group" style={{ marginTop: '34px' }}>
+        <input
+          type="search"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
       <table style={tableStyle}>
         <thead>
           <tr>
-            <th style={cellStyle}>ID</th>
-            <th style={cellStyle}>Contract No</th>
-            <th style={cellStyle}>Contract Date</th>
-            <th style={cellStyle}>AM</th>
-            <th style={cellStyle}>PIC</th>
-            <th style={cellStyle}>PM</th>
+            <th style={cellStyle} onClick={() => handleSort('id')}>
+              ID {sortOrder.id === 'asc' ? '↑' : '↓'}
+            </th>
+            <th style={cellStyle} onClick={() => handleSort('name')}>
+              Project Name {sortOrder.name === 'asc' ? '↑' : '↓'}
+            </th>
+            <th style={cellStyle} onClick={() => handleSort('year')}>
+              Year {sortOrder.year === 'asc' ? '↑' : '↓'}
+            </th>
+            <th style={cellStyle} onClick={() => handleSort('customer')}>
+              Customer Name {sortOrder.customer === 'asc' ? '↑' : '↓'}
+            </th>
+            <th style={cellStyle} onClick={() => handleSort('start_date')}>
+              Start Date {sortOrder.start_date === 'asc' ? '↑' : '↓'}
+            </th>
+            <th style={cellStyle} onClick={() => handleSort('end_date')}>
+              End Date {sortOrder.end_date === 'asc' ? '↑' : '↓'}
+            </th>
             <th style={cellStyle}>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {filteredProjects.map((project) => (
-            <tr key={project.id}>
+          {sortedProjects.map((project, index) => (
+            <tr key={project.id} className={visibleRows.includes(index) ? '' : 'hide'}>
               <td style={cellStyle}>{project.id}</td>
-              <td style={cellStyle}>{project.contract_no}</td>
-              <td style={cellStyle}>{project.contract_date}</td>
-              <td style={cellStyle}>{project.am.email}</td>
-              <td style={cellStyle}>{project.pic.email}</td>
-              <td style={cellStyle}>{project.pm.email}</td>
+              <td style={cellStyle}>{project.name}</td>
+              <td style={cellStyle}>{project.year}</td>
+              <td style={cellStyle}>{project.customerName}</td>
+              <td style={cellStyle}>{project.start_date}</td>
+              <td style={cellStyle}>{project.end_date}</td>
               <td style={cellStyle}>
                 <button onClick={() => handleEdit(project.id)}>Edit</button>
                 <button onClick={() => confirmDelete(project.id)}>Delete</button>

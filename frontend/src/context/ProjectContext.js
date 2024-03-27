@@ -14,7 +14,8 @@ export const ProjectProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [pdfData, setPdfData] = useState(null);
   const [searchValue, setSearchValue] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [clients, setClients] = useState([]);
 
 
   const fetchData = async () => {
@@ -24,13 +25,28 @@ export const ProjectProvider = ({ children }) => {
         throw new Error('Authentication token is missing');
       }
 
-      const response = await axios.get('http://localhost:8000/api/v1/project/', {
+      const projectResponse = await axios.get('http://localhost:8000/api/v1/project/', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
+  
+      const userResponse = await axios.get('http://localhost:8000/api/user/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
+      const clientResponse = await axios.get('http://localhost:8000/api/v1/client/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+  
 
-      setProjects(response.data);
+      setProjects(projectResponse.data);
+      setUsers(userResponse.data);
+      setClients(clientResponse.data);
       setError(null);
     } catch (error) {
       console.error('Error fetching project data:', error.message);
@@ -43,6 +59,10 @@ export const ProjectProvider = ({ children }) => {
   useEffect(() => {
     fetchData();
   }, [authTokens]);
+
+  console.log('Projects:', projects);
+  console.log('Users:', users);
+  console.log('Clients:', clients);
 
   const editProject = async (projectId, newData) => {
     try {
@@ -220,117 +240,39 @@ const exportToJson = async () => {
   }
 };
 
-const importFromExcel = async () => {
+const importProjects = async (formData) => {
   try {
     const token = authTokens ? authTokens.access : null;
     if (!token) {
       throw new Error('Authentication token is missing');
     }
 
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/project/import-projects-from-excel/', {
-      method: 'GET',
+    // Make a request to the backend to trigger the import
+    const response = await fetch('http://localhost:8000/api/v1/project/import-projects/', {
+      method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
+      body: formData,
     });
 
     // Check if the request was successful (status code 200)
     if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
+      console.log('Project successful');
     } else {
-      console.error('Error exporting to Excel:', response.statusText);
+      console.error('Error importing projects:', response.statusText);
+      throw new Error('Import failed');
     }
   } catch (error) {
-    console.error('Error exporting to Excel:', error.message);
-  }
-};
-
-
-const importFromCsv = async () => {
-  try {
-    const token = authTokens ? authTokens.access : null;
-    if (!token) {
-      throw new Error('Authentication token is missing');
-    }
-
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/project/import-projects-from-csv/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    });
-
-    // Check if the request was successful (status code 200)
-    if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
-    } else {
-      console.error('Error exporting to Csv:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error exporting to Csv:', error.message);
-  }
-};
-
-const importFromPdf = async () => {
-  try {
-    const token = authTokens ? authTokens.access : null;
-    if (!token) {
-      throw new Error('Authentication token is missing');
-    }
-
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/project/import-projects-from-pdf/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    });
-
-    // Check if the request was successful (status code 200)
-    if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
-    } else {
-      console.error('Error exporting to Pdf:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error exporting to Pdf:', error.message);
-  }
-};
-
-const importFromJson = async () => {
-  try {
-    const token = authTokens ? authTokens.access : null;
-    if (!token) {
-      throw new Error('Authentication token is missing');
-    }
-
-    // Make a request to the backend to trigger the Excel import
-    const response = await fetch('http://localhost:8000/api/v1/project/import-projects-from-json/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    });
-
-    // Check if the request was successful (status code 200)
-    if (response.ok) {
-      // Redirect to the generated Excel file
-      window.location.href = response.url;
-    } else {
-      console.error('Error exporting to Json:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error exporting to Json:', error.message);
+    console.error('Error importing projects:', error.message);
+    throw error;
   }
 };
 
   const contextData = {
     projects,
+    users,
+    clients,
     error,
     loading,
     fetchData,
@@ -343,11 +285,7 @@ const importFromJson = async () => {
     exportToJson, 
     exportToCsv,
     exportToPdf,
-    importFromExcel, 
-    importFromJson, 
-    importFromCsv,
-    importFromPdf,
-    setSelectedFile
+    importProjects
   };
 
   return (

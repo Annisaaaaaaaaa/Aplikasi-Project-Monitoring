@@ -32,7 +32,6 @@ class Migration(migrations.Migration):
                 ('additional_info', models.TextField(blank=True, null=True)),
                 ('date_joined', models.DateField()),
                 ('status', models.CharField(choices=[('aktif', 'Aktif'), ('tidak aktif', 'TIdak Aktif')], default='aktif', max_length=20)),
-                ('last_activity', models.DateTimeField()),
                 ('created_at', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],

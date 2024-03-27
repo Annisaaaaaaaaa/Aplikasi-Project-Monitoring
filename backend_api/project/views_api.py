@@ -5,7 +5,6 @@ from .serializers import ProjectSerializer
 
 from django.http import HttpResponse
 from openpyxl import Workbook
-from .models import Project
 from openpyxl.styles import Font, NamedStyle
 
 from django.http import JsonResponse
@@ -25,6 +24,13 @@ from reportlab.lib.pagesizes import letter, landscape
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from import_export.widgets import ForeignKeyWidget
+from tablib import Dataset
+from .resources import ProjectResource
+from datetime import datetime
+
+from .models import EngineerProject
+from .serializers import EngineerProjectSerializer
 
 #Create dan List
 class ProjectListCreate(generics.ListCreateAPIView):
@@ -35,7 +41,6 @@ class ProjectListCreate(generics.ListCreateAPIView):
 class ProjectRetrieveUpdate(generics.RetrieveUpdateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-
 
 # Delete
 class ProjectDestroy(generics.DestroyAPIView):
@@ -75,110 +80,67 @@ class ProjectList(generics.ListCreateAPIView):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
-import PyPDF2
-from django.http import JsonResponse
+class EngineerProjectListCreate(generics.ListCreateAPIView):
+    queryset = EngineerProject.objects.all()
+    serializer_class = EngineerProjectSerializer
 
-def import_from_pdf(request):
-    if request.method == 'POST' and request.FILES['pdf_file']:
-        pdf_file = request.FILES['pdf_file']
-        # Membaca file PDF yang dikirim melalui permintaan HTTP
-        pdf_reader = PyPDF2.PdfFileReader(pdf_file)
-        text = ''
-        # Mendapatkan teks dari semua halaman PDF
-        for page_num in range(pdf_reader.numPages):
-            text += pdf_reader.getPage(page_num).extractText()
-        
-        # Proses teks PDF sesuai kebutuhan
-        # Misalnya, split teks menjadi baris-baris data
-        data = [line.strip().split(',') for line in text.split('\n')]
-        
-        return JsonResponse({'data': data})
-    else:
-        return JsonResponse({'error': 'No PDF file provided or incorrect request method'})
+class EngineerProjectRetrieveUpdate(generics.RetrieveUpdateAPIView):
+    queryset = EngineerProject.objects.all()
+    serializer_class = EngineerProjectSerializer
 
-# def import_from_excel(request):
-#     data = []
-#     # Membuka file Excel
-#     wb = openpyxl.load_workbook('doc/projects.xlsx')
-#     sheet = wb.active
-#     # Mengambil data dari setiap baris
-#     for row in sheet.iter_rows(values_only=True):
-#         data.append(row)
-
-#     return JsonResponse({'data': data})
+class EngineerProjectDestroy(generics.DestroyAPIView):
+    queryset = EngineerProject.objects.all()
+    serializer_class = EngineerProjectSerializer
 
 @csrf_exempt
-def import_from_excel(request):
-    if request.method == 'POST' and request.FILES['excel_file']:
-        excel_file = request.FILES['excel_file']
-        try:
-            # Membaca file Excel ke DataFrame menggunakan Pandas
-            df = pd.read_excel(excel_file)
-            
-            # Menyimpan data ke database menggunakan Django ORM
-            for index, row in df.iterrows():
-                Project.objects.create(
-                    contract_no=row['Contract No'],  # Sesuaikan dengan nama kolom di file Excel Anda
-                    contract_date=row['Contract Date'],  # Sesuaikan dengan nama kolom di file Excel Anda
-                    am=row['AM'],
-                    pic=row['PIC'],
-                    pm=row['PM'],
-                )
-            
-            return JsonResponse({'message': 'projects imported successfully'}, status=200)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-    else:
-        return JsonResponse({'error': 'No file uploaded'}, status=400)
-
-# def import_from_csv(request):
-#     data = []
-#     # Membaca file CSV
-#     with open('doc/projects.csv', 'r') as file:
-#         csv_reader = csv.reader(file)
-#         # Mengambil data dari setiap baris
-#         for row in csv_reader:
-#             data.append(row)
-
-#     return JsonResponse({'data': data})
-
-def import_from_csv(request):
+def import_projects(request):
     if request.method == 'POST':
-        file = request.FILES['file']
-        data = []
+        dataset = Dataset()
 
-        # Membaca file CSV
-        decoded_file = file.read().decode('utf-8').splitlines()
-        csv_reader = csv.reader(decoded_file)
-        
-        # Mengambil data dari setiap baris
-        for row in csv_reader:
-            data.append(row)
+        # Set headers for the dataset
+        dataset.headers = [
+            'year', 'pid', 'name', 'description', 'customer',
+            'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
+            'am', 'pic', 'pm', 'start_date', 'end_date',
+            'status', 'top', 'sow', 'oos', 'detail',
+            'remarks', 'weight', 'priority', 'type', 'market_segment',
+            'tech_use', 'resiko', 'beban_proyek', 'completion_percentage'
+        ]
 
-        return JsonResponse({'data': data})
-    else:
-        return JsonResponse({'error': 'Metode request tidak valid.'})
+        new_projects = request.FILES['file']
 
-# def import_from_json(request):
-#     data = []
-#     # Membaca file JSON
-#     with open('doc/projects.json', 'r') as file:
-#         data = json.load(file)
+        if not new_projects.name.endswith('xlsx'):
+            return JsonResponse({'error': 'File must be in Excel (xlsx) format.'})
 
-#     return JsonResponse({'data': data})
+        imported_data = dataset.load(new_projects.read(), 'xlsx')
 
-def import_from_json(request):
-    if request.method == 'POST':
-        file = request.FILES['file']
-        data = []
+        for data_row in imported_data:
+            # ... (lanjutkan debug di bagian lain)
 
-        # Membaca file JSON
-        decoded_file = file.read().decode('utf-8')
-        data = json.loads(decoded_file)
+            # Convert date strings to datetime objects if needed
+            date_fields = ['contract_date', 'start_date', 'end_date']
+            for field in date_fields:
+                if field in data_row and data_row[field]:
+                    try:
+                        data_row[field] = datetime.strptime(data_row[field], '%Y-%m-%d').date()
+                    except ValueError:
+                        return JsonResponse({'error': f'Invalid date format for {field}.'})
 
-        return JsonResponse({'data': data})
-    else:
-        return JsonResponse({'error': 'Metode request tidak valid.'})
+            # Creating a resource instance
+            resource = ProjectResource()
+            
+            # Pass the dataset directly to import_data
+            result = resource.import_data(dataset, dry_run=True, raise_errors=False)
+
+            if not result.has_errors():
+                # You can choose to use dry_run=False if the import is successful
+                # resource.import_data(dataset, dry_run=False)
+
+                return JsonResponse({'success': 'Projects imported successfully.'})
+            else:
+                return JsonResponse({'error': 'There was an error importing the file.'})
+
+    return JsonResponse({'error': 'Invalid request method.'})
 
 def export_projects_to_pdf(request):
     projects = Project.objects.all()
@@ -199,17 +161,48 @@ def export_projects_to_pdf(request):
     pdf_title = Paragraph("projects Data", style)
 
     # Define column names manually
-    field_names = ['Contract No', 'Contract Date', 'AM', 'PIC', 'PM']
+    field_names = [
+        'year', 'pid', 'name', 'description', 'customer',
+        'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
+        'am', 'pic', 'pm', 'start_date', 'end_date',
+        'status', 'top', 'sow', 'oos', 'detail',
+        'remarks', 'weight', 'priority', 'type', 'market_segment',
+        'tech_use', 'resiko', 'beban_proyek', 'completion_percentage'
+    ]
 
     # Set up data rows
     data = [field_names]
     for project in projects:
         row = [
-            project.contract_no,
-            project.contract_date.strftime('%Y-%m-%d'),
-            project.am.email,
-            project.pic.email,
-            project.pm.email
+            str(project.year) if project.year else '',
+            project.pid if project.pic else '',
+            project.name if project.name else '',
+            project.description if project.description else '',
+            project.customer.name if project.customer.name else '',
+            project.sales.first_name if project.sales.first_name else '',
+            str(project.amount_tax) if project.amount_tax else '',
+            str(project.amount_exc_tax) if project.amount_exc_tax else '',
+            project.contract_no if project.contract_no else '',
+            str(project.contract_date) if project.contract_date else '',
+            project.am.first_name if project.am.first_name else '',
+            project.pic.first_name if project.pic.first_name else '',
+            project.pm.first_name if project.pm else '',
+            str(project.start_date) if project.start_date else '',
+            str(project.end_date) if project.end_date else '',
+            project.get_status_display(),
+            project.top if project.top else '',
+            project.sow if project.sow else '',
+            project.oos if project.oos else '',
+            project.detail if project.detail else '',
+            project.remarks if project.remarks else '',
+            str(project.weight) if project.weight else '',
+            project.priority if project.priority else '',
+            project.type if project.type else '',
+            project.market_segment if project.market_segment else '',
+            project.tech_use if project.tech_use else '',
+            project.resiko if project.resiko else '',
+            str(project.beban_proyek) if project.beban_proyek else '',
+            str(project.completion_percentage) if project.completion_percentage else '',
         ]
         data.append(row)
 
@@ -256,14 +249,36 @@ def export_projects_to_json(request):
     data_list = []
     for project in projects:
         data_list.append({
-            'Id': project.id,
-            'Contract No': project.contract_no,
-            'Contract Date': project.contract_date.strftime('%Y-%m-%d'),
-            'AM': project.am.email,
-            'PIC': project.pic.email,
-            'PM': project.pm.email,
-            'Created At': project.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            'Updated At': project.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+            'Year': str(project.year) if project.year else '',
+            'PID': project.pid if project.pic else '',
+            'Name': project.name if project.name else '',
+            'Description': project.description if project.description else '',
+            'Customer': project.customer.name if project.customer.name else '',
+            'Sales': project.sales.first_name if project.sales.first_name else '',
+            'Amount Tax': str(project.amount_tax) if project.amount_tax else '',
+            'Amount Exc Tax': str(project.amount_exc_tax) if project.amount_exc_tax else '',
+            'Contract No': project.contract_no if project.contract_no else '',
+            'Contract Date': str(project.contract_date) if project.contract_date else '',
+            'AM': project.am.first_name if project.am.first_name else '',
+            'PIC': project.pic.first_name if project.pic.first_name else '',
+            'PM': project.pm.first_name if project.pm.first_name else '',
+            'Start Date': str(project.start_date) if project.start_date else '',
+            'End Date': str(project.end_date) if project.end_date else '',
+            'Status': project.get_status_display(),
+            'TOP': project.top if project.top else '',
+            'SOW': project.sow if project.sow else '',
+            'OOS': project.oos if project.oos else '',
+            'Detail': project.detail if project.detail else '',
+            'Remarks': project.remarks if project.remarks else '',
+            'Weight': str(project.weight) if project.weight else '',
+            'Priority': project.priority if project.priority else '',
+            'Type': project.type if project.type else '',
+            'Market Segment': project.market_segment if project.market_segment else '',
+            'Tech Use': project.tech_use if project.tech_use else '',
+            'Resiko': project.resiko if project.resiko else '',
+            'Beban Proyek': str(project.beban_proyek) if project.beban_proyek else '',
+            'Completion Percentage': str(project.completion_percentage) if project.completion_percentage else '',
+
         })
 
     # Convert data to JSON
@@ -284,22 +299,55 @@ def export_projects_to_csv(request):
     writer = csv.writer(response)
 
     # Write the header row to the CSV file
-    field_names = ['ID','Contract No', 'Contract Date', 'AM', 'PIC', 'PM', 'Created At', 'Updated At']
+    field_names = [
+        'year', 'pid', 'name', 'description', 'customer',
+        'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
+        'am', 'pic', 'pm', 'start_date', 'end_date',
+        'status', 'top', 'sow', 'oos', 'detail',
+        'remarks', 'weight', 'priority', 'type', 'market_segment',
+        'tech_use', 'resiko', 'beban_proyek', 'completion_percentage'
+    ]
     writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
 
     # Write data rows to the CSV file
     projects = Project.objects.all()
+
     for project in projects:
-        # Create a list with formatted values
+        # Convert date fields to string without timezone information
+        contract_date_str = project.contract_date.strftime('%Y-%m-%d') if project.contract_date else ''
+        start_date_str = project.start_date.strftime('%Y-%m-%d') if project.start_date else ''
+        end_date_str = project.end_date.strftime('%Y-%m-%d') if project.end_date else ''
+
         row_data = [
-            project.id,
-            project.contract_no,
-            project.contract_date.strftime('%Y-%m-%d'),
-            project.am.email,
-            project.pic.email,
-            project.pm.email,
-            project.created_at.strftime('%Y-%m-%d %H:%M:%S'),
-            project.updated_at.strftime('%Y-%m-%d %H:%M:%S'),
+            str(project.year) if project.year else '',
+            project.pid if project.pic else '',
+            project.name if project.name else '',
+            project.description if project.description else '',
+            project.customer.name if project.customer.name else '',
+            project.sales.first_name if project.sales.first_name else '',
+            str(project.amount_tax) if project.amount_tax else '',
+            str(project.amount_exc_tax) if project.amount_exc_tax else '',
+            project.contract_no if project.contract_no else '',
+            contract_date_str,
+            project.am.first_name if project.am.first_name else '',
+            project.pic.first_name if project.pic.first_name else '',
+            project.pm.first_name if project.pm else '',
+            start_date_str,
+            end_date_str,
+            project.get_status_display(),
+            project.top if project.top else '',
+            project.sow if project.sow else '',
+            project.oos if project.oos else '',
+            project.detail if project.detail else '',
+            project.remarks if project.remarks else '',
+            str(project.weight) if project.weight else '',
+            project.priority if project.priority else '',
+            project.type if project.type else '',
+            project.market_segment if project.market_segment else '',
+            project.tech_use if project.tech_use else '',
+            project.resiko if project.resiko else '',
+            str(project.beban_proyek) if project.beban_proyek else '',
+            str(project.completion_percentage) if project.completion_percentage else '',
         ]
 
         # Write the row to the CSV file
@@ -307,11 +355,13 @@ def export_projects_to_csv(request):
 
     return response
 
-from django.http import HttpResponse
 from openpyxl import Workbook
-from openpyxl.writer.excel import save_workbook
-from io import BytesIO
-from .models import Project
+from openpyxl.worksheet.table import Table, TableStyleInfo
+
+from openpyxl import Workbook
+from openpyxl.worksheet.table import Table, TableStyleInfo
+from django.http import FileResponse
+import tempfile
 
 def export_projects_to_excel(request):
     # Create a new Excel workbook and add a worksheet
@@ -319,38 +369,75 @@ def export_projects_to_excel(request):
     ws = wb.active
 
     # Define column names manually
-    field_names = ['ID', 'Contract No', 'Contract Date', 'AM', 'PIC', 'PM', 'Created At', 'Updated At']
+    field_names = [
+        'year', 'pid', 'name', 'description', 'customer',
+        'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
+        'am', 'pic', 'pm', 'start_date', 'end_date',
+        'status', 'top', 'sow', 'oos', 'detail',
+        'remarks', 'weight', 'priority', 'type', 'market_segment',
+        'tech_use', 'resiko', 'beban_proyek', 'completion_percentage' 
+    ]
 
     # Write headers to the worksheet
     ws.append(field_names[:-1])  # Exclude the 'Download Link' field
 
     projects = Project.objects.all()
 
+    hyperlink_style = NamedStyle(name='hyperlink_style', font=Font(color="0000FF", underline='single'))
+
     # Write data to the worksheet
-    for project in projects:
+    for project, row_num in zip(projects, range(2, len(projects) + 2)):
+        # Convert date fields to string without timezone information
+        contract_date_str = project.contract_date.strftime('%Y-%m-%d') if project.contract_date else ''
+        start_date_str = project.start_date.strftime('%Y-%m-%d') if project.start_date else ''
+        end_date_str = project.end_date.strftime('%Y-%m-%d') if project.end_date else ''
+
+        sales_name = project.sales.first_name if project.sales else ''
+        
         row_data = [
-            project.id,
-            project.contract_no,
-            project.contract_date.strftime('%Y-%m-%d') if project.contract_date else '',  # Check for None or empty date
-            project.am.email,
-            project.pic.email,
-            project.pm.email,
-            project.created_at.strftime('%Y-%m-%d %H:%M:%S') if project.created_at else '',  # Check for None or empty date
-            project.updated_at.strftime('%Y-%m-%d %H:%M:%S') if project.updated_at else '',  # Check for None or empty date
+            str(project.year) if project.year else '',
+            project.pid if project.pid else '',
+            project.name if project.name else '',
+            project.description if project.description else '',
+            project.customer.name if project.customer.name else '',
+            sales_name,
+            str(project.amount_tax) if project.amount_tax else '',
+            str(project.amount_exc_tax) if project.amount_exc_tax else '',
+            project.contract_no if project.contract_no else '',
+            contract_date_str,
+            project.am.first_name if project.am else '',
+            project.pic.first_name if project.pic else '',
+            project.pm.first_name if project.pm else '',
+            start_date_str,
+            end_date_str,
+            project.get_status_display(),
+            project.top if project.top else '',
+            project.sow if project.sow else '',
+            project.oos if project.oos else '',
+            project.detail if project.detail else '',
+            project.remarks if project.remarks else '',
+            str(project.weight) if project.weight else '',
+            project.priority if project.priority else '',
+            project.type if project.type else '',
+            project.market_segment if project.market_segment else '',
+            project.tech_use if project.tech_use else '',
+            project.resiko if project.resiko else '',
+            str(project.beban_proyek) if project.beban_proyek else '',
+            str(project.completion_percentage) if project.completion_percentage else '',
         ]
-        ws.append(row_data)
+        for col_num, value in enumerate(row_data):
+            ws.cell(row=row_num, column=col_num + 1).value = value
 
-    # Create a BytesIO buffer to save the workbook
-    buffer = BytesIO()
+    # Add filter to header row
+    ws.auto_filter.ref = ws.dimensions
 
-    # Save the workbook to the buffer
-    save_workbook(wb, buffer)
+    # Save workbook to a temporary file
+    tmp_file = tempfile.NamedTemporaryFile(delete=False)
+    wb.save(tmp_file.name)
+    tmp_file.close()
 
-    # Seek to the beginning of the buffer
-    buffer.seek(0)
-
-    # Create the HttpResponse object with the appropriate Excel header
-    response = HttpResponse(buffer, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    # Serve the file using Django FileResponse
+    response = FileResponse(open(tmp_file.name, 'rb'), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=projects.xlsx'
 
     return response
