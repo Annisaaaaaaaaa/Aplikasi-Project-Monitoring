@@ -10,31 +10,11 @@
     font-family: 'Poppins', sans-serif;
     background: url('img/bg4.png');
 }
-  /* Lebar scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px; /* Sesuaikan dengan lebar yang diinginkan */
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-    background: #fff; /* Warna latar belakang track */
-}
-
-/* Handle atau thumb */
-::-webkit-scrollbar-thumb {
-    background: #fff; /* Warna thumb */
-}
-
-/* Handle pada hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #fff; /* Warna thumb saat hover */
-}
 
 body{
     background-color: #F4F4F4;
     background: url('img/bg4.png');
     overflow-x: hidden;
-    height: fit-content;
 }
 
 .container {
@@ -48,7 +28,6 @@ body{
    flex: 1;
    padding-left: 50px;
    padding-top: 30px;
-   margin-bottom: 3%;
 }
 
 /* .navbar img {
@@ -325,54 +304,145 @@ body{
 }
 
 
-/******* Dashboard ******/
-
-.ds-utama {
-    position: relative;
-    width: calc(95% - 50px);
-    height: 300px;
-    margin-top: 50px;
-    transition: all 0.3s ease;
-    background: linear-gradient(87.42deg, rgba(129, 123, 200, 0.5) 4.46%, rgba(212, 208, 255, 0.5) 43.68%, rgba(239, 238, 255, 0.5) 56.38%, rgba(212, 208, 255, 0.5) 79.91%, rgba(160, 192, 240, 0.5) 92.97%, rgba(184, 212, 255, 0.5) 98.22%);
-    backdrop-filter: blur(5px);
-    border-radius: 20px;
-}
-
-
-
-
-/**** Form Tambah ***/
-
-
-.bg-form-atas {
+.group-25 {
     position: absolute;
-    width: 287px;
+    width: calc(100% - 50px);
+    height: 50%;
+    top: 17px;
+    margin-left: 80%;
+  }
+  
+.overlap-5 {
+    position: relative;
+    width: calc(100% - 50px);
+    height: 55px;
+  }
+  
+  .rectangle-10 {
+    position: absolute;
+    width: calc(15% - 50px);
+    height: 65px;
+    top: 8px;
+    margin-left: 5%;
+    border-radius: 25px 0px 0px 25px;
+    background: linear-gradient(268.91deg, rgba(144, 201, 242, 0.5) -6.45%, rgba(176, 191, 231, 0.644512) 26.66%, rgba(219, 228, 251, 0.5) 71%);
+
+  }
+  
+ .ellipse-5 {
+    position: absolute;
+    width: 80px;
     height: 80px;
-    left: 145px;
-    top: 124px;
-    background: #C0CFF8;
-    backdrop-filter: blur(22.5px);
-    border-radius: 20px;
-    clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 80%);
+    top: 0;
+    margin-left: 14%;
+    border-radius: 100%;
+    background: linear-gradient(180deg, rgb(156.37, 174.76, 222.06) 0%, rgb(151.56, 158.19, 217.81) 100%);
+  }
+  
+  .text-wrapper-37 {
+    top: 20px;
+    margin-left: 7%;
+    font-family: "Poppins-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #1e1c1c;
+    font-size: 15px;
+    position: absolute;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+ .text-wrapper-38 {
+    position: absolute;
+    top: 40px;
+    margin-left: 11%;
+    font-family: "Montserrat-Regular", Helvetica;
+    font-weight: 400;
+    color: #1e1c1c;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+  }
+
+  .dashboard-engineer .group-19 {
+    position: absolute;
+    width: 369px;
+    height: 20px;
+    top: 50px;
+    left: 900px;
 }
   
-.bg-form-bawah{
+.dashboard-engineer .text-wrapper-32 {
     position: absolute;
-    width: 58%;
-    height: 50%;
-    left: 145px;
-    top: 184px;
-    background: #C0CFF8;
-    backdrop-filter: blur(22.5px);
-    border-radius: 5px 20px 20px 20px;
+    top: 0;
+    left: 0;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #6296c6;
+    font-size: 17px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+  
+.dashboard-engineer .text-wrapper-33 {
+    position: absolute;
+    top: 0;
+    left: 155px;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #6296c6;
+    font-size: 17px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
+}
+  
+.dashboard-engineer .text-wrapper-34 {
+    position: absolute;
+    top: 0;
+    left: 325px;
+    font-family: "Montserrat-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #6195c5;
+    font-size: 17px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: normal;
 }
 
-.bg-form-atas p{
-    width: 146px;
-    height: 38px;
-    left: 229px;
-    margin-left: 35%;
-    margin-top: 10%;
+
+/***** Form *****/
+
+.form-add-user {
+    margin-top: 3%;
+}
+
+.form-add-user p {
+    margin-left: 3%;
+}
+
+.tiitle-add-user{
+    display: flex;
+}
+
+
+.add-user-kanan {
+    display: flex;
+    align-items: center;
+}
+
+.add-user-kanan img{
+    width: 100%;
+}
+
+.icon-add-client {
+    margin-right: 20px; 
+}
+
+.kiri-icon-user {
+    margin-right: 10px; 
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
@@ -381,49 +451,55 @@ body{
     color: #4F5B96;
 }
 
-.container-form {
-    display: flex;
+.add-user {
+    margin: 0; 
 }
 
-.left,
-.right {
-    display: inline-block;
+.miau4{
+    display: flex;   
 }
 
-.left img {
-    width: 130%;
-    margin-left: 70%;
-    margin-top: 45%;
+.miau4 .kiri-user{
+    margin-left: 2%;
+    float: left;
 }
 
-.ess p {
-    width: 169px;
-    height: 23px;
-    margin-left: 3%;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 22px;
-    color: #4F5B96;
+.miau4 .kanan-user{
+    margin-left: 5%;
+    float: right;
 }
 
-.ess2 p {
-    width: 169px;
-    height: 23px;
-    margin-left: 3%;
-    margin-top: 2%;
-    font-family: 'Poppins';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 15px;
-    line-height: 22px;
-    color: #4F5B96;
+.miau5 {
+    clear: both;
+}
+
+.miau6 {
+    margin-top: -47%;
+}
+
+.miau7 {
+    margin-top: 0;
+}
+
+.miau4 .error{
+    color: red;
+    margin-left: 5%;
+
 }
 
 .tittle-form{
     margin-left: 3%;
     margin-top: 4%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+}
+
+.tittle-form-email{
+    margin-top: 2%;
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
@@ -441,9 +517,11 @@ body{
     background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
     backdrop-filter: blur(75px);
     border-radius: 12px;
+    padding-left: 10px;
 }
-.input-form2 input{
-    width: 600px;
+
+.input-form-email input{
+    width: 50%;
     height: 40px;
     margin-left: 3%;
     margin-top: 1%;
@@ -451,63 +529,160 @@ body{
     background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
     backdrop-filter: blur(75px);
     border-radius: 12px;
+    padding-left: 10px;
 }
-.input-form3 input{
-    width: 1290px;
-    height: 100px;
-    margin-left: 3%;
-    margin-top: 1%;
+
+.miau-container section {
+    width: 100vmin;
+    height: 100vh;
+    margin-left: 28%;
+    margin-top: 3%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.tile{
+    height: 8%;
+    width: 170px;
+    justify-content: center;
+    position: relative;
+}
+
+input[type="checkbox"]{
+    -webkit-appearance: none;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 3px solid transparent;
+    outline: none;
+    box-shadow: 15px 15px 25px rgba(2,28,53,0.05);
+}
+
+.checkbox-1  {
+    background-color: #E99AD1; /* Misalnya: Merah */
+}
+
+.checkbox-2 {
+    background-color: #C3A3EE; /* Misalnya: Hijau */
+}
+
+.checkbox-3 {
+    background-color: #96AEF6; /* Misalnya: Biru */
+}
+
+.checkbox-4  {
+    background-color: #56B8D5; /* Misalnya: Kuning */
+}
+
+
+/* Checkbox keempat */
+input[type="checkbox"]:nth-of-type(4) {
+    background-color: #ffff99;
+}
+
+
+input[type="checkbox"]:after{
+    position: absolute;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 400;
+    content: "\f111";
+    font-size: 22px;
+    top: 10px;
+    left: 10px;
+    color: #e2e6f3;
+}
+input[type="checkbox"]:hover{
+    transform: scale(1.08);
+}
+input[type="checkbox"]:checked{
+    border: 3px solid #1E2652;
+}
+input[type="checkbox"]:checked:after{
+    font-weight: 900;
+    content: "\f058";
+    color: #1E2652;
+}
+label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    height: 80%;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    cursor: pointer;
+}
+label .fas{
+    padding-bottom: 20px;
+    padding-right: 30px;
+    font-size: 20px;
+    color: #2c2c51;
+}
+input[type="checkbox"]:checked + label h4{
+    animation: grow 0.5s;
+}
+@keyframes grow{
+    50%{
+        font-size: 30px;
+    }
+}
+label h6{
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #1E2652;
+}
+
+label h4{
+    font-family: "Poppins", sans-serif;
+    font-size: 18px;
+    font-weight: 1000; 
+    color: #1E2652;
+    text-align: center;
+    justify-content: center;
+    padding-bottom: 15px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-label .fas {
+    margin-right: 10px; /* Atur jarak antara ikon dan judul */
+    font-size: 20px;
+    color: #2c2c51;
+}
+
+.tambah-user {
+    position: relative; 
+}
+
+.tambah-user button {
+    margin-top: 3%; 
+    margin-left: 45%;
+    padding: 15px;
     border: none;
-    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
-    backdrop-filter: blur(75px);
-    border-radius: 12px;
+    cursor: pointer;
+    background: linear-gradient(89.96deg, rgba(141, 92, 243, 0.5) 0.04%, rgba(91, 168, 239, 0.5) 58.24%, rgba(89, 111, 132, 0.5) 122.56%);
+    border-radius: 14px;
+
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 19px;
+    line-height: 23px;
+    text-align: center;
+
+    color: #334062;
 }
-
-input::placeholder{
-    padding-left: 5%;
-    color: #4D547A;
-}
-
-.miau{
-    display: flex;
-    
-}
-
-.miau .kiri{
-    margin-left: 2%;
-    float: left;
-}
-
-.miau .kanan{
-    margin-left: 5%;
-    float: right;
-}
-
-.miau .error{
-    color: red;
-    margin-left: 5%;
-
-}
-
-.miau2{
-    display: flex;
-    margin-top: 2%;
-}
-
-.miau2 .kiri{
-    margin-left: 2%;
-    float: left;
-}
-
-.miau2 .kanan{
-    margin-left: 5%;
-    float: right;
-}
-
-.miau3 {
-    clear: both;
-}
-
 
 .exel-form {
     position: absolute;
@@ -518,6 +693,7 @@ input::placeholder{
     background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.25) 0.65%, rgba(192, 191, 242, 0.25) 100%);
     backdrop-filter: blur(75px);
     border-radius: 20px;
+    margin-top: 8%;
    
 }
 
@@ -572,68 +748,11 @@ button:nth-child(1) {
     background-color: #2C904D; 
 }
 
-.form-bawah{
-    position: absolute;
-    width: 1500px;
-    height: 579px;
-    left: 145px;
-    margin-top: 30%;
-    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.25) 0.65%, rgba(192, 191, 242, 0.25) 100%);
-    backdrop-filter: blur(75px);
-    border-radius: 20px;
-}
 
-.miau3 ea{
-    margin-left: 3%;
-    width: 85%;
-    height: 250%;
-    border: none;
-    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
-    backdrop-filter: textarblur(75px);
-    border-radius: 12px;    
-    padding: 0.7%;
-}
 
-textarea:focus {
-    border: none;
-}
 
-.tambah-client {
-    position: relative; 
-}
 
-.tambah-client button {
-    position: absolute; 
-    bottom: 228px; 
-    left: 93%; 
-    background: linear-gradient(89.96deg, #7CBCF7 0.04%, #80ADE5 63.75%, #548ADA 110.92%);
-    border-radius: 14px;
-}
 
-.file-input-container {
-   margin-top: 5%;
-   margin-left: 3%;
-}
 
-.label-file {
-    background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.5) 0.65%, rgba(140, 99, 206, 0.5) 100%);
-    border: 0.2px solid #BBAAB8;
-    backdrop-filter: blur(75px);
-    border-radius: 10px;
-    color: #4D547A;
-    padding: 10px 50px;
-    cursor: pointer;
-}
 
-.label-file:hover {
-    background-color: #548ADA;
-}
-
-/* Mengatur posisi label di bawah tombol "Choose File" */
-.label-file + input[type="file"] {
-    position: absolute;
-    top: 100%; /* Menggeser ke bawah sesuai dengan tinggi label */
-    left: 0;
-    opacity: 0;
-}
 
