@@ -1,5 +1,6 @@
 from rest_framework import generics, filters
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .models import Invoice
 from .serializers import InvoiceSerializer
 
@@ -76,10 +77,21 @@ def import_invoices(request):
     return JsonResponse({'error': 'Invalid request method.'})
 
 
-
 def export_invoices_to_pdf(request):
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
     # Retrieve invoices data
     invoices = Invoice.objects.all()
+
+    # Filter invoices by month if provided
+    if month:
+        invoices = invoices.filter(date__month=month)
+
+    # Filter invoices by year if provided
+    if year:
+        invoices = invoices.filter(date__year=year)
 
     # Create a buffer to store PDF data
     buffer = BytesIO()
@@ -142,14 +154,33 @@ def export_invoices_to_pdf(request):
 
     # FileResponse sets the Content-Disposition header for file download
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=invoices.pdf'
+    if month:
+        response['Content-Disposition'] = 'attachment; filename=invoices_{0}.pdf'.format(month)
+    elif year:
+        response['Content-Disposition'] = 'attachment; filename=invoices_{0}.pdf'.format(year)
+    else:
+        response['Content-Disposition'] = 'attachment; filename=invoices_all.pdf'
+
     response.write(buffer.getvalue())
 
     return response
 
+
 def export_invoices_to_json(request):
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
     # Retrieve invoices data
     invoices = Invoice.objects.all()
+
+    # Filter invoices by month if provided
+    if month:
+        invoices = invoices.filter(date__month=month)
+
+    # Filter invoices by year if provided
+    if year:
+        invoices = invoices.filter(date__year=year)
 
     # Convert data to a list of dictionaries
     data_list = []
@@ -171,14 +202,37 @@ def export_invoices_to_json(request):
 
     # Create the HttpResponse object with the appropriate JSON header
     response = HttpResponse(json_data, content_type='application/json')
-    response['Content-Disposition'] = 'attachment; filename=invoices.json'
+    if month:
+        response['Content-Disposition'] = 'attachment; filename=invoices_{0}.json'.format(month)
+    elif year:
+        response['Content-Disposition'] = 'attachment; filename=invoices_{0}.json'.format(year)
+    else:
+        response['Content-Disposition'] = 'attachment; filename=invoices_all.json'
 
     return response
 
+
+<<<<<<< HEAD
+=======
+
+>>>>>>> fafb99055096343141f8c333118656595f67a770
 def export_invoices_to_csv(request):
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=invoices.csv'
+
+    # Set the filename based on the filter, if any
+    if month:
+        filename = f'invoices_{month}.csv'
+    elif year:
+        filename = f'invoices_{year}.csv'
+    else:
+        filename = 'invoices_all.csv'
+
+    response['Content-Disposition'] = f'attachment; filename={filename}'
 
     # Create a CSV writer using the HttpResponse object as the "file."
     writer = csv.writer(response)
@@ -187,7 +241,16 @@ def export_invoices_to_csv(request):
     field_names = ['Project', 'To Contact', 'Sent Date', 'Due Date', 'Date', 'Amount', 'Status', 'Note', 'Download Link']
     writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
 
+    # Retrieve invoices data
     invoices = Invoice.objects.all()
+
+    # Filter invoices by month if provided
+    if month:
+        invoices = invoices.filter(date__month=month)
+
+    # Filter invoices by year if provided
+    if year:
+        invoices = invoices.filter(date__year=year)
 
     # Write data rows to the CSV file
     for invoice in invoices:
@@ -215,7 +278,12 @@ def export_invoices_to_csv(request):
     return response
 
 
+
 def export_invoices_to_excel(request):
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
     # Create a new Excel workbook and add a worksheet
     wb = Workbook()
     ws = wb.active
@@ -224,9 +292,18 @@ def export_invoices_to_excel(request):
     field_names = ['Project', 'To Contact', 'Sent Date', 'Due Date', 'Date', 'Amount', 'Status', 'Note', 'Download Link']
 
     # Write headers to the worksheet
-    ws.append(field_names[:-1])  
+    ws.append(field_names[:-1])
 
+    # Retrieve invoices data
     invoices = Invoice.objects.all()
+
+    # Filter invoices by month if provided
+    if month:
+        invoices = invoices.filter(date__month=month)
+
+    # Filter invoices by year if provided
+    if year:
+        invoices = invoices.filter(date__year=year)
 
     # Create a named style for hyperlinks
     hyperlink_style = NamedStyle(name='hyperlink_style', font=Font(color="0000FF", underline='single'))
@@ -266,9 +343,19 @@ def export_invoices_to_excel(request):
 
     # Serve the file using Django FileResponse
     response = FileResponse(open(tmp_file.name, 'rb'), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=invoices.xlsx'
+    if month:
+        response['Content-Disposition'] = f'attachment; filename=invoices_{month}.xlsx'
+    elif year:
+        response['Content-Disposition'] = f'attachment; filename=invoices_{year}.xlsx'
+    else:
+        response['Content-Disposition'] = 'attachment; filename=invoices_all.xlsx'
 
     return response
+
+# Detail invoice
+class InvoiceDetail(generics.RetrieveAPIView):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
 
 #Create dan List
 class InvoiceListCreate(generics.ListCreateAPIView):
@@ -317,3 +404,70 @@ class InvoiceList(generics.ListCreateAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+# Filter berdasarkan bulan dan/atau tahun
+class InvoiceListFilterByMonthYear(generics.ListAPIView):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        month = self.request.query_params.get('month')
+        year = self.request.query_params.get('year')
+
+        if month and year:
+            try:
+                month = int(month)
+                year = int(year)
+                queryset = queryset.filter(date__month=month, date__year=year)
+            except ValueError:
+                return JsonResponse({"error": "Invalid month or year value."}, status=400)
+        elif month:
+            try:
+                month = int(month)
+                queryset = queryset.filter(date__month=month)
+            except ValueError:
+                return JsonResponse({"error": "Invalid month value."}, status=400)
+        elif year:
+            try:
+                year = int(year)
+                queryset = queryset.filter(date__year=year)
+            except ValueError:
+                return JsonResponse({"error": "Invalid year value."}, status=400)
+
+        return queryset
+
+# Filter berdasarkan status
+class InvoiceListFilterByStatus(generics.ListAPIView):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        status = self.request.query_params.get('status')
+
+        if status:
+            queryset = queryset.filter(status=status)
+
+        return queryset
+    
+# Filter berdasarkan type
+class InvoiceListFilterByType(generics.ListAPIView):
+    queryset = Invoice.objects.all()
+    serializer_class = InvoiceSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        type = self.request.query_params.get('type')
+
+        if type:
+            queryset = queryset.filter(type=type)
+
+        return queryset
+
+# Count data
+class InvoiceCount(APIView):
+    def get(self, request):
+        invoice_count = Invoice.objects.count()
+        return Response({'count': invoice_count})
