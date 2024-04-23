@@ -8,7 +8,6 @@ from django.dispatch import receiver
 from decimal import Decimal
 from client.models import Client
 
-
 class PriorityChoice(models.TextChoices):
     TINGGI = "tinggi", _("Tinggi")
     SEDANG = "sedang", _("Sedang")
@@ -25,9 +24,9 @@ class Project(models.Model):
     year = models.IntegerField()
     pid = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
-    description = models.TextField()
-    customer = models.ForeignKey(Client, on_delete=models.CASCADE)
-    sales = models.ForeignKey(User, on_delete=models.CASCADE)
+    description = models.TextField(blank=True, null=True)
+    customer = models.ForeignKey(Client, on_delete=models.CASCADE, blank=True, null=True)
+    sales = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     amount_tax = models.IntegerField(blank=True, null=True)
     amount_exc_tax = models.IntegerField(blank=True, null=True)
     top = models.CharField(max_length=255, blank=True, null=True)

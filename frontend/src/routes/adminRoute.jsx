@@ -1,5 +1,3 @@
-// routes/adminRoute.js
-
 import AdminDashboard from '../component/Admin/AdminDashboard';
 import UserList from '../component/Administrator/USerList';
 import AddUser from '../component/Administrator/AddUser';

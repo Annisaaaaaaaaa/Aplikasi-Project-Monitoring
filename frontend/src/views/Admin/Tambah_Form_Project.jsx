@@ -1,20 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import ProjectInitialForm from './ProjectInitialForm';
-import ProjectInformForm from './Inform';
-import ProjectDetailForm from './Detail';
-import ProjectEngineerForm from './Engineer';
-import { FormProvider } from './../../context/FormContext';
-import AuthContext from './../../context/AuthContext';
+import ProjectInitialForm from './../../component/Project/ProjectInitialForm';
+import ProjectInformForm from './../../component/Project/ProjectInformForm';
+import ProjectDetailForm from './../../component/Project/ProjectDetailForm';
+import ProjectEngineerForm from './../../component/Project/ProjectEngineerForm';
+import { FormProvider } from './../../component/Project/FormContext';
+import AuthContext from '../../context/AuthContext';
 
-const FormTambahProject = () => {
+const Form_Tambah_Project = () => {
   const history = useHistory();
   const authContext = useContext(AuthContext);
   const [formData, setFormData] = useState({
-    // Inisialisasi data formulir
     projectInitial: {
-        
       year: '',
       pid: '',
       name: '',
@@ -67,10 +65,10 @@ const FormTambahProject = () => {
           throw new Error('Authentication token is missing');
         }
 
-        const usersResponse = await axios.get('http://127.0.0.1:8000/api/users/tambah', {
+        const usersResponse = await axios.get('http://localhost:8000/api/user/', {
           headers: {
             Authorization: `Bearer ${token}`,
-          }
+          },
         });
 
         const clientsResponse = await axios.get('http://localhost:8000/api/v1/client/', {
@@ -107,9 +105,6 @@ const FormTambahProject = () => {
 
   const submitFormData = async () => {
     try {
-        console.log('Form data:', formData);
-
-        
       const token = authContext.authTokens ? authContext.authTokens.access : null;
       if (!token) {
         throw new Error('Authentication token is missing');
@@ -162,7 +157,7 @@ const FormTambahProject = () => {
               status: '',
             },
           ],
-        },
+        },    
       });
 
       history.push('/project-admin');
@@ -189,6 +184,7 @@ const FormTambahProject = () => {
             onNextStep={handleNextStep}
             users={users}
             clients={clients}
+            formData={formData}
           />
         )}
         {step === 2 && (
@@ -198,12 +194,14 @@ const FormTambahProject = () => {
             users={users}
             priorityOptions={priorityOptions}
             statusOptions={statusOptions}
+            formData={formData}
           />
         )}
         {step === 3 && (
           <ProjectDetailForm
             onNextStep={handleNextStep}
             onPrevStep={handlePrevStep}
+            formData={formData}
           />
         )}
         {step === 4 && (
@@ -212,6 +210,7 @@ const FormTambahProject = () => {
             onPrevStep={handlePrevStep}
             users={users}
             statusOptions={statusOptions}
+            formData={formData}
           />
         )}
       </div>
@@ -219,4 +218,4 @@ const FormTambahProject = () => {
   );
 };
 
-export default FormTambahProject;
+export default Form_Tambah_Project;

@@ -7,9 +7,11 @@ import AuthContext from './../../context/AuthContext';
 
 const EditProjectForm = ({ match }) => {
   const history = useHistory();
-  const { id } = useParams();
+  const { projectId } = useParams();
   const authContext = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [statusOptions] = useState(['On Going', 'Overdue', 'Waiting', 'Done']);
   const [formErrors, setFormErrors] = useState({});
   
   const [formData, setFormData] = useState({
@@ -30,7 +32,14 @@ const EditProjectForm = ({ match }) => {
           throw new Error('Authentication token is missing');
         }
 
-        const response = await axios.get(`http://127.0.0.1:8000/api/v1/project/edit/${id}/`, {
+        const usersResponse = await axios.get('http://localhost:8000/api/user/', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setUsers(usersResponse.data);
+
+        const response = await axios.get(`http://localhost:8000/api/v1/project/edit/${projectId}/`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -47,7 +56,7 @@ const EditProjectForm = ({ match }) => {
     };
 
     fetchProjectData();
-  },[id, authContext.authTokens]);
+  },[projectId, authContext.authTokens]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +69,7 @@ const EditProjectForm = ({ match }) => {
       setLoading(true);
 
       // Ambil data sebelumnya dari server
-      const previousDataResponse = await axios.get(`http://127.0.0.1:8000/api/v1/project/edit/${id}/`, {
+      const previousDataResponse = await axios.get(`http://localhost:8000/api/v1/project/edit/${projectId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +82,7 @@ const EditProjectForm = ({ match }) => {
         engineer_projects: formData.engineer_projects,
       };
 
-      const result = await axios.put(`http://127.0.0.1:8000/api/v1/project/edit/${id}/`, updatedData, {
+      const result = await axios.put(`http://localhost:8000/api/v1/project/edit/${projectId}/`, updatedData, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -82,7 +91,7 @@ const EditProjectForm = ({ match }) => {
       setLoading(false);
       console.log('Server response:', result.data); 
       toast.success('Project berhasil diperbarui');
-      history.push('/administrator/project/'); 
+      history.push('/project-admin'); 
 
     } catch (error) {
       setLoading(false);
@@ -108,8 +117,14 @@ const EditProjectForm = ({ match }) => {
   const handleAddEngineer = () => {
     setFormData({
       ...formData,
-      engineer_projects: [...formData.engineer_projects, { engineer: '', workload_percentage: '', status: '' }]
+      engineer_projects: [...formData.engineer_projects, { engineer: '', presentase_beban_kerja: '', status: '' }]
     });
+  };
+
+  const handleRemoveRow = (index, type) => {
+    const newData = [...formData[type]];
+    newData.splice(index, 1);
+    setFormData({ ...formData, [type]: newData });
   };
 
   return (
@@ -118,14 +133,33 @@ const EditProjectForm = ({ match }) => {
       <form onSubmit={handleSubmit}>
         {formData.engineer_projects.map((engineer, index) => (
           <div key={index}>
-            <label>Engineer Name:</label>
-            <input type="text" name="engineer" value={engineer.engineer} onChange={(e) => handleChange(e, index)} />
-            <br />
+                    <label>
+          Engineer:
+          <select name="engineer"  value={engineer.engineer} onChange={(e) => handleChange(e, index)}>
+            <option value="">Select Engineer</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.email}
+              </option>
+            ))}
+          </select>
+        </label>
+          
+           <br />
             <label>Workload Percentage:</label>
-            <input type="text" name="workload_percentage" value={engineer.workload_percentage} onChange={(e) => handleChange(e, index)} />
+            <input type="number" name="presentase_beban_kerja" value={engineer.presentase_beban_kerja} onChange={(e) => handleChange(e, index)} />
             <br />
-            <label>Status:</label>
-            <input type="text" name="status" value={engineer.status} onChange={(e) => handleChange(e, index)} />
+            <label>
+          Status:
+          <select name="status" value={engineer.status} onChange={(e) => handleChange(e, index)}>
+            <option value="">Select Status</option>
+            {statusOptions.map((status) => (
+              <option key={status} value={status}>
+                {status}
+              </option>
+            ))}
+          </select>
+        </label>
             <br />
           </div>
         ))}
