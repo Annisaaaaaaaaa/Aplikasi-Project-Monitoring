@@ -37,12 +37,12 @@ function App() {
             <PrivateRoute component={Navigation} />
 
             {/* Admin */}
-          <Route component={ClientAdminFunction} path="/client-admin" />
+          {/* <Route component={ClientAdminFunction} path="/client-admin" />
           <Route component={ProjectAdminFunction} path="/project-admin" />
           <Route component={DocumentAdminFunction} path="/document-admin" />
           <Route component={UsersAdminFunction} path="/users-admin" />
           <Route component={InvoiceAdminFunction} path="/invoice-admin" />
-          <Route component={PaymentAdminFunction} path="/payment-admin" />
+          <Route component={PaymentAdminFunction} path="/payment-admin" /> */}
           <Route component={FormTambahClientFunction} path="/Form_Tambah_Client" />
           <Route component={FormTambahInvoiceFunction} path="/Form_Tambah_Invoice" />
           <Route component={FormEditInvoiceFunction} path="/invoice-edit/:invoiceId" />
@@ -108,63 +108,8 @@ function Home() {
   );
 }
 
-function ClientAdminFunction() {
-  return (
-    <div>
-      <ClientProvider>
-        <Client_admin />
-      </ClientProvider>
-    </div>
-  );
-}
 
-function ProjectAdminFunction() {
-  return (
-    <div>
-      <ProjectProvider>
-        <Project_admin />
-      </ProjectProvider>
-    </div>
-  );
-}
 
-function DocumentAdminFunction() {
-  return (
-    <div>
-      <DocumentProvider>
-        <Document_admin />
-      </DocumentProvider>
-    </div>
-  );
-}
-
-function UsersAdminFunction() {
-  return (
-    <div>
-      <Users_admin />
-    </div>
-  );
-}
-
-function InvoiceAdminFunction() {
-  return (
-    <div>
-      <InvoiceProvider>
-        <Invoice_admin />
-      </InvoiceProvider>
-    </div>
-  );
-}
-
-function PaymentAdminFunction() {
-  return (
-    <div>
-      <PaymentProvider>
-        <Payment_admin/>
-      </PaymentProvider>
-    </div>
-  );
-}
 
 export default App;
 

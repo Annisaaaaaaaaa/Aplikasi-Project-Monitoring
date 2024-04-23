@@ -354,3 +354,6 @@ def export_projects_to_excel(request):
     response['Content-Disposition'] = 'attachment; filename=projects.xlsx'
 
     return response
+
+
+

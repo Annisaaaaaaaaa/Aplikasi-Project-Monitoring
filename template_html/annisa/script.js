@@ -295,3 +295,57 @@ function createPagination(totalPages, page){
   return liTag; //reurn the li tag
 }
 
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("uploadForm"),
+    fileInput = document.getElementById("fileInput"),
+    progressArea = document.querySelector(".progress-area"),
+    uploadedArea = document.querySelector(".uploaded-area");
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files[0];
+    if (file) {
+      let fileName = file.name;
+      if (fileName.length >= 12) {
+        const splitName = fileName.split('.');
+        fileName = splitName[0].substring(0, 10) + "..." + splitName[1];
+      }
+      uploadFile(fileName, file);
+    }
+  });
+});
+
+function uploadFile(name, file) {
+  const xhr = new XMLHttpRequest();
+  xhr.open("POST", "upload.php");
+
+  xhr.upload.addEventListener("progress", (event) => {
+    if (event.lengthComputable) {
+      const percentComplete = (event.loaded / event.total) * 100;
+      progressArea.innerHTML = `<div class="progress-bar" style="width: ${percentComplete}%"></div>`;
+    }
+  });
+
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      const fileSize = (file.size / 1024).toFixed(2) + " KB";
+      const uploadedHTML = `<div class="uploaded-item">
+                              <i class="fas fa-file-alt"></i>
+                              <div class="details">
+                                <span class="name">${name} • Uploaded</span>
+                                <span class="size">${fileSize}</span>
+                              </div>
+                            </div>`;
+      uploadedArea.innerHTML = uploadedHTML + uploadedArea.innerHTML;
+    } else {
+      console.error("Failed to upload file.");
+    }
+  };
+
+  const formData = new FormData();
+  formData.append("file", file);
+  xhr.send(formData);
+}
+
+
+
+

@@ -6,14 +6,14 @@
     <!-- ICONS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="/Css/form_tambah_admin.css"/>
-    <title>Client Page</title>
+    <link rel="stylesheet" href="/Css/add_user.css"/>
+    <title>Add User</title>
 </head>
 <body>
     <div class="container">
 
         <!-- Include Sidebar -->
-
+        
             <!-- <div class="sidebar active">
                 <div class="menu-btn">
                     <i class="ph-bold ph-caret-left"></i>
@@ -23,9 +23,9 @@
                         <img src="/Img/logo.png" alt="logo">
                     </div>
                     <div class="user-details">
-                     
+                      
                         <p class="title"><span>Median</span>Skill</p>
-                
+                    
                     </div>
                 </div>
                 <div class="nav">
@@ -149,79 +149,110 @@
             </div> -->
 
             <!-- Include Navbar -->
-
-            <!-- <div class="navbar">
+            <div class="navbar">
                 <div class="welcome">
                     <p class="judul">Hi, Ira Humanitas</p> 
-                    <P class="halaman">Admin > Client Page > Add Client</P>
-                </div> -->
+                    <P class="halaman">Admin > User > Add User</P>
+                </div>
 
-                    <div class="parent">
-                        <div class="bg-form">
-                            <div class="bg-form-atas">
-                                <div class="container-form">
-                                    <div class="left">
-                                        <img src="/Img/popular.png">
+                <div class="form-add-user">
+                    <div class="tiitle-add-user">
+                        <div class="add-user-kanan">
+                            <div class="icon-add-client">
+                                <img src="/Img/popular.png">
+                            </div>
+                            <div class="kiri-icon-user">
+                                CREATE USER ACCOUNT
+                            </div>
+                        </div>
+                    </div>
+                        <p>Masukkan Informasi Umum. Bagian Profile diisi oleh User.</p>
+
+                        <div class="miau-container">
+                            <div class="miau4">
+                                <div class="kiri-user">
+                                    <div class="tittle-form">
+                                        <p>First Name </p>
                                     </div>
-                                    <div class="right">
-                                        <p class="add-client">ADD CLIENT</p>
+                                    <div class="input-form">
+                                        <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
+                                    </div>
+                                </div>
+                                <div class="kanan-user">
+                                    <div class="tittle-form">
+                                        <p>Last Name </p>
+                                    </div>
+                                    <div class="input-form">
+                                        <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-form-bawah">
-                                <div class="ess">
-                                    <p>Essential Information. </p>
-                                    <br>
+                        
+                            <div class="miau5">
+                                <div class="tittle-form-email">
+                                    <p>Email</p>
                                 </div>
-                                <div class="miau">
-                                    <div class="kiri">
-                                        <div class="tittle-form">
-                                            <p>Company/Industry Namae </p>
-                                        </div>
-                                        <div class="input-form">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-                                        <p class="error">
-                                            ini error messa
-                                        </p>
-                                        <br>
-                                        <div class="tittle-form">
-                                            <p>PIC Title </p>
-                                        </div>
-                                        <div class="input-form">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-                                        <p class="error">
-                                            ini error messa
-                                        </p>
-                                    </div>
-                                    <div class="kanan">
-                                        <div class="tittle-form">
-                                            <p>PIC Phone </p>
-                                        </div>
-                                        <div class="input-form">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-                                        <p class="error">
-                                            ini error messa
-                                        </p>
-                                            <br>
-                                        <div class="tittle-form">
-                                            <p>PIC Email </p>
-                                        </div>
-                                        <div class="input-form">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-                                        <p class="error">
-                                            ini error messa
-                                        </p>
-                                    </div>
+                                <div class="input-form-email">
+                                    <input type="email" value="" placeholder="Ex. PT Bongkar Turet">
                                 </div>
+                            </div>  
+                            <div class="tittle-form-email">
+                                <p>Role</p>
                             </div>
-                       </div>
+                            <section>
+                                <div class="tile">
+                                    <input type="checkbox" class="checkbox-1">
+                                    <label for="sport1">
+                                        <!-- <i class="fas fa-basketball-ball"></i> -->
+                                        <h4>ENGINEER</h4>
+                                    </label>
+                                </div>
+                                <div class="tile">
+                                    <input type="checkbox" name="sports" id="sport2" class="checkbox-2">
+                                    <label for="sport2">
+                                        <!-- <i class="fas fa-swimmer"></i> -->
+                                        <h4>SALES</h4>
+                                    </label>
+                                </div>
+                                <div class="tile">
+                                    <input type="checkbox" name="sports" id="sport3" class="checkbox-3">
+                                    <label for="sport3">
+                                        <!-- <i class="fas fa-quidditch"></i> -->
+                                        <h4>PM</h4>
+                                    </label>
+                                </div>
+                                <div class="tile">
+                                    <input type="checkbox" name="sports" id="sport4" class="checkbox-4">
+                                    <label for="sport4">
+                                        <!-- <i class="fas fa-quidditch"></i> -->
+                                        <h4>ADMIN</h4>
+                                    </label>
+                                </div>
+                            </section> 
+                            
+                            <div class="miau6">
+                                <div class="tittle-form-email">
+                                    <p>Username</p>
+                                </div>
+                                <div class="input-form-email">
+                                    <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
+                                </div>
+                            </div>  
 
-                       <div>
-                        <div class="exel-form">
+                            <div class="miau7">
+                                <div class="tittle-form-email">
+                                    <p>Password</p>
+                                </div>
+                                <div class="input-form-email">
+                                    <input type="password" value="" placeholder="Ex. PT Bongkar Turet">
+                                </div>
+                            </div> 
+
+                            <div class="tambah-user">
+                                <button>CREATE</button>
+                            </div>
+                        </div>
+                    <div class="exel-form">
                             <div class="exel-content">
                                 <img src="/Img/exel3D.png" alt="Excel Image">
                                 <div class="exel-des">
@@ -232,78 +263,27 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    
-                        <div>
-                            <div class="form-bawah">
-                                <div class="ess2">
-                                    <p>Additional Information. </p>
-                                </div>
-
-                                <div class="miau2">
-                                    <div class="kiri">
-                                        <div class="tittle-form">
-                                            <p>Company Adress </p>
-                                        </div>
-                                        <div class="input-form2">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-                                        
-                                        <div class="tittle-form">
-                                            <p>Company Phone</p>
-                                        </div>
-                                        <div class="input-form2">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-
-                                        <div class="tittle-form">
-                                            <p>Company Logo</p>
-                                        </div>
-                                        <div class="file-input-container">
-                                            <label for="file-upload" class="label-file">Upload</label>
-                                            <input id="file-upload" type="file" >
-                                            <span id="file-name"></span>
-                                        </div>  
-                                    </div>
-
-                                    <div class="kanan">
-                                        <div class="tittle-form">
-                                            <p>Company Size </p>
-                                        </div>
-                                        <div class="input-form2">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-                                        
-                                        <div class="tittle-form">
-                                            <p>Company Email </p>
-                                        </div>
-                                        <div class="input-form2">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-
-                                        <div class="tittle-form">
-                                            <p>Web URL </p>
-                                        </div>
-                                        <div class="input-form2">
-                                            <input type="text" value="" placeholder="Ex. PT Bongkar Turet">
-                                        </div>
-                                    </div>    
-                                    </div>
-                                    <div class="miau3">
-                                        <div class="tittle-form">
-                                            <p>Notes</p>
-                                        </div>
-                                        <textarea name="note" id="" rows="4" >
-                                        </textarea>
-                                    </div>   
-                                    <div class="tambah-client">
-                                        <button>Tambah</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-            </div>    
+                </div>
+            </div>
+
+            <div class="dashboard-engineer">
+                <div class="group-19">
+                    <div class="text-wrapper-32">About</div>
+                    <div class="text-wrapper-33">Contact</div>
+                    <div class="text-wrapper-34">FAQ</div>
+                 </div>
+            </div>
+
+            <div class="group-25">
+                <div class="overlap-5">
+                  <div class="rectangle-10"></div>
+                  <div class="ellipse-5"></div>
+                  <div class="text-wrapper-37">Ira Humanitas</div>
+                  <div class="text-wrapper-38">Admin</div>
+                </div>
+              </div>
+            </div>
     </div>
     <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
