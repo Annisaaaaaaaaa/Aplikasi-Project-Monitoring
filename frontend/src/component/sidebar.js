@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext  } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 import logo from '../assets/img/logocopy.png';
 import home from '../assets/img/dashboard.png';
@@ -19,6 +20,7 @@ import '../Css/Dashboard.css';
 
 function Sidebar() {
     const [isActive, setIsActive] = useState(true);
+    const history = useHistory();
 
     const handleMenuClick = () => {
         setIsActive(!isActive);
@@ -42,6 +44,22 @@ function Sidebar() {
                 submenu.classList.remove("show");
             }
         }
+    };
+
+    const handleLogout = () => {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will be logged out!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, log me out!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                logoutUser(history);
+            }
+        });
     };
 
     useEffect(() => {
@@ -196,7 +214,7 @@ function Sidebar() {
             <div className="menu">
                 <ul>
                     <li>
-                         <a onClick={logoutUser} style={{cursor:"pointer"}}>
+                         <a onClick={handleLogout} style={{cursor:"pointer"}}>
                             <img src={logout} alt="logo" />
                             <span className="text">Logout</span>
                         </a>

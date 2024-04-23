@@ -22,6 +22,8 @@ export const AuthProvider = ({ children }) => {
             : null
     );
 
+    
+
     const [userGroups, setUserGroups] = useState(() => 
         localStorage.getItem("authTokens")
             ? jwt_decode(localStorage.getItem("authTokens")).groups
@@ -119,7 +121,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
     
-    const logoutUser = () => {
+    const logoutUser = async (history) => {
         setAuthTokens(null);
         setUser(null);
         setUserGroups([]);

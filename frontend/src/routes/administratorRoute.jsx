@@ -5,10 +5,10 @@ import UserList from '../component/Administrator/USerList';
 
 const administratorRoutes = [
   {
-    path: '/administrator/dashboard',
-    exact: true,
-    component: AdministratorDashboard,
-    allowedRoles: [3]
+    path: '/administrator/dashboard', //url
+    exact: true, //true aja semuanya
+    component: AdministratorDashboard, //Semuanya, mulai dari nav, table, dll
+    allowedRoles: [3], //Role yang boleh akses
   }
  
 ];

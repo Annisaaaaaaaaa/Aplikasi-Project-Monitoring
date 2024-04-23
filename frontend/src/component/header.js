@@ -15,9 +15,12 @@ function Navbar() {
                     const decode = jwtDecode(token);
                     // Dapatkan data yang diperlukan dari token
                     var user_id = decode.user_id;
+                    var profile_id = decode.profile_id;
                     var username = decode.username;
                     var full_name = decode.full_name;
                     var image = decode.image;
+                    var groups = decode.groups;
+                    var miau = decode.namamiau;
                 }
 
                 // Lakukan permintaan get data
@@ -36,16 +39,19 @@ function Navbar() {
         const decode = jwtDecode(token);
         // Dapatkan data yang diperlukan dari token
         var user_id = decode.user_id;
+        var profile_id = decode.profile_id;
         var username = decode.username;
         var full_name = decode.full_name;
         var image = decode.image;
+        var groups = decode.groups;
+        var miau = decode.namamiau;
     }
 
     return (
         <div className="navbar">
             <div className="welcome">
                 <p className="judul">Hi, {username}</p> 
-                <p className="halaman">Admin | Dashboard</p>
+                <p className="halaman">{miau} | Dashboard</p>
             </div>
             <div className="dashboard-engineer">
                     <div className="group-19">
