@@ -1,158 +1,169 @@
 import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
+import { useClientContext } from './../../context/ClientContext';
+import AuthContext from './../../context/AuthContext';
 import Swal from 'sweetalert2';
 import '../../Css/form_tambah_client.css';
-import AuthContext from './../../context/AuthContext';
 
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambarpop from '../../assets/img/popular.png';
 
-function Form_Edit_Client() {
-    const { clientId } = useParams();
+const Form_Edit_Client = () => {
     const history = useHistory();
-    const [companyName, setCompanyName] = useState('');
-    const [picTitle, setPicTitle] = useState('');
-    const [picPhone, setPicPhone] = useState('');
-    const [picEmail, setPicEmail] = useState('');
-    const [companyAddress, setCompanyAddress] = useState('');
-    const [companyPhone, setCompanyPhone] = useState('');
-    const [companySize, setCompanySize] = useState('');
-    const [companyEmail, setCompanyEmail] = useState('');
-    const [webURL, setWebURL] = useState('');
-    const [notes, setNotes] = useState('');
     const { authTokens } = useContext(AuthContext);
-
-    const fetchData = async () => {
-        try {
+    const { clientId } = useParams();
+    const { error, loading, fetchData } = useClientContext() || {};
+  
+    const [formData, setFormData] = useState({
+        industry: '',
+        pic_title: '',
+        pic_phone: '',
+        pic_email: '',
+        name:'',
+        company_address: '',
+        company_phone: '',
+        logo: '',
+        company_size: '',
+        company_email: '',
+        website_url: '',
+        additional_info: '',
+    });
+  
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
             const token = authTokens ? authTokens.access : null;
             if (!token) {
-                throw new Error('Authentication token is missing');
+              throw new Error('Authentication token is missing');
             }
     
-            const response = await fetch(`http://localhost:8000/api/v1/client/edit/${clientId}/`, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-            if (!response.ok) {
-                throw new Error('Failed to fetch data from database');
-            }
-            const client = await response.json();
-            console.log("Data yang diambil dari server:", client);
-            fillFormData(client);
+            const response = await axios.get(`http://localhost:8000/api/v1/client/edit/${clientId}/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        const data = response.data;
+
+        setFormData({
+            industry: data.industry || '',
+            pic_title: data.pic_title || '',
+            pic_phone: data.pic_phone || '',
+            pic_email: data.pic_email || '',
+            name: data.name || '',
+            company_address: data.company_address || '',
+            company_phone: data.company_phone || '',
+            logo: data.logo || '',
+            company_size: data.company_size || '',
+            company_email: data.company_email || '',
+            website_url: data.website_url || '',
+            additional_info: data.additional_info || '',
+          });
         } catch (error) {
-            console.error('Error fetching data:', error);
+          console.error('Error fetching client data:', error.message);
+        }
+      };
+  
+      fetchData();
+    }, [authTokens, clientId]);
+  
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          [name]: value,
+        }));
+      };
+    
+      const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFormData((prevFormData) => ({
+                ...prevFormData,
+                logo: file,
+            }));
         }
     };
+            
+    const handleSubmit = async (e) => {
+        e.preventDefault();
     
-    const fillFormData = (client) => {
-        setCompanyName(client.industry);
-        setPicTitle(client.pic_title);
-        setPicPhone(client.pic_phone);
-        setPicEmail(client.pic_email);
-        setCompanyAddress(client.company_address);
-        setCompanyPhone(client.company_phone);
-        setCompanySize(client.company_size);
-        setCompanyEmail(client.company_email);
-        setWebURL(client.website_url);
-        setNotes(client.additional_info);
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, [authTokens, clientId]);
-
-    const handleInputChange = (e, setter) => {
-        setter(e.target.value);
-    };
-
-    
-
-    const handleSubmit = async () => {
-        try {
-            const token = authTokens ? authTokens.access : null;
-            if (!token) {
-                throw new Error('Authentication token is missing');
-            }
-    
-            const formattedLastActivity = new Date().toISOString();
-            console.log("Data yang dikirim ke server:", {
-                companyName,
-                picTitle,
-                picPhone,
-                picEmail,
-                companyAddress,
-                companyPhone,
-                companySize,
-                companyEmail,
-                webURL,
-                notes,
-                last_activity: formattedLastActivity 
-            });
-    
-            const response = await fetch(`http://localhost:8000/api/v1/client/edit/${clientId}/`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify({
-                    companyName,
-                    picTitle,
-                    picPhone,
-                    picEmail,
-                    companyAddress,
-                    companyPhone,
-                    companySize,
-                    companyEmail,
-                    webURL,
-                    notes,
-                    last_activity: formattedLastActivity 
-                })
-            });
-    
-            if (!response.ok) {
-                const errorMessage = await response.text();
-                throw new Error(errorMessage || 'Failed to update client data');
-            }
-
-            // Perbarui state setelah berhasil melakukan permintaan PUT
-            fillFormData({
-                industry: companyName,
-                pic_title: picTitle,
-                pic_phone: picPhone,
-                pic_email: picEmail,
-                company_address: companyAddress,
-                company_phone: companyPhone,
-                company_size: companySize,
-                company_email: companyEmail,
-                website_url: webURL,
-                additional_info: notes
-            });
-
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: 'Client data updated successfully',
-                confirmButtonText: 'OK'
-            }).then(() => {
-                history.push('/client-admin');
-            });
-        } catch (error) {
-            console.error('Error updating client data:', error.message);
+        // Validasi bahwa kolom wajib diisi
+        const requiredFields = ['name', 'industry', 'company_address', 'company_email', 'company_phone'];
+        const missingFields = requiredFields.filter(field => !formData[field]);
+        if (missingFields.length > 0) {
             Swal.fire({
                 icon: 'error',
-                title: 'Error',
-                text: error.message || 'Failed to update client data',
-                confirmButtonText: 'OK'
+                title: 'Oops...',
+                text: `Please fill in the following fields: ${missingFields.join(', ')}`,
+            });
+            return;
+        }
+    
+        try {
+            // Lanjutkan pengiriman formulir jika validasi berhasil
+            const token = authTokens ? authTokens.access : null;
+            if (!token) {
+                throw new Error('Authentication token is missing');
+            }
+    
+            const formDataForUpload = new FormData();
+            Object.entries(formData).forEach(([key, value]) => {
+                if (key === 'logo' && value instanceof File) {
+                    formDataForUpload.append(key, value);
+                } else if (value && !(key === 'logo' && typeof value === 'string')) {
+                    formDataForUpload.append(key, value);
+                }
+            });
+    
+            const response = await axios.put(
+                `http://localhost:8000/api/v1/client/edit/${clientId}/`,
+                formDataForUpload,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                }
+            );
+    
+            if (response.status === 200) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Client updated successfully!',
+                });
+                history.push('/client-admin');
+            } else {
+                console.error('Failed to update client:', response.statusText);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to update client!',
+                });
+            }
+        } catch (error) {
+            console.error('Error updating client:', error.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Failed to update client!',
             });
         }
     };
-    
-    
+                        
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
+    if (error) {
+        return <p>Error: {error}</p>;
+    }
+        
     return (
+        <form onSubmit={handleSubmit}>
         <div>
             <Sidebar />
             <Navbar />
@@ -180,13 +191,13 @@ function Form_Edit_Client() {
                                     <p>Company/Industry Name </p>
                                 </div>
                                 <div className="input-form">
-                                <input 
-                                        type="text" 
-                                        value={companyName || ''} 
-                                        placeholder="Ex. PT Bongkar Turet" 
-                                        onChange={(e) => setCompanyName(e.target.value)} 
-                                    />
-                                </div>
+                                        <input 
+                                            type="text" 
+                                            name="industry" 
+                                            value={formData.industry}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
                                 <p className="error">
                                     {/* Show error message if needed */}
                                 </p>
@@ -195,10 +206,26 @@ function Form_Edit_Client() {
                                     <p>PIC Title </p>
                                 </div>
                                 <div className="input-form">
+                                        <input 
+                                            type="text" 
+                                            name="pic_title" 
+                                            value={formData.pic_title}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                <p className="error">
+                                    {/* Show error message if needed */}
+                                </p>
+                                <br />
+                                <div className="tittle-form">
+                                    <p>Name </p>
+                                </div>
+                                <div className="input-form">
                                     <input 
                                         type="text" 
-                                        value={picTitle} 
-                                        onChange={(e) => handleInputChange(e, setPicTitle)} 
+                                        name="name" 
+                                        value={formData.name}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <p className="error">
@@ -212,9 +239,9 @@ function Form_Edit_Client() {
                                 <div className="input-form">
                                     <input 
                                         type="text" 
-                                        value={picPhone} 
-                                        placeholder="Ex. PT Bongkar Turet" 
-                                        onChange={(e) => handleInputChange(e, setPicPhone)} 
+                                        name="pic_phone" 
+                                        value={formData.pic_phone}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <p className="error">
@@ -227,9 +254,9 @@ function Form_Edit_Client() {
                                 <div className="input-form">
                                     <input 
                                         type="text" 
-                                        value={picEmail} 
-                                        placeholder="Ex. PT Bongkar Turet" 
-                                        onChange={(e) => handleInputChange(e, setPicEmail)} 
+                                        name="pic_email" 
+                                        value={formData.pic_email}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
                                 <p className="error">
@@ -257,9 +284,9 @@ function Form_Edit_Client() {
                             <div className="input-form2">
                                 <input 
                                     type="text" 
-                                    value={companyAddress} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanyAddress)} 
+                                    name="company_address" 
+                                    value={formData.company_address}
+                                    onChange={handleInputChange}
                                 />
                             </div>
 
@@ -269,9 +296,9 @@ function Form_Edit_Client() {
                             <div className="input-form2">
                                 <input 
                                     type="text" 
-                                    value={companyPhone} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanyPhone)} 
+                                    name="company_phone" 
+                                    value={formData.company_phone}
+                                    onChange={handleInputChange}
                                 />
                             </div>
 
@@ -282,10 +309,23 @@ function Form_Edit_Client() {
                                 <label htmlFor="file-upload" className="label-file">Upload</label>
                                 <input 
                                     id="file-upload" 
+                                    name="logo"
                                     type="file" 
-                                    
+                                    onChange={handleFileChange}
                                 />
-                                <span id="file-name"></span>
+                                <span id="file-name">{formData.logo ? formData.logo.name : 'Pilih gambar'}</span>
+                                {formData.logo && (
+    <div className="current-logo">
+        <p>Current Logo:</p>
+        <img 
+            src={formData.logo} 
+            alt="current logo" 
+            className="current-logo-img" 
+            style={{ maxWidth: '200px', maxHeight: '200px', objectFit: 'contain' }}
+        />
+        <button onClick={() => setFormData({ ...formData, logo: null })}>Remove Logo</button>
+    </div>
+)}
                             </div>
                         </div>
 
@@ -296,9 +336,9 @@ function Form_Edit_Client() {
                             <div className="input-form2">
                                 <input 
                                     type="text" 
-                                    value={companySize} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanySize)} 
+                                    name="company_size" 
+                                    value={formData.company_size}
+                                    onChange={handleInputChange}
                                 />
                             </div>
 
@@ -308,9 +348,9 @@ function Form_Edit_Client() {
                             <div className="input-form2">
                                 <input 
                                     type="text" 
-                                    value={companyEmail} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanyEmail)} 
+                                    name="company_email" 
+                                    value={formData.company_email}
+                                    onChange={handleInputChange}
                                 />
                             </div>
 
@@ -319,10 +359,10 @@ function Form_Edit_Client() {
                             </div>
                             <div className="input-form2">
                                 <input 
-                                    type="text" 
-                                    value={webURL} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setWebURL)} 
+                                    type="url" 
+                                    name="website_url" 
+                                    value={formData.website_url}
+                                    onChange={handleInputChange}
                                 />
                             </div>
                         </div>
@@ -332,19 +372,20 @@ function Form_Edit_Client() {
                             <p>Notes</p>
                         </div>
                         <textarea 
-                            name="note" 
                             id="" 
                             rows="4" 
-                            value={notes} 
-                            onChange={(e) => handleInputChange(e, setNotes)} 
+                            name="additional_info" 
+                            value={formData.additional_info}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div className="tambah-client">
-                        <button onClick={handleSubmit}>Edit</button>
+                        <button type="submit">Save Changes</button>
                     </div>
                 </div>
             </div>
         </div>
+        </form>
     );
 }
 
