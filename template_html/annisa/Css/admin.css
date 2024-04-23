@@ -352,15 +352,6 @@ body{
     background: linear-gradient(180deg, rgb(156.37, 174.76, 222.06) 0%, rgb(151.56, 158.19, 217.81) 100%);
   }
   
- /* .ellipse-6 {
-    position: absolute;
-    width: 46px;
-    height: 46px;
-    top: 5px;
-    left: 116px;
-    object-fit: cover;
-  } */
-  
   .text-wrapper-37 {
     top: 20px;
     margin-left: 7%;
@@ -661,7 +652,6 @@ top: 202px; */
     line-height: normal;
 }
 
-/***** Button | Search ****/
 
 .bungkus {
     display: flex;

@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
 import AuthContext from './AuthContext';
 
 const UserContext = createContext();
@@ -9,72 +8,111 @@ export const useUserContext = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
   const { authTokens } = useContext(AuthContext);
+
+  const [users, setUsers] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [pdfData, setPdfData] = useState(null);
-  const [searchValue, setSearchValue] = useState('');
-  const [users, setUsers] = useState([]);
-  const [profiles, setProfiles] = useState([]);
 
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const token = authTokens ? authTokens.access : null;
+        if (!token) {
+          throw new Error('Authentication token is missing');
+        }
 
-  const fetchData = async () => {
+        const response = await axios.get('http://localhost:8000/api/users/tambah', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        });
+        setUsers(response.data);
+        setError(null);
+      } catch (error) {
+        console.error('Error fetching client data:', error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
+  }, []);
+
+  const deleteUser = async (userId) => {
     try {
       const token = authTokens ? authTokens.access : null;
       if (!token) {
         throw new Error('Authentication token is missing');
       }
-  
-      // Fetch Project data
-      const userResponse = await axios.get('http://localhost:8000/api/user/', {
+
+      await axios.delete(`http://localhost:8000/api/user/delete/${userId}/`, {
         headers: {
           Authorization: `Bearer ${token}`
-        }
+        },
       });
-  
-      // Fetch Client data
-      const profileResponse = await axios.get('http://localhost:8000/api/profile/', {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      });
-  
-      setUsers(userResponse.data);
-      setProfiles(profileResponse.data);
-      setError(null);
+
+      // Update users state after successful deletion
+      setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+      return true;
     } catch (error) {
-      console.error('Error fetching data:', error.message);
-      setError(error.message);
-    } finally {
-      setLoading(false);
+      console.error('Error deleting user:', error.message);
+      return false;
     }
   };
-  
-  useEffect(() => {
-    fetchData();
-  }, [authTokens]);
-  
-  console.log('Users:', users);
-  console.log('Profiles:', profiles);
-    
 
+  // Function to search users
+  const searchUsers = async (query) => {
+    try {
+      const token = authTokens ? authTokens.access : null;
+      if (!token) {
+        throw new Error('Authentication token is missing');
+      }
+      
+      const response = await axios.get(`http://127.0.0.1:8000/api/user/search/?search=${query}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      setUsers(response.data);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
+  // Function to filter users by groups
+  const filterUsersByGroups = async (selectedGroups) => {
+    try {
+      const token = authTokens ? authTokens.access : null;
+      if (!token) {
+        throw new Error('Authentication token is missing');
+      }
 
+      const response = await axios.post(
+        'http://127.0.0.1:8000/api/user/filter/groups/',
+        { selected_groups: selectedGroups },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+        }
+      );
+      setUsers(response.data);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
-
-const contextData = {
-  users,
-  profiles,
-  error,
-  loading,
-  fetchData,
-  searchValue,
-  setSearchValue,
-  
-};
-
-return (
-  <UserContext.Provider value={contextData}>
-    {children}
-  </UserContext.Provider>
-);
+  return (
+    <UserContext.Provider value={{ 
+      users, 
+      error, 
+      loading, 
+      searchUsers,
+      deleteUser,
+      filterUsersByGroups 
+    }}>
+      {children}
+    </UserContext.Provider>
+  );
 };

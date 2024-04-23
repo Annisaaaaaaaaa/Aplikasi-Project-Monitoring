@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from './../../context/AuthContext';
 
-const YourFormComponent = () => {
+const Tambah_Form_Invoice = () => {
   const history = useHistory();
   const authContext = useContext(AuthContext);
 
@@ -195,5 +195,5 @@ const YourFormComponent = () => {
     );
   };
   
-  export default YourFormComponent;
+  export default Tambah_Form_Invoice;
   

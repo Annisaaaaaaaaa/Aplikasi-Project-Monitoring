@@ -1,10 +1,12 @@
 import React from 'react';
+import Sidebar from '../sidebar';
+import Navbar from '../header';
 
 const EngineerDashboard = () => {
   return (
     <div>
-      <h1>Engineer Dashboard</h1>
-      {/* Your engineer dashboard content here */}
+        <Sidebar />
+        <Navbar />
     </div>
   );
 };
