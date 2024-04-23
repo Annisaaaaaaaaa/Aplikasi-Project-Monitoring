@@ -8,8 +8,8 @@ const pmRoutes = [
   {
     path: '/pm/dashboard',
     exact: true,
-    component: PMDashboard, header, sidebar,
-    allowedRoles: [1] 
+    component: PMDashboard,
+    allowedRoles: [1, 2, 3, 4, 5] 
   }
 ];
 

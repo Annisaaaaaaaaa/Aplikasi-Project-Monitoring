@@ -1,4 +1,4 @@
-from rest_framework import generics, filters
+from rest_framework import generics, filters, status
 from rest_framework.response import Response
 from .models import Project
 from .serializers import ProjectSerializer
@@ -29,18 +29,29 @@ from tablib import Dataset
 from .resources import ProjectResource
 from datetime import datetime
 
-from .models import EngineerProject
-from .serializers import EngineerProjectSerializer
-
 #Create dan List
 class ProjectListCreate(generics.ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
+    # def create(self, request, *args, **kwargs):
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer)
+    #     project_id = serializer.data['id']  # Mendapatkan ID proyek baru
+    #     return Response({'id': project_id}, status=status.HTTP_201_CREATED)  # Mengembalikan ID proyek
+    
 # Edit
 class ProjectRetrieveUpdate(generics.RetrieveUpdateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)  # Hapus instance=instance di sini
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return Response(serializer.data)
 
 # Delete
 class ProjectDestroy(generics.DestroyAPIView):
@@ -79,18 +90,6 @@ class ProjectList(generics.ListCreateAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-class EngineerProjectListCreate(generics.ListCreateAPIView):
-    queryset = EngineerProject.objects.all()
-    serializer_class = EngineerProjectSerializer
-
-class EngineerProjectRetrieveUpdate(generics.RetrieveUpdateAPIView):
-    queryset = EngineerProject.objects.all()
-    serializer_class = EngineerProjectSerializer
-
-class EngineerProjectDestroy(generics.DestroyAPIView):
-    queryset = EngineerProject.objects.all()
-    serializer_class = EngineerProjectSerializer
 
 @csrf_exempt
 def import_projects(request):
@@ -167,7 +166,7 @@ def export_projects_to_pdf(request):
         'am', 'pic', 'pm', 'start_date', 'end_date',
         'status', 'top', 'sow', 'oos', 'detail',
         'remarks', 'weight', 'priority', 'type', 'market_segment',
-        'tech_use', 'resiko', 'beban_proyek', 'completion_percentage'
+        'tech_use', 'resiko', 'beban_proyek'
     ]
 
     # Set up data rows
@@ -178,14 +177,14 @@ def export_projects_to_pdf(request):
             project.pid if project.pic else '',
             project.name if project.name else '',
             project.description if project.description else '',
-            project.customer.name if project.customer.name else '',
-            project.sales.first_name if project.sales.first_name else '',
+            project.customer.name if project.customer else '',
+            project.sales.first_name if project.sales else '',
             str(project.amount_tax) if project.amount_tax else '',
             str(project.amount_exc_tax) if project.amount_exc_tax else '',
             project.contract_no if project.contract_no else '',
             str(project.contract_date) if project.contract_date else '',
-            project.am.first_name if project.am.first_name else '',
-            project.pic.first_name if project.pic.first_name else '',
+            project.am.first_name if project.am else '',
+            project.pic.first_name if project.pic else '',
             project.pm.first_name if project.pm else '',
             str(project.start_date) if project.start_date else '',
             str(project.end_date) if project.end_date else '',
@@ -202,7 +201,6 @@ def export_projects_to_pdf(request):
             project.tech_use if project.tech_use else '',
             project.resiko if project.resiko else '',
             str(project.beban_proyek) if project.beban_proyek else '',
-            str(project.completion_percentage) if project.completion_percentage else '',
         ]
         data.append(row)
 
@@ -253,15 +251,15 @@ def export_projects_to_json(request):
             'PID': project.pid if project.pic else '',
             'Name': project.name if project.name else '',
             'Description': project.description if project.description else '',
-            'Customer': project.customer.name if project.customer.name else '',
-            'Sales': project.sales.first_name if project.sales.first_name else '',
+            'Customer': project.customer.name if project.customer else '',
+            'Sales': project.sales.first_name if project.sales else '',
             'Amount Tax': str(project.amount_tax) if project.amount_tax else '',
             'Amount Exc Tax': str(project.amount_exc_tax) if project.amount_exc_tax else '',
             'Contract No': project.contract_no if project.contract_no else '',
             'Contract Date': str(project.contract_date) if project.contract_date else '',
-            'AM': project.am.first_name if project.am.first_name else '',
-            'PIC': project.pic.first_name if project.pic.first_name else '',
-            'PM': project.pm.first_name if project.pm.first_name else '',
+            'AM': project.am.first_name if project.am else '',
+            'PIC': project.pic.first_name if project.pic else '',
+            'PM': project.pm.first_name if project.pm else '',
             'Start Date': str(project.start_date) if project.start_date else '',
             'End Date': str(project.end_date) if project.end_date else '',
             'Status': project.get_status_display(),
@@ -277,7 +275,6 @@ def export_projects_to_json(request):
             'Tech Use': project.tech_use if project.tech_use else '',
             'Resiko': project.resiko if project.resiko else '',
             'Beban Proyek': str(project.beban_proyek) if project.beban_proyek else '',
-            'Completion Percentage': str(project.completion_percentage) if project.completion_percentage else '',
 
         })
 
@@ -305,7 +302,7 @@ def export_projects_to_csv(request):
         'am', 'pic', 'pm', 'start_date', 'end_date',
         'status', 'top', 'sow', 'oos', 'detail',
         'remarks', 'weight', 'priority', 'type', 'market_segment',
-        'tech_use', 'resiko', 'beban_proyek', 'completion_percentage'
+        'tech_use', 'resiko', 'beban_proyek'
     ]
     writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
 
@@ -323,14 +320,14 @@ def export_projects_to_csv(request):
             project.pid if project.pic else '',
             project.name if project.name else '',
             project.description if project.description else '',
-            project.customer.name if project.customer.name else '',
-            project.sales.first_name if project.sales.first_name else '',
+            project.customer.name if project.customer else '',
+            project.sales.first_name if project.sales else '',
             str(project.amount_tax) if project.amount_tax else '',
             str(project.amount_exc_tax) if project.amount_exc_tax else '',
             project.contract_no if project.contract_no else '',
             contract_date_str,
-            project.am.first_name if project.am.first_name else '',
-            project.pic.first_name if project.pic.first_name else '',
+            project.am.first_name if project.am else '',
+            project.pic.first_name if project.pic else '',
             project.pm.first_name if project.pm else '',
             start_date_str,
             end_date_str,
@@ -347,7 +344,6 @@ def export_projects_to_csv(request):
             project.tech_use if project.tech_use else '',
             project.resiko if project.resiko else '',
             str(project.beban_proyek) if project.beban_proyek else '',
-            str(project.completion_percentage) if project.completion_percentage else '',
         ]
 
         # Write the row to the CSV file
@@ -356,10 +352,6 @@ def export_projects_to_csv(request):
     return response
 
 from openpyxl import Workbook
-from openpyxl.worksheet.table import Table, TableStyleInfo
-
-from openpyxl import Workbook
-from openpyxl.worksheet.table import Table, TableStyleInfo
 from django.http import FileResponse
 import tempfile
 
@@ -375,7 +367,7 @@ def export_projects_to_excel(request):
         'am', 'pic', 'pm', 'start_date', 'end_date',
         'status', 'top', 'sow', 'oos', 'detail',
         'remarks', 'weight', 'priority', 'type', 'market_segment',
-        'tech_use', 'resiko', 'beban_proyek', 'completion_percentage' 
+        'tech_use', 'resiko', 'beban_proyek' 
     ]
 
     # Write headers to the worksheet
@@ -399,7 +391,7 @@ def export_projects_to_excel(request):
             project.pid if project.pid else '',
             project.name if project.name else '',
             project.description if project.description else '',
-            project.customer.name if project.customer.name else '',
+            project.customer.name if project.customer else '',
             sales_name,
             str(project.amount_tax) if project.amount_tax else '',
             str(project.amount_exc_tax) if project.amount_exc_tax else '',
@@ -423,15 +415,14 @@ def export_projects_to_excel(request):
             project.tech_use if project.tech_use else '',
             project.resiko if project.resiko else '',
             str(project.beban_proyek) if project.beban_proyek else '',
-            str(project.completion_percentage) if project.completion_percentage else '',
         ]
         for col_num, value in enumerate(row_data):
             ws.cell(row=row_num, column=col_num + 1).value = value
 
     # Add filter to header row
     ws.auto_filter.ref = ws.dimensions
-
-    # Save workbook to a temporary file
+    
+    # Create a temporary file to save the workbook
     tmp_file = tempfile.NamedTemporaryFile(delete=False)
     wb.save(tmp_file.name)
     tmp_file.close()

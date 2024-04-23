@@ -15,6 +15,11 @@ import InvoiceEditForm from '../views/Admin/Edit_Form_Invoice';
 import Tambah_Form_Invoice from '../views/Admin/Tambah_Form_Invoice';
 import Navbar from '../component/header';
 import Sidebar from '../component/sidebar';
+import ProjectInitialForm from '../component/Project/ProjectInitialForm';
+import EditProjectForm from '../component/Project/ProjectEngineerForm';
+import EditProjectInform from '../component/Project/ProjectInformForm';
+import EditProjectDetail from '../component/Project/ProjectDetailForm';
+import EditProjectStepper from '../views/Admin/Edit_Form_Project';
 
 const adminRoutes = [
   {
@@ -96,12 +101,18 @@ const adminRoutes = [
     component: Form_Tambah_Project,
     allowedRoles: [4]
   },
-  // {
-  //   path: '/project-edit/:projectId',
-  //   exact: true,
-  //   component: Form_Edit_Project,
-  //   allowedRoles: [4] 
-  // },
+  {
+    path: '/project/initial',
+    exact: true,
+    component: ProjectInitialForm,
+    allowedRoles: [4]
+  },
+  {
+    path: '/project-edit/:projectId',
+    exact: true,
+    component: EditProjectStepper,
+    allowedRoles: [4] 
+  },
   {
     path: '/Form_Tambah_Invoice',
     exact: true,

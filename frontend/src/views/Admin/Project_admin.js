@@ -10,11 +10,14 @@ import { ProjectProvider } from './../../context/ProjectContext';
 import ProjectTable from './../../component/Project/ProjectTable';
 
 function Project_admin() {
+    const { projects, fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importProjects  } = useProjectContext(); 
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
-    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importProjects  } = useProjectContext(); 
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 7;
+    const totalItems = projects.length;
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
@@ -103,11 +106,10 @@ function Project_admin() {
     };
 
     return (
-        <div>
-            <ProjectProvider>
-            <Sidebar />
-            <Navbar />
-
+        <ProjectProvider>
+            <div>
+                <Sidebar />
+                <Navbar />
                 <div className="container-client">
                     <div className="navbar-admin">
                         <div className="parent">
@@ -130,7 +132,7 @@ function Project_admin() {
 
                         <div className="bungkus">
                             <div className="group-button">
-                            <Link to="/form_tambah_project" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
+                            <Link to="/project/initial" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
                                 Tambah
                             </Link>
                                 <div className="export__file">
@@ -193,48 +195,32 @@ function Project_admin() {
                                 <h1>Data Project</h1>
                             </section>
                             <section className="table__body">
-                                    <ProjectTable />
+                                    <ProjectTable currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
                             </section>
                         </main>
                         <div className="pagination">
                             <ul>
                                 <li>
-                                    <span>
-                                        <i className="fas fa-angel-left"></i>Prev
-                                    </span>
+                                <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                                    <i className="fas fa-angel-left"></i>Prev
+                                </button>
                                 </li>
-                                <li className="numb">
-                                    <span>1</span>
+                                {[...Array(Math.ceil(totalItems / itemsPerPage)).keys()].map((number) => (
+                                <li key={number + 1} className="numb">
+                                    <button onClick={() => setCurrentPage(number + 1)}>{number + 1}</button>
                                 </li>
-                                <li className="numb">
-                                    <span>2</span>
-                                </li>
-                                <li className="dots">
-                                    <span>...</span>
-                                </li>
-                                <li className="numb">
-                                    <span>4</span>
-                                </li>
-                                <li className="numb">
-                                    <span>5</span>
-                                </li>
-                                <li className="dots">
-                                    <span>...</span>
-                                </li>
-                                <li className="numb">
-                                    <span>7</span>
-                                </li>
+                                ))}
                                 <li>
-                                    <span>
-                                        Next <i className="fas fa-angel-right"></i>
-                                    </span>
+                                <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(totalItems / itemsPerPage)}>
+                                    Next <i className="fas fa-angel-right"></i>
+                                </button>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
-            </ProjectProvider>
-        </div>
+            </div>
+        </ProjectProvider>
     );
 }
 

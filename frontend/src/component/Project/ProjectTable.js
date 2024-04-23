@@ -3,8 +3,9 @@ import { useProjectContext } from './../../context/ProjectContext';
 import gambarorg from '../../assets/img/gambarorg.png';
 import { useHistory } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
+import 'animate.css';
 
-const ProjectTable = () => {
+const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
   const { projects, users, clients, error, loading, editProject, deleteProject } = useProjectContext();
   const [searchTerm, setSearchTerm] = useState('');
   const [visibleRows, setVisibleRows] = useState([]);
@@ -21,64 +22,6 @@ const ProjectTable = () => {
   const handleSort = (column) => {
     const newOrder = sortOrder[column] === 'asc' ? 'desc' : 'asc';
     setSortOrder({ ...sortOrder, [column]: newOrder });
-  };
-
-  const filteredProjects = projects.map((project) => {
-    const customerName = clients.find((client) => client.id === project.customer)?.name || 'N/A';
-
-    return {
-        ...project,
-        customerName,
-    };
-}).filter(
-    (project) =>
-        project.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.year.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.start_date.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        project.end_date.toLowerCase().includes(searchTerm.toLowerCase()) 
-);
-
-  const sortedProjects = filteredProjects.sort((a, b) => {
-    const column = Object.keys(sortOrder).find((key) => sortOrder[key] !== 'asc');
-    const order = sortOrder[column] === 'asc' ? 1 : -1;
-
-    if (a[column] < b[column]) return -1 * order;
-    if (a[column] > b[column]) return 1 * order;
-    return 0;
-  });
-
-  useEffect(() => {
-    animateRows();
-  }, [projects, searchTerm]);
-
-  const animateRows = () => {
-    const rows = document.querySelectorAll('tbody tr');
-  
-    rows.forEach((row, i) => {
-      let tableData = row.innerText.toLowerCase(),
-          searchData = searchTerm.toLowerCase();
-  
-      row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
-      row.style.setProperty('--delay', i / 25 + 's');
-    });
-  
-    const visibleRows = Array.from(rows).filter((row) => !row.classList.contains('hide'));
-    setVisibleRows(visibleRows);
-  
-    visibleRows.forEach((visibleRow, i) => {
-      visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
-    });
-  };
-
-  const tableStyle = {
-    width: '100%',
-    borderCollapse: 'collapse',
-  };
-
-  const cellStyle = {
-    textAlign: 'center',
-    padding: '8px',
   };
 
   const handleEdit = (projectId) => {
@@ -111,6 +54,73 @@ const ProjectTable = () => {
     });
   };
 
+  useEffect(() => {
+    animateRows();
+  }, [projects, searchTerm, currentPage, itemsPerPage]);
+
+  const sortedAndSlicedProjects = projects
+  .map((project) => {
+    const customerName = clients.find((client) => client.id === project.customer)?.name || 'N/A';
+
+    return {
+      ...project,
+      customerName,
+    };
+  })
+  .filter(
+    (project) =>
+      (typeof project.name === 'string' && project.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (typeof project.year === 'number' && project.year.toString().includes(searchTerm)) ||
+      (typeof project.customerName === 'string' && project.customerName.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (typeof project.start_date === 'string' && project.start_date.toLowerCase().includes(searchTerm.toLowerCase())) ||
+      (typeof project.end_date === 'string' && project.end_date.toLowerCase().includes(searchTerm.toLowerCase()))
+  )  
+  .sort((a, b) => {
+    const column = Object.keys(sortOrder).find((key) => sortOrder[key] !== 'asc');
+    const order = sortOrder[column] === 'asc' ? 1 : -1;
+
+    if (column === 'id') {
+      const idA = isNaN(parseInt(a[column])) ? a[column] : parseInt(a[column]);
+      const idB = isNaN(parseInt(b[column])) ? b[column] : parseInt(b[column]);
+      return (idA - idB) * order;
+    }
+
+    const valueA = (a[column] || '').toString().toLowerCase();
+    const valueB = (b[column] || '').toString().toLowerCase();
+
+    if (valueA < valueB) return -1 * order;
+    if (valueA > valueB) return 1 * order;
+    return 0;
+  })
+  .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+  const animateRows = () => {
+    const rows = document.querySelectorAll('tbody tr');
+    
+    rows.forEach((row, i) => {
+      row.classList.remove('hide');
+      row.classList.add('animate__animated', 'animate__slideInLeft'); 
+      row.style.setProperty('--delay', i / 25 + 's');
+    });
+  
+    const visibleRows = Array.from(rows);
+    setVisibleRows(visibleRows);
+  
+    visibleRows.forEach((visibleRow, i) => {
+      visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
+    });
+  };
+          
+  const tableStyle = {
+    width: '100%',
+    borderCollapse: 'collapse',
+  };
+
+  const cellStyle = {
+    textAlign: 'center',
+    padding: '8px',
+  };
+
   if (loading) {
     return (
       <div className="gambarorg">
@@ -140,8 +150,8 @@ const ProjectTable = () => {
       <table style={tableStyle}>
         <thead>
           <tr>
-            <th style={cellStyle} onClick={() => handleSort('id')}>
-              ID {sortOrder.id === 'asc' ? '↑' : '↓'}
+            <th style={cellStyle}>
+              ID 
             </th>
             <th style={cellStyle} onClick={() => handleSort('name')}>
               Project Name {sortOrder.name === 'asc' ? '↑' : '↓'}
@@ -162,8 +172,8 @@ const ProjectTable = () => {
           </tr>
         </thead>
         <tbody>
-          {sortedProjects.map((project, index) => (
-            <tr key={project.id} className={visibleRows.includes(index) ? '' : 'hide'}>
+          {sortedAndSlicedProjects.map((project) => (
+            <tr key={project.id}>
               <td style={cellStyle}>{project.id}</td>
               <td style={cellStyle}>{project.name}</td>
               <td style={cellStyle}>{project.year}</td>

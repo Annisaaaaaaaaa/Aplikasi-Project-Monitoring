@@ -83,7 +83,7 @@ const handleSubmit = async (e) => {
 
         setLoading(true);
         const token = authContext.authTokens ? authContext.authTokens.access : null;
-        if (!token) {
+        if (!token) { 
             throw new Error('Authentication token is missing');
         }
 

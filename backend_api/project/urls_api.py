@@ -1,7 +1,7 @@
 from django.urls import path
 
 from . import views_api
-from .views_api import ProjectRetrieveUpdate, ProjectListSearch, ProjectDestroy, ProjectList, EngineerProjectListCreate, EngineerProjectRetrieveUpdate, EngineerProjectDestroy, export_projects_to_excel, export_projects_to_pdf, export_projects_to_csv, export_projects_to_json, import_projects
+from .views_api import ProjectRetrieveUpdate, ProjectListSearch, ProjectDestroy, ProjectList, export_projects_to_excel, export_projects_to_pdf, export_projects_to_csv, export_projects_to_json, import_projects
 
 urlpatterns = [
     path('', views_api.ProjectListCreate.as_view(), name='project-list-create'),
@@ -15,8 +15,4 @@ urlpatterns = [
     path('export-projects-to-pdf/', export_projects_to_pdf, name='export-projects-to-pdf'),
     path('import-projects/', views_api.import_projects, name='import-projects'),
 
-     # Paths for EngineerProject
-    path('engineer/', views_api.EngineerProjectListCreate.as_view(), name='engineerproject-list-create'),
-    path('engineer/<int:pk>/', views_api.EngineerProjectRetrieveUpdate.as_view(), name='engineerproject-retrieve-update'),
-    path('engineer/delete/<int:pk>/', views_api.EngineerProjectDestroy.as_view(), name='engineerproject-destroy'),  
 ]

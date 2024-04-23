@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import {MyNav} from './views/LandingPage/Nav'
 import {Banner} from './views/LandingPage/Banner'
+import { FormProvider } from './component/Project/FormContext';
 import Navigation from './routes/Navigation'; // Correct path
 import Login from './views/Login/Loginpage'
 import PrivateRoute from "./utils/PrivateRoute";
@@ -63,9 +64,11 @@ function FormTambahClientFunction() {
 
 function FormTambahProjectFunction() {
   return (
-    <div>
-      <Form_Tambah_Project />
-    </div>
+    <FormProvider>
+      <div>
+        <Form_Tambah_Project />
+      </div>
+    </FormProvider>
   );
 }
 
