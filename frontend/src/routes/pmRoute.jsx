@@ -1,15 +1,20 @@
 // routes/pmRoute.js
 
 import PMDashboard from '../component/PM/PMDashboard';
+<<<<<<< HEAD
 import AktivitiesProjectList from '../component/PM/ActivityList'
 import AddAktivitiesProject from '../component/PM/AddActivity'
 import EditAktivitiesProject from '../component/PM/EditActivity'
+=======
+import header from '../component/header';
+import sidebar from '../component/sidebar';
+>>>>>>> fafb99055096343141f8c333118656595f67a770
 
 const pmRoutes = [
   {
     path: '/pm/dashboard',
     exact: true,
-    component: PMDashboard,
+    component: PMDashboard, header, sidebar,
     allowedRoles: [1] 
   },
   {

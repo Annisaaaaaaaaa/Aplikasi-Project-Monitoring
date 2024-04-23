@@ -47,6 +47,14 @@ urlpatterns = [
 
 
 
+<<<<<<< HEAD
+=======
+    #ini user crud
+    path('user/', views.UserListCreate.as_view(), name='user-list'),
+    path('profile/', views.ProfileListCreate.as_view(), name='user-list'),
+    path('akun/', views.AkunListCreate.as_view(), name='akun-list'),
+    path('api/user/add/', views.add_user),
+>>>>>>> fafb99055096343141f8c333118656595f67a770
 
 
 ]

@@ -5,6 +5,10 @@ from .views_api import ProjectDocumentRetrieveUpdate, ProjectDocumentListSearch,
 
 urlpatterns = [
     path('', views_api.ProjectDocumentListCreate.as_view(), name='document-list-create'),
+    path('filter/', views_api.DocumentListFilterByMonthYear.as_view(), name='document-list-filter'),
+    path('<int:pk>/', views_api.ProjectDocumentDetail.as_view(), name='document-list-detail'),
+    path('bycategory/', views_api.DocumentListFilterByCategory.as_view(), name='document-filter-category'),
+    path('count/', views_api.DocumentCount.as_view(), name='document-count'),
     path('edit/<int:pk>/', ProjectDocumentRetrieveUpdate.as_view(), name='document-retrieve-update'),
     path('search/', ProjectDocumentListSearch.as_view(), name='document-list-search'),
     path('export-documents-to-excel/', export_documents_to_excel, name='export-documents-to-excel'),

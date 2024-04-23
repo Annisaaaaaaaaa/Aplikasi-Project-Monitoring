@@ -56,6 +56,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         token['verified'] = user.profile.verified
 
         token['groups'] = [user.groups.first().id]
+        token['namamiau'] = [user.groups.name]
         
         return token
     
@@ -122,13 +123,43 @@ class UserLoginSerializer(TokenObtainPairSerializer):
         
 
 
+<<<<<<< HEAD
 #YAA
 
 #Table Groups
 class GroupSerializer(serializers.ModelSerializer):
+=======
+class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(
+        write_only=True, required=True, validators=[validate_password])
+    password2 = serializers.CharField(write_only=True, required=True)
+
+>>>>>>> fafb99055096343141f8c333118656595f67a770
     class Meta:
         model = Group
         fields = '__all__'
+
+    def validate(self, attrs):
+        if attrs['password'] != attrs['password2']:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."})
+
+        return attrs
+
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        password2 = validated_data.pop('password2')
+
+        if password != password2:
+            raise serializers.ValidationError(
+                {"password": "Password fields didn't match."})
+
+        user = User.objects.create(**validated_data)
+        user.set_password(password)
+        user.save()
+
+        return user
+
 
 
 #Profile

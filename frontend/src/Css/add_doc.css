@@ -52,12 +52,14 @@
 }
 
 .miau4 .kiri-user{
-    margin-left: 2%;
+    margin-left: 2.8%;
+    margin-top: 0.75%;
     float: left;
 }
 
 .miau4 .kanan-user{
     margin-left: 5%;
+    margin-top: 0.4%;
     float: right;
 }
 
@@ -374,6 +376,26 @@ label h4{
     background-color: #2C904D; 
 }
 
+.select-container {
+    margin-top: 1%;
+    margin-left: 3%;
+}
+
+.select-container select {
+    width: fit-content;
+    height: 40px;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: #4D547A;
+}
 
 
 

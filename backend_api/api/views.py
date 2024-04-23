@@ -98,6 +98,23 @@ class ProfileListView(generics.ListAPIView):
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
 
+# CREATE
+class UserListCreate(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    permission_classes = (AllowAny,)
+    serializer_class = UserSerializer
+
+class ProfileListCreate(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+
+# MIX
+class AkunListCreate(generics.ListCreateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
 
 @api_view(['GET'])
 def getRoutes(request):
