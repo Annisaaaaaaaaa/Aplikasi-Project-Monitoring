@@ -5,6 +5,10 @@ from .views_api import PaymentRetrieveUpdate, PaymentListSearch, PaymentDestroy,
 
 urlpatterns = [
     path('', views_api.PaymentListCreate.as_view(), name='payment-list-create'),
+    path('filter/', views_api.PaymentListFilterByMonthYear.as_view(), name='invoice-list-filter'),
+    path('<int:pk>/', views_api.PaymentDetail.as_view(), name='payment-list-detail'),
+    path('bytype/', views_api.PaymentListFilterByType.as_view(), name='payment-filter-type'),
+    path('count/', views_api.PaymentCount.as_view(), name='payment-count'),
     path('edit/<int:pk>/', PaymentRetrieveUpdate.as_view(), name='payment-retrieve-update'),
     path('search/', PaymentListSearch.as_view(), name='payment-list-search'),
     path('export-payments-to-excel/', export_payments_to_excel, name='export-payments-to-excel'),
@@ -12,7 +16,6 @@ urlpatterns = [
     path('export-payments-to-json/', export_payments_to_json, name='export-payments-to-json'),
     path('export-payments-to-pdf/', export_payments_to_pdf, name='export-payments-to-pdf'),
     path('import-payments/', views_api.import_payments, name='import-payments'),
-
     path('delete/<int:pk>/', PaymentDestroy.as_view(), name='payment-destroy'),  
     path('order/', PaymentList.as_view(), name='project-document-list'),
 ]

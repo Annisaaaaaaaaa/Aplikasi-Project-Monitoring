@@ -13,3 +13,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
         fields = '__all__'
+        extra_kwargs = {
+            'document_file': {'required': False}  
+        }

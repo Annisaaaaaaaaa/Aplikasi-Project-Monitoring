@@ -4,15 +4,18 @@ import Navbar from '../../component/header';
 import gambarpayment from '../../assets/img/gambarpayment.png';
 import { Link } from 'react-router-dom';
 import '../../Css/Dashboard.css';
+import { PaymentProvider } from '../../context/PaymentContext';
+import PaymentTable from '../../component/Payment/PaymentTable';
 
-import { ClientProvider } from './../../context/ClientContext';
-import ClientTable from './../../component/Client/ClientTable';
+import { usePaymentContext } from '../../context/PaymentContext';
 
 function Payment_admin() {
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
+    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importInvoices } = usePaymentContext(); 
+
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
@@ -66,8 +69,41 @@ function Payment_admin() {
         setTableRows(sortedRows);
     };
 
+    const handleExportExcel = async () => {
+        try {
+            await exportToExcel();
+        } catch (error) {
+            console.error('Error handling export to Excel:', error.message);
+        }
+    };
+
+    const handleExportCsv = async () => {
+        try {
+            await exportToCsv();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
+    const handleExportPdf = async () => {
+        try {
+            await exportToPdf();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
+    const handleExportJson = async () => {
+        try {
+            await exportToJson();
+        } catch (error) {
+            console.error('Error handling export to Csv:', error.message);
+        }
+    };
+
     return (
         <div>
+            <PaymentProvider>
             <Sidebar />
             <Navbar />
 
@@ -85,13 +121,32 @@ function Payment_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                        <Link to="/form_tambah_client" className="button-client" style={{ textDecoration: 'none' }}>
+                        <Link to="/form_tambah_payment" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
                             <i className="fas fa-plus"></i> Tambah
                         </Link>
-                            <button className="button-client">
-                                <i className="fas fa-download"></i> Export
-                            </button>
-                            <button className="button-client">
+                        <div className="export__file">
+                            <label htmlFor="export-file" className="export__file-btn" title="Export File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Export</label>
+
+                                <input type="checkbox" id="export-file" />
+                                <div className="export__file-options">
+                                    <label>
+                                        Export As &nbsp; &#10140;
+                                    </label>
+                                    <label htmlFor="export-file" id="toPDF" onClick={handleExportPdf}>
+                                        PDF 
+                                    </label>
+                                    <label htmlFor="export-file" id="toJSON" onClick={handleExportJson}>
+                                        JSON 
+                                    </label>
+                                    <label htmlFor="export-file" id="toCSV" onClick={handleExportCsv}>
+                                        CSV 
+                                    </label>
+                                    <label htmlFor="export-file" id="toEXCEL" onClick={handleExportExcel}>
+                                        EXCEL 
+                                    </label>
+                                </div>
+                                </div>
+                            <button className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
                                 <i className="fas fa-upload"></i> Import
                             </button>
                         </div>
@@ -110,9 +165,7 @@ function Payment_admin() {
                             <h1>Data Payment</h1>
                         </section>
                         <section className="table__body">
-                            <ClientProvider>
-                                <ClientTable />
-                            </ClientProvider>
+                           <PaymentTable/>
                         </section>
                     </main>
                     <div className="pagination">
@@ -152,6 +205,7 @@ function Payment_admin() {
                     </div>
                 </div>
             </div>
+            </PaymentProvider>
         </div>
     );
 }

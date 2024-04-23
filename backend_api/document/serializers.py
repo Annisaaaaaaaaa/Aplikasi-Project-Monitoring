@@ -10,3 +10,8 @@ class ProjectDocumentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectDocument
         fields = '__all__'
+        extra_kwargs = {
+            'document_file': {'required': False}  
+        }
+
+    

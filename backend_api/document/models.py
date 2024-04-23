@@ -15,7 +15,7 @@ class ProjectDocument(models.Model):
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     upload_date = models.DateField()
-    document_file = models.FileField(upload_to='doc/')
+    document_file = models.FileField(upload_to='doc/docfile/')
     category = models.CharField(max_length=255, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
 

@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import AuthContext from './AuthContext';
+import Swal from 'sweetalert2';
 
 const DocumentContext = createContext();
 
@@ -16,7 +17,9 @@ export const DocumentProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState('');
   const [projects, setProjects] = useState([]);
   const [users, setUsers] = useState([]);
-  
+  const [exportOption, setExportOption] = useState('all');
+  const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
 
   const fetchData = async () => {
     try {
@@ -177,6 +180,61 @@ const exportToJson = async () => {
   }
 };
 
+const filterExportpdf = async () => {
+  try {
+      const token = authTokens ? authTokens.access : null;
+      if (!token) {
+          throw new Error('Authentication token is missing');
+      }
+
+      // Ambil nilai dari dropdown bulan dan tahun berdasarkan pilihan pengguna
+      let selectedMonth = '';
+      let selectedYear = '';
+      if (exportOption === 'month' || exportOption === 'monthYear') {
+          selectedMonth = month;
+      }
+      if (exportOption === 'year' || exportOption === 'monthYear') {
+          selectedYear = year;
+      }
+
+      // Buat URL dengan parameter bulan dan tahun berdasarkan pilihan pengguna
+      let url = 'http://localhost:8000/api/v1/document/export-documents-to-pdf/';
+      if (selectedMonth) {
+          url += `?month=${selectedMonth}`;
+      }
+      if (selectedYear) {
+          url += selectedMonth ? `&year=${selectedYear}` : `?year=${selectedYear}`;
+      }
+
+      // Lakukan permintaan ke backend untuk eksport PDF
+      const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+              Authorization: `Bearer ${token}`
+          },
+      });
+
+      if (response.status === 200) {
+          // Jika terdapat data yang sesuai, redirect ke file PDF yang dihasilkan
+          window.location.href = response.url;
+      } else if (response.status === 404) {
+          // Jika tidak ada data yang sesuai, tampilkan peringatan SweetAlert
+          Swal.fire({
+              title: 'No Data Found',
+              text: 'There is no data available for the selected month and year.',
+              icon: 'warning',
+              confirmButtonText: 'Close'
+          });
+      } else {
+          // Tampilkan pesan kesalahan jika permintaan tidak berhasil
+          console.error('Error exporting to PDF:', response.statusText);
+      }
+
+  } catch (error) {
+      console.error('Error exporting to PDF:', error.message);
+  }
+};
+
 const editDocument = async (documentId, newData) => {
   try {
     const token = authTokens ? authTokens.access : null;
@@ -243,6 +301,26 @@ const handleSearch = async (searchTerm) => {
   }
 };
 
+const filter2 = async () => {
+  try {
+      const token = authTokens ? authTokens.access : null;
+      if (!token) {
+          throw new Error('Authentication token is missing');
+      }
+
+      const response = await axios.get(`http://localhost:8000/api/v1/document/filter/?month=3`, {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      });
+
+      // Process the search data received from the API
+      console.log(response.data);
+  } catch (error) {
+      console.error('Error searching documents:', error.message);
+  }
+};
+
 
 const contextData = {
   projects,
@@ -258,7 +336,10 @@ const contextData = {
   exportToJson, 
   exportToCsv,
   exportToPdf,
-  deleteDocument
+  deleteDocument,
+  editDocument,
+  filterExportpdf,
+  filter2
 };
 
 return (

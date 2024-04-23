@@ -35,7 +35,7 @@ const PaymentTable = () => {
 
   useEffect(() => {
     animateRows();
-  }, [payments, searchTerm, sortOrder, filteredPayments]);  // Include filteredPayments in the dependencies array
+  }, [payments, searchTerm]);  
 
   const animateRows = () => {
     const rows = document.querySelectorAll('tbody tr');
@@ -83,7 +83,7 @@ const PaymentTable = () => {
   const handleEdit = (paymentId) => {
     const newData = {};
     editPayment(paymentId, newData);
-    history.push(`/invoice-edit/${paymentId}/`);
+    history.push(`/payment-edit/${paymentId}/`);
   };
 
   const confirmDelete = (paymentId) => {
@@ -152,7 +152,7 @@ const PaymentTable = () => {
               <td style={cellStyle}>{payment.payer_name}</td>
               <td style={cellStyle}>{payment.receiver_name}</td>
               <td style={cellStyle}>{payment.amount}</td>
-              <td style={cellStyle}>{payment.payment_date}</td>
+              <td style={cellStyle}>{payment.payment_date.split('T')[0]}</td>
               <td style={cellStyle}>
                 <button onClick={() => handleEdit(payment.id)}>Edit</button>
                 <button onClick={() => confirmDelete(payment.id)}>Delete</button>
