@@ -24,6 +24,7 @@ urlpatterns = [
     path(f"{api_path}/payment/", include(("payment.urls_api", "user-api"), namespace="payment-api")),
     path(f"{api_path}/invoice/", include(("invoice.urls_api", "invoice-api"), namespace="invoice-api")),
     path(f"{api_path}/project/", include(("project.urls_api", "project-api"), namespace="project-api")),
+    path(f"{api_path}/aktivitas-projek/", include(("aktivitas_project.urls_api", "aktivitas_project-api"), namespace="aktivitas_project-api")),
 
 
     #JWT

@@ -2,7 +2,7 @@
 
 import AdminDashboard from '../component/Admin/AdminDashboard';
 import UserList from '../component/Administrator/USerList';
-import AddUser from '../component/Administrator/AddUsser';
+import AddUser from '../component/Administrator/AddUser';
 import ClientPage from '../views/Client/ClientPage'
 
 const adminRoutes = [

@@ -1,9 +1,13 @@
 from django.db import models
 from django.core.exceptions import ValidationError
-from client.models import Client
 from api.models import User
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
+from decimal import Decimal
+from client.models import Client
+
 
 class PriorityChoice(models.TextChoices):
     TINGGI = "tinggi", _("Tinggi")
@@ -17,6 +21,7 @@ class StatusProject(models.TextChoices):
     DONE = "Done", _("Done")
 
 class Project(models.Model):
+
     year = models.IntegerField()
     pid = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -25,21 +30,23 @@ class Project(models.Model):
     sales = models.ForeignKey(User, on_delete=models.CASCADE)
     amount_tax = models.IntegerField(blank=True, null=True)
     amount_exc_tax = models.IntegerField(blank=True, null=True)
-    contract_no = models.CharField(max_length=255, blank=True, null=True)
-    contract_date = models.DateField(blank=True, null=True)
+    top = models.CharField(max_length=255, blank=True, null=True)
+
+
     am = models.ForeignKey(User, on_delete=models.CASCADE, related_name='am_projects', blank=True, null=True)
     pic = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pic_projects', blank=True, null=True)
-    pm = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pm_projects', blank=True, null=True)
+    pm = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_pm', default=False, blank=True, null=True)  # Change related_name here
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=20, choices=StatusProject.choices, default=StatusProject.ON_GOING)
-    top = models.CharField(max_length=255, blank=True, null=True)
+    priority = models.CharField(max_length=10, choices=PriorityChoice.choices, default=PriorityChoice.SEDANG, blank=True, null=True)
+    contract_no = models.CharField(max_length=255, blank=True, null=True)
+    contract_date = models.DateField(blank=True, null=True)
+
     sow = models.CharField(max_length=255, blank=True, null=True)
     oos = models.CharField(max_length=255, blank=True, null=True)
     detail = models.CharField(max_length=255, blank=True, null=True)
     remarks = models.CharField(max_length=255, blank=True, null=True)
-    weight = models.IntegerField(blank=True, null=True)
-    priority = models.CharField(max_length=10, choices=PriorityChoice.choices, default=PriorityChoice.SEDANG)
     type = models.CharField(max_length=255, blank=True, null=True)
     market_segment = models.CharField(max_length=255, blank=True, null=True)
     tech_use = models.TextField(blank=True, null=True)
@@ -53,7 +60,6 @@ class Project(models.Model):
 
     # completion_percentage = models.IntegerField(blank=True, null=True)  
 
-
     def __str__(self):
         return self.name
     
@@ -63,12 +69,11 @@ class Project(models.Model):
         ordering = ['-created_at']
 
 
-
-
 class EngineerProject(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='engineer_projects')
     engineer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='engineer_engagements')  
     presentase_beban_kerja = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    status = models.CharField(max_length=20, choices=StatusProject.choices, default=StatusProject.ON_GOING)
 
     class Meta:
         unique_together = ('project', 'engineer')
@@ -83,7 +88,7 @@ class EngineerProject(models.Model):
         # Jumlahkan presentase beban kerja dari engineer itu sendiri
         total_presentase += presentase_beban_kerja
 
-        # Jika total presentase melebihi 100 setelah mengurangkan presentase engineer tersebut, raise ValidationError
+        # Jika total presentase melebihi 100 setelah mengurangkan presentase engineer tersebut, maka akan validasi erorrr
         if total_presentase > 100.00:
             raise ValidationError('Total presentase beban kerja melebihi 100%')
 

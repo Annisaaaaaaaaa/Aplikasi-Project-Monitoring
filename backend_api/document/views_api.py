@@ -124,6 +124,8 @@ def export_documents_to_json(request):
 
     return response
 
+
+
 def export_documents_to_csv(request):
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')

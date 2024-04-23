@@ -20,17 +20,25 @@ const useAxios = () => {
 
     if (!isExpired) return req;
 
-    const response = await axios.post(`${baseURL}/token/refresh/`, {
-      refresh: authTokens.refresh
-    });
-    localStorage.setItem("authTokens", JSON.stringify(response.data));
-    localStorage.setItem("authTokens", JSON.stringify(response.data));
-
-    setAuthTokens(response.data);
-    setUser(jwt_decode(response.data.access));
-
-    req.headers.Authorization = `Bearer ${response.data.access}`;
-    return req;
+    try {
+      const response = await axios.post(`${baseURL}/token/refresh/`, {
+        refresh: authTokens.refresh
+      });
+      localStorage.setItem("authTokens", JSON.stringify(response.data));
+      setAuthTokens(response.data);
+      setUser(jwt_decode(response.data.access));
+      
+      req.headers.Authorization = `Bearer ${response.data.access}`;
+      return req;
+    } catch (error) {
+      // Tangani error refresh token
+      console.error("Error refreshing token:", error);
+      // Redirect ke halaman /unauthorized jika error 401
+      if (error.response && error.response.status === 401) {
+        window.location.href = '/unauthorized';
+      }
+      throw error;
+    }
   });
 
   return axiosInstance;

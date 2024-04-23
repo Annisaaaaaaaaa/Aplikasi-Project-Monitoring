@@ -1,6 +1,9 @@
 // routes/pmRoute.js
 
 import PMDashboard from '../component/PM/PMDashboard';
+import AktivitiesProjectList from '../component/PM/ActivityList'
+import AddAktivitiesProject from '../component/PM/AddActivity'
+import EditAktivitiesProject from '../component/PM/EditActivity'
 
 const pmRoutes = [
   {
@@ -8,7 +11,25 @@ const pmRoutes = [
     exact: true,
     component: PMDashboard,
     allowedRoles: [1] 
-  }
+  },
+  {
+    path: '/pm/dashboard/aktivitas',
+    exact: true,
+    component: AktivitiesProjectList,
+    allowedRoles: [1,3] 
+  },
+  {
+    path: '/pm/aktivitas/tambah',
+    exact: true,
+    component: AddAktivitiesProject,
+    allowedRoles: [1,3] 
+  },
+  {
+    path: '/pm/aktivitas/edit/:id', 
+    exact: true,
+    component: EditAktivitiesProject,
+    allowedRoles: [1,2,3,4,5], //Role yang boleh akses
+  },
 ];
 
 export default pmRoutes;

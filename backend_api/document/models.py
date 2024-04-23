@@ -12,7 +12,7 @@ import os
 
 class ProjectDocument(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    uploader = models.ForeignKey(User, on_delete=models.CASCADE)
+    uploader = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, default=None)
     name = models.CharField(max_length=255)
     upload_date = models.DateField()
     document_file = models.FileField(upload_to='doc/')
