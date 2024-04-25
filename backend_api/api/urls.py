@@ -4,7 +4,7 @@ from . import views
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
-from .views import CustomTokenObtainPairView
+from .views import CustomTokenObtainPairView, ClientListSearch, UserImportExcelAPIView, ProfileListView, GroupList, UserDeleteView, UserFilterViewSet
 
 
 
@@ -30,12 +30,23 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
 
+    #yg atas sesat
+    path('api/groups/', GroupList.as_view(), name='group-list'),
+    path('users/tambah', views.UserListCreate.as_view(), name='user-list-create'),
+    path('users/<int:pk>/', views.UserRetrieveUpdateDestroy.as_view(), name='user-detail'),
+    path('profiles/administrator/', ProfileListView.as_view(), name='profile-list'),
+    path('user/delete/<int:pk>/', UserDeleteView.as_view(), name='user_delete'),
+    path('user/search/', ClientListSearch.as_view(), name='user-list-search'),
+    path('user/filter/groups/', UserFilterViewSet.as_view(), name='filter_users'),
+    path('user/import/excel/', UserImportExcelAPIView.as_view(), name='user_excel_import'),
 
-    #ini user crud
-    path('user/', views.UserListCreate.as_view(), name='user-list'),
-    path('profile/', views.ProfileListCreate.as_view(), name='user-list'),
-    path('akun/', views.AkunListCreate.as_view(), name='akun-list'),
-    path('api/user/add/', views.add_user),
+    path('export_users/', views.export_users_to_excel, name='export_users_to_excel'),
+
+
+
+
+
+
 
 
 ]

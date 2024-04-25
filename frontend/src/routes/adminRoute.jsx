@@ -1,8 +1,6 @@
-// routes/adminRoute.js
-
 import AdminDashboard from '../component/Admin/AdminDashboard';
 import UserList from '../component/Administrator/USerList';
-import AddUser from '../component/Administrator/AddUsser';
+import AddUser from '../component/Administrator/AddUser';
 import ClientPage from '../views/Client/ClientPage'
 import Client_admin from '../views/Admin/Client_admin';
 import Project_admin from '../views/Admin/Project_admin';
@@ -11,6 +9,8 @@ import Users_admin from '../views/Admin/Users_admin';
 import Invoice_admin from '../views/Admin/Invoice_admin';
 import Payment_admin from '../views/Admin/Payment_admin';
 import Form_Tambah_Client from '../views/Admin/Tambah_Form_Client';
+import Form_Edit_Client from '../views/Admin/Edit_Form_Client';
+import Form_Tambah_Project from '../views/Admin/Tambah_Form_Project';
 import InvoiceEditForm from '../views/Admin/Edit_Form_Invoice';
 import Form_Tambah_Doc from '../views/Admin/Tambah_Form_Doc';
 import Update_doc from '../views/Admin/Edit_Form_Doc';

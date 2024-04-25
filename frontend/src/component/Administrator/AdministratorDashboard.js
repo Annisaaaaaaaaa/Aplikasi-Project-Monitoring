@@ -7,6 +7,7 @@ const AdministratorDashboard = () => {
     <div>
         <Sidebar />
         <Navbar />
+        <h1>Administrator Dashboard</h1>
     </div>
   );
 };

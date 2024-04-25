@@ -43,59 +43,59 @@ function App() {
           <Route component={UsersAdminFunction} path="/users-admin" />
           <Route component={InvoiceAdminFunction} path="/invoice-admin" />
           <Route component={PaymentAdminFunction} path="/payment-admin" /> */}
-          <Route component={FormTambahClientFunction} path="/Form_Tambah_Client" />
+          {/* <Route component={FormTambahClientFunction} path="/Form_Tambah_Client" />
           <Route component={FormTambahInvoiceFunction} path="/Form_Tambah_Invoice" />
           <Route component={FormEditInvoiceFunction} path="/invoice-edit/:invoiceId" />
           <Route component={FormTambahDocumentFunction} path="/Form_Tambah_Document"/>
-          <Route component={FormEditDocFunction} path="/doc-edit/:documentId" />
+          <Route component={FormEditDocFunction} path="/doc-edit/:documentId" /> */}
 
-          <Route component={Home} path="/" exact />
-          <Route component={ClientPage} path="/client" exact />
+          {/* <Route component={Home} path="/" exact /> */}
+          {/* <Route component={ClientPage} path="/client" exact /> */}
         </Switch>
       </Router>
     </AuthProvider>
   );
 }
 
-function FormTambahDocumentFunction() {
-  return (
-    <div>
-      <Form_Tambah_Doc />
-    </div>
-  );
-}
+// function FormTambahDocumentFunction() {
+//   return (
+//     <div>
+//       <Form_Tambah_Doc />
+//     </div>
+//   );
+// }
 
-function FormTambahClientFunction() {
-  return (
-    <div>
-      <Form_Tambah_Client />
-    </div>
-  );
-}
+// function FormTambahClientFunction() {
+//   return (
+//     <div>
+//       <Form_Tambah_Client />
+//     </div>
+//   );
+// }
 
-function FormTambahInvoiceFunction() {
-  return (
-    <div>
-      <Form_Tambah_Invoice />
-    </div>
-  );
-}
+// function FormTambahInvoiceFunction() {
+//   return (
+//     <div>
+//       <Form_Tambah_Invoice />
+//     </div>
+//   );
+// }
 
-function FormEditInvoiceFunction() {
-  return (
-    <div>
-      <Form_Edit_Invoice />
-    </div>
-  );
-}
+// function FormEditInvoiceFunction() {
+//   return (
+//     <div>
+//       <Form_Edit_Invoice />
+//     </div>
+//   );
+// }
 
-function FormEditDocFunction() {
-  return (
-    <div>
-      <Form_Edit_Doc />
-    </div>
-  );
-}
+// function FormEditDocFunction() {
+//   return (
+//     <div>
+//       <Form_Edit_Doc />
+//     </div>
+//   );
+// }
 
 function Home() {
   return (

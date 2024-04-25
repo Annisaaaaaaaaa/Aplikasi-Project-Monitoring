@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from project.models import Project
 from client.models import Client
+from api.models import User
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 import os
@@ -17,6 +18,7 @@ class TypeChoice(models.TextChoices):
   BTC = "billing to customer", _("Billing To Customer")
   BFS = "billing from subcon", _("Billing From Subcon")
     
+
 class Invoice(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     to_contact = models.ForeignKey(Client, on_delete=models.CASCADE)

@@ -1,267 +1,407 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import AuthContext from './../../context/AuthContext';
 import '../../Css/form_tambah_client.css';
-
+import Swal from 'sweetalert2';
 
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambarpop from '../../assets/img/popular.png';
 import gambarexel from '../../assets/img/exel3D.png';
 
-function Form_Tambah_Client() {
-    const [companyName, setCompanyName] = useState('');
-    const [picTitle, setPicTitle] = useState('');
-    const [picPhone, setPicPhone] = useState('');
-    const [picEmail, setPicEmail] = useState('');
-    const [companyAddress, setCompanyAddress] = useState('');
-    const [companyPhone, setCompanyPhone] = useState('');
-    const [companySize, setCompanySize] = useState('');
-    const [companyEmail, setCompanyEmail] = useState('');
-    const [webURL, setWebURL] = useState('');
-    const [notes, setNotes] = useState('');
-    const [selectedFile, setSelectedFile] = useState(null);
+const Form_Tambah_Client = () => {
+    const history = useHistory();
+    const authContext = useContext(AuthContext);
 
-    const handleInputChange = (e, setter) => {
-        setter(e.target.value);
-    };
+    const [formData, setFormData] = useState({
+        industry: '',
+        pic_title: '',
+        pic_phone: '',
+        pic_email: '',
+        name: '',
+        date_joined: '',
+        company_address: '',
+        company_phone: '',
+        logo: null,
+        company_size: '',
+        company_email: '',
+        website_url: '',
+        additional_info: '',
+    });
 
-    const handleSubmit = () => {
-        const newData = {
-            companyName,
-            picTitle,
-            picPhone,
-            picEmail,
-            companyAddress,
-            companyPhone,
-            companySize,
-            companyEmail,
-            webURL,
-            notes
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [logoPreview, setLogoPreview] = useState(null); 
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const token = authContext.authTokens ? authContext.authTokens.access : null;
+                if (!token) {
+                    throw new Error('Authentication token is missing');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+                setError(error.message);
+            }
         };
+        fetchData();
+    }, [authContext.authTokens]);
 
-        setCompanyName('');
-        setPicTitle('');
-        setPicPhone('');
-        setPicEmail('');
-        setCompanyAddress('');
-        setCompanyPhone('');
-        setCompanySize('');
-        setCompanyEmail('');
-        setWebURL('');
-        setNotes('');
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevFormData) => ({
+            ...prevFormData,
+            [name]: value,
+        }));
     };
 
-
-    const handleFileInputChange = (e) => {
+    const handleFileChange = (e) => {
         const file = e.target.files[0];
-        // Lakukan sesuatu dengan file yang diunggah, misalnya tampilkan nama file
-        document.getElementById('file-name').innerText = file.name;
-        // Atau simpan file di state jika Anda ingin mengirimkannya bersama data lain saat menambahkan client
-        setSelectedFile(file);
-    };
-    return (
-        <div>
-            <Sidebar />
-            <Navbar />
+        setFormData({ ...formData, logo: file });
 
-            <div className="parent-form-client">
-                <div className="bg-form">
-                    <div className="bg-form-atas">
-                        <div className="container-form">
-                            <div className="left">
-                            <img src={gambarpop} alt="logo" />
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setLogoPreview(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+        // Memeriksa kolom-kolom yang wajib diisi
+        const requiredFields = ['name', 'industry', 'date_joined', 'company_address', 'company_email', 'company_phone', 'logo'];
+        const missingFields = requiredFields.filter(field => !formData[field]);
+
+        if (missingFields.length > 0) {
+            throw new Error(`Please fill in the following required fields: ${missingFields.join(', ')}`);
+        }
+
+        setLoading(true);
+        const token = authContext.authTokens ? authContext.authTokens.access : null;
+        if (!token) {
+            throw new Error('Authentication token is missing');
+        }
+
+        const formDataToSend = new FormData();
+        Object.entries(formData).forEach(([key, value]) => {
+            // Tambahkan nilai kolom ke FormData hanya jika nilainya tidak kosong
+            if (value !== '') {
+                formDataToSend.append(key, value);
+            }
+        });
+
+        // Show Sweet Alert before submitting
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You are about to add a new client!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, add it!'
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const response = await axios.post(`http://localhost:8000/api/v1/client/`, formDataToSend, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                console.log('Server response:', response.data); // Optional: log server response
+
+                setFormData({
+                    industry: '',
+                    pic_title: '',
+                    pic_phone: '',
+                    pic_email: '',
+                    name: '',
+                    date_joined: '',
+                    company_address: '',
+                    company_phone: '',
+                    logo: null,
+                    company_size: '',
+                    company_email: '',
+                    website_url: '',
+                    additional_info: '',
+                });
+
+                setLogoPreview(null);
+
+                setError(null);
+
+                history.push('/client-admin');
+            }
+        });
+    } catch (error) {
+        console.error('Error submitting form:', error.message);
+        setError(error.message); // Menetapkan pesan kesalahan
+    } finally {
+        setLoading(false);
+    }
+};
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <div>
+                <Sidebar />
+                <Navbar />
+
+                <div className="parent-form-client">
+                    <div className="bg-form">
+                        <div className="bg-form-atas">
+                            <div className="container-form">
+                                <div className="left">
+                                    <img src={gambarpop} alt="logo" />
+                                </div>
+                                <div className="right">
+                                    <p className="add-client">ADD CLIENT</p>
+                                </div>
                             </div>
-                            <div className="right">
-                                <p className="add-client">ADD CLIENT</p>
+                        </div>
+                        <div className="bg-form-bawah">
+                            <div className="ess">
+                                <p>Essential Information. </p>
+                                <br />
+                            </div>
+                            <div className="miau">
+                                <div className="kiri">
+                                    <div className="tittle-form">
+                                        <p>Company Name </p>
+                                    </div>
+                                    <div className="input-form">
+                                        <input
+                                            type="text"
+                                            name="industry"
+                                            value={formData.industry}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    {error && !formData.industry && error.includes('industry') && (
+                                        <p className="error">This field is required.</p>
+                                    )}
+                                    <br />
+                                    <div className="tittle-form">
+                                        <p>PIC Title </p>
+                                    </div>
+                                    <div className="input-form">
+                                        <input
+                                            type="text"
+                                            name="pic_title"
+                                            value={formData.pic_title}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    <p className="error">
+                                        {/* Show error message if needed */}
+                                    </p>
+                                    <br />
+                                    <div className="tittle-form">
+                                        <p>Name </p>
+                                    </div>
+                                    <div className="input-form">
+                                        <input
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    {error && !formData.name && error.includes('name') && (
+                                        <p className="error">This field is required.</p>
+                                    )}
+                                </div>
+                                <div className="kanan">
+                                    <div className="tittle-form">
+                                        <p>PIC Phone </p>
+                                    </div>
+                                    <div className="input-form">
+                                        <input
+                                            type="text"
+                                            name="pic_phone"
+                                            value={formData.pic_phone}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    <p className="error">
+                                        {/* Show error message if needed */}
+                                    </p>
+                                    <br />
+                                    <div className="tittle-form">
+                                        <p>PIC Email </p>
+                                    </div>
+                                    <div className="input-form">
+                                        <input
+                                            type="text"
+                                            name="pic_email"
+                                            value={formData.pic_email}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    <p className="error">
+                                        {/* Show error message if needed */}
+                                    </p>
+                                    <br />
+                                    <div className="tittle-form">
+                                        <p>Date Joined</p>
+                                    </div>
+                                    <div className="input-form">
+                                        <input
+                                            type="date"
+                                            name="date_joined"
+                                            value={formData.date_joined}
+                                            onChange={handleInputChange}
+                                        />
+                                    </div>
+                                    {error && !formData.date_joined && error.includes('date_joined') && (
+                                        <p className="error">This field is required.</p>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className="bg-form-bawah">
-                        <div className="ess">
-                            <p>Essential Information. </p>
-                            <br />
+
+                    <div className="exel-form">
+                        <div className="exel-content">
+                            <img src={gambarexel} alt="logo" />
+                            <div className="exel-des">
+                                <p>Atau Import Informasi Dari Excel</p>
+                                <span>dengan klik button berikut</span>
+                                <div className="group-button">
+                                    <button>Import</button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="miau">
+                    </div>
+
+                    <div className="form-bawah">
+                        <div className="ess2">
+                            <p>Additional Information. </p>
+                        </div>
+
+                        <div className="miau2">
                             <div className="kiri">
                                 <div className="tittle-form">
-                                    <p>Company/Industry Name </p>
+                                    <p>Company Address </p>
                                 </div>
-                                <div className="input-form">
-                                    <input 
-                                        type="text" 
-                                        value={companyName} 
-                                        placeholder="Ex. PT Bongkar Turet" 
-                                        onChange={(e) => handleInputChange(e, setCompanyName)} 
+                                <div className="input-form2">
+                                    <input
+                                        type="text"
+                                        name="company_address"
+                                        value={formData.company_address}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
-                                <p className="error">
-                                    {/* Show error message if needed */}
-                                </p>
-                                <br />
+                                {error && !formData.company_address && error.includes('company_address') && (
+                                    <p className="error">This field is required.</p>
+                                )}
                                 <div className="tittle-form">
-                                    <p>PIC Title </p>
+                                    <p>Company Phone</p>
                                 </div>
-                                <div className="input-form">
-                                    <input 
-                                        type="text" 
-                                        value={picTitle} 
-                                        placeholder="Ex. PT Bongkar Turet" 
-                                        onChange={(e) => handleInputChange(e, setPicTitle)} 
+                                <div className="input-form2">
+                                    <input
+                                        type="text"
+                                        name="company_phone"
+                                        value={formData.company_phone}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
-                                <p className="error">
-                                    {/* Show error message if needed */}
-                                </p>
+                                {error && !formData.company_phone && error.includes('company_phone') && (
+                                    <p className="error">This field is required.</p>
+                                )}
+                                <div className="tittle-form">
+                                    <p>Company Logo</p>
+                                </div>
+                                <div className="file-input-container">
+                                    <label htmlFor="file-upload" className="label-file">Upload</label>
+                                    <input
+                                        id="file-upload"
+                                        name="logo"
+                                        type="file"
+                                        onChange={handleFileChange}
+                                    />
+                                    <span id="file-name">{formData.logo ? formData.logo.name : 'Pilih gambar'}</span>
+                                </div>
+                                {logoPreview && (
+    <img
+        src={logoPreview}
+        alt="Logo Preview"
+        className="logo-preview"
+        style={{ maxWidth: '200px', maxHeight: '200px', marginTop: '10px' }}
+    />
+)}
+
+                                {error && !formData.logo && error.includes('logo') && (
+                                    <p className="error">This field is required.</p>
+                                )}
+                                
                             </div>
+
                             <div className="kanan">
                                 <div className="tittle-form">
-                                    <p>PIC Phone </p>
+                                    <p>Company Size </p>
                                 </div>
-                                <div className="input-form">
-                                    <input 
-                                        type="text" 
-                                        value={picPhone} 
-                                        placeholder="Ex. PT Bongkar Turet" 
-                                        onChange={(e) => handleInputChange(e, setPicPhone)} 
+                                <div className="input-form2">
+                                    <input
+                                        type="text"
+                                        name="company_size"
+                                        value={formData.company_size}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
-                                <p className="error">
-                                    {/* Show error message if needed */}
-                                </p>
-                                <br />
+
                                 <div className="tittle-form">
-                                    <p>PIC Email </p>
+                                    <p>Company Email </p>
                                 </div>
-                                <div className="input-form">
-                                    <input 
-                                        type="text" 
-                                        value={picEmail} 
-                                        placeholder="Ex. PT Bongkar Turet" 
-                                        onChange={(e) => handleInputChange(e, setPicEmail)} 
+                                <div className="input-form2">
+                                    <input
+                                        type="text"
+                                        name="company_email"
+                                        value={formData.company_email}
+                                        onChange={handleInputChange}
                                     />
                                 </div>
-                                <p className="error">
-                                    {/* Show error message if needed */}
-                                </p>
+                                {error && !formData.company_email && error.includes('company_email') && (
+                                    <p className="error">This field is required.</p>
+                                )}
+                                <div className="tittle-form">
+                                    <p>Web URL </p>
+                                </div>
+                                <div className="input-form2">
+                                    <input
+                                        type="url"
+                                        name="website_url"
+                                        value={formData.website_url}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div className="exel-form">
-                    <div className="exel-content">
-                     <img src={gambarexel} alt="logo" />
-                        <div className="exel-des">
-                            <p>Atau Import Informasi Dari Excel</p>
-                            <span>dengan klik button berikut</span>
-                            <div className="group-button">
-                                <button>Import</button>
+                        <div className="miau3">
+                            <div className="tittle-form-notes">
+                                <p>Notes</p>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="form-bawah">
-                    <div className="ess2">
-                        <p>Additional Information. </p>
-                    </div>
-
-                    <div className="miau2">
-                        <div className="kiri">
-                            <div className="tittle-form">
-                                <p>Company Address </p>
-                            </div>
-                            <div className="input-form2">
-                                <input 
-                                    type="text" 
-                                    value={companyAddress} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanyAddress)} 
-                                />
-                            </div>
-
-                            <div className="tittle-form">
-                                <p>Company Phone</p>
-                            </div>
-                            <div className="input-form2">
-                                <input 
-                                    type="text" 
-                                    value={companyPhone} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanyPhone)} 
-                                />
-                            </div>
-
-                            <div className="tittle-form">
-                                <p>Company Logo</p>
-                            </div>
-                            <div className="file-input-container">
-                                <label htmlFor="file-upload" className="label-file">Upload</label>
-                                <input 
-                                    id="file-upload" 
-                                    type="file" 
-                                    onChange={handleFileInputChange} 
-                                />
-                                <span id="file-name"></span>
-                            </div>
+                            <textarea
+                                id=""
+                                rows="4"
+                                name="additional_info"
+                                value={formData.additional_info}
+                                onChange={handleInputChange}
+                            />
                         </div>
 
-                        <div className="kanan">
-                            <div className="tittle-form">
-                                <p>Company Size </p>
-                            </div>
-                            <div className="input-form2">
-                                <input 
-                                    type="text" 
-                                    value={companySize} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanySize)} 
-                                />
-                            </div>
-
-                            <div className="tittle-form">
-                                <p>Company Email </p>
-                            </div>
-                            <div className="input-form2">
-                                <input 
-                                    type="text" 
-                                    value={companyEmail} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setCompanyEmail)} 
-                                />
-                            </div>
-
-                            <div className="tittle-form">
-                                <p>Web URL </p>
-                            </div>
-                            <div className="input-form2">
-                                <input 
-                                    type="text" 
-                                    value={webURL} 
-                                    placeholder="Ex. PT Bongkar Turet" 
-                                    onChange={(e) => handleInputChange(e, setWebURL)} 
-                                />
-                            </div>
+                        <div className="tambah-client">
+                            <button type="submit" disabled={loading}>Tambah</button>
                         </div>
-                    </div>
-                    <div className="miau3">
-                        <div className="tittle-form-notes">
-                            <p>Notes</p>
-                        </div>
-                        <textarea 
-                            name="note" 
-                            id="" 
-                            rows="4" 
-                            value={notes} 
-                            onChange={(e) => handleInputChange(e, setNotes)} 
-                        />
-                    </div>
-
-                    <div className="tambah-client">
-                        <button onClick={handleSubmit}>Tambah</button>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     );
 }
 

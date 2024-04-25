@@ -100,7 +100,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'apm-multi',   
+        'NAME': 'apm-master-db',   
         'USER': 'user',       
         'PASSWORD': 'user123',
         'HOST': 'localhost',      

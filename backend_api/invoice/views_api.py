@@ -220,7 +220,6 @@ def export_invoices_to_json(request):
     return response
 
 
-
 def export_invoices_to_csv(request):
     # Retrieve filter parameters
     month = request.GET.get('month')

@@ -1,0 +1,436 @@
+.panjang img{
+    margin-left: 2.5%;
+    margin-top: 2%;
+}
+
+/**** Form ****/
+
+.container-execution{
+    display: flex;
+}
+
+.samping-execution { 
+    position: sticky;
+    top: 0;
+    width: 329px;
+    height: 544px;
+    margin-left: 3%;
+    margin-top: 2%;
+    background: linear-gradient(0.58deg, #7C92CB -0.68%, #92A8D6 49.26%, #CED7F0 96.75%);
+    box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+}
+
+.samping-execution img{
+    padding-top: 15%;
+    padding-left: 10%;
+}
+
+.samping-execution h1{
+    padding-top: 10%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 27px;
+    line-height: 30px;
+    text-align: center;
+    color: #3A447A;
+}
+
+.samping-execution p{
+    padding: 5% 10% 0 10%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    text-align: center;
+    color: #2E2E2E;
+}
+
+.samping-execution p span{
+    font-weight: 900;
+}
+
+.tambah-execution {
+    position: relative; 
+    margin-top: 7%;
+    margin-left: 35%;
+    
+}
+
+.tambah-execution button {
+    display: flex;
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffff;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(89.96deg, #548ADA 0.04%, #80ADE5 63.75%, #7CBCF7 110.92%);
+    border-radius: 14px;
+    border: none;
+    padding: 10px 26px; 
+    cursor: pointer;
+}
+
+.tambah-execution button img {
+    margin-right: 8px; 
+}
+
+/*** internal engineer ***/
+
+.internal-engineer {
+    box-sizing: border-box;
+    position: relative; 
+    width: 63%;
+    height: 300px;
+    overflow-y: auto; 
+    margin-left: 5%;
+    margin-top: 2%;
+    background: linear-gradient(209.53deg, rgba(242, 244, 245, 0.6) 26.39%, rgba(233, 236, 244, 0.6) 80.55%, rgba(205, 209, 252, 0.378) 97.89%);
+    box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    border: 2px solid rgba(151, 151, 151, 0.2);
+}
+
+.internal-engineer::-webkit-scrollbar {
+    width: 1px; 
+}
+
+.internal-engineer::-webkit-scrollbar-thumb {
+    background-color: #ffff; 
+    border-radius: 4px; 
+}
+
+.internal-engineer::-webkit-scrollbar-track {
+    background-color: transparent; 
+}
+
+.container-judul-internal {
+    display: flex;
+    margin-left: 3%;
+}
+
+.container-judul-internal img{
+    padding-top: 180%;
+}
+
+.container-judul-internal h1{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    margin-left: 4%;
+    padding-top: 10%;
+    color: #4F5B96;
+}
+
+.container-judul-internal p{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    margin-left: 4%;
+    white-space: nowrap;
+    color: #606060;
+}
+
+.container-judul-internal p span{
+    font-weight: 800;
+}
+
+.back-execution {
+    position: relative; 
+    margin-left: 85%;
+    margin-top: -5%;
+}
+
+.back-execution button {
+    display: flex;
+    font-weight: 500;
+    color: #2A3096;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid #2A3096;
+    padding: 8px 16px; 
+    cursor: pointer;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.back-execution button img {
+    margin-right: 5px; 
+}
+
+/*** Form Internal ***/
+.container-form-internal {
+    display: grid;
+    grid-gap: 20px;
+    overflow: hidden;
+    margin-left: 6%;
+    margin-top: 3%;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+
+
+.container-form-internal .kanan-internal {
+    margin-left: 4%;
+    margin-top: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4D547A;
+}
+
+.container-form-internal .tengah-internal {
+    margin-left: 4%;
+    margin-top: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4D547A;
+}
+
+.container-form-internal .kiri-internal {
+    margin-left: 4%;
+    margin-top: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4D547A;
+}
+
+.container-form-internal .kanan-internal input{
+    width: 280px;
+    height: 35px;
+    margin-left: 3%;
+    margin-top: 5%;
+    border: none;
+    background: linear-gradient(89.99deg, rgba(132, 171, 206, 0.5) 0.97%, rgba(189, 213, 235, 0.5) 42.03%, rgba(188, 207, 225, 0.5) 92.12%);
+    border-radius: 5px;
+    backdrop-filter: blur(75px);
+    padding-left: 10px;
+}
+
+.container-form-internal .tengah-internal {
+    position: relative; 
+}
+
+.container-form-internal .tengah-internal .input-container {
+    position: relative; 
+    width: 200px;
+    height: 35px;
+    margin-left: 3%;
+    margin-top: 6%;
+    background: linear-gradient(89.99deg, rgba(132, 171, 206, 0.5) 0.97%, rgba(189, 213, 235, 0.5) 42.03%, rgba(188, 207, 225, 0.5) 92.12%);
+    border-radius: 5px;
+    backdrop-filter: blur(75px);
+    overflow: hidden; 
+}
+
+.container-form-internal .tengah-internal .input-container input {
+    width: calc(100% - 30px); 
+    height: 35px;
+    border: none;
+    background: transparent;
+    padding-left: 10px;
+    float: left; 
+}
+
+.container-form-internal .tengah-internal .input-container .percentage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: 300;
+    margin-right: 5%;
+    height: 35px;
+    line-height: 35px;
+    background: none;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    color: #4D547A; 
+}
+
+
+.container-form-internal .kiri-internal select.status-dropdown {
+    width: 200px;
+    height: 35px;
+    margin-left: 3%;
+    margin-top: 5%;
+    border: none;
+    background: linear-gradient(89.99deg, rgba(132, 171, 206, 0.5) 0.97%, rgba(189, 213, 235, 0.5) 42.03%, rgba(188, 207, 225, 0.5) 92.12%);
+    border-radius: 5px;
+    backdrop-filter: blur(75px);
+    padding-left: 10px;
+}
+
+.container-form-internal .kanan-internal select {
+    width: 200px;
+    height: 35px;
+    margin-left: 3%;
+    margin-top: 5%;
+    border: none;
+    background: linear-gradient(89.99deg, rgba(132, 171, 206, 0.5) 0.97%, rgba(189, 213, 235, 0.5) 42.03%, rgba(188, 207, 225, 0.5) 92.12%);
+    border-radius: 5px;
+    backdrop-filter: blur(75px);
+    padding-left: 10px;
+}
+
+.tambah-engineer {
+    margin-top: 3%;
+    margin-left: 5%;
+    display: flex;
+}
+
+.tambah-engineer img{
+    margin-right: 2%;
+}
+
+.tambah-engineer button{
+    text-align: center;
+    padding: 10px;
+    width: 95%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(142, 166, 201, 0.144) 0.76%, rgba(192, 191, 242, 0.112) 100%);
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 16px;
+    text-align: center;
+    color: #737998;
+}
+
+
+/*** Eksternal Engineer ***/
+
+.eksternal-engineer {
+    position: absolute;
+    box-sizing: border-box;
+    height: 400px;
+    overflow-y: auto; 
+    width: 58%;
+    height: 271px;
+    margin-left: 27%;
+    margin-top: 22%;
+    background: #CED7F0;
+    box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+}
+
+
+.container-form-internal .kanan-eksternal {
+    margin-left: 4%;
+    margin-top: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4D547A;
+}
+
+.container-form-internal .tengah-eksternal {
+    margin-left: 4%;
+    margin-top: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4D547A;
+}
+
+.container-form-internal .kiri-eksternal {
+    margin-left: 4%;
+    margin-top: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4D547A;
+}
+
+.container-form-internal .kanan-eksternal input{
+    width: 280px;
+    height: 35px;
+    margin-left: 3%;
+    margin-top: 5%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    padding-left: 10px;
+}
+
+.container-form-internal .tengah-eksternal {
+    position: relative; 
+}
+
+.container-form-internal .tengah-eksternal .input-container {
+    position: relative; 
+    width: 200px;
+    height: 35px;
+    margin-left: 3%;
+    margin-top: 6%;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    overflow: hidden; 
+}
+
+.container-form-internal .tengah-eksternal .input-container input {
+    width: calc(100% - 30px); 
+    height: 35px;
+    border: none;
+    background: transparent;
+    padding-left: 10px;
+    float: left; 
+}
+
+.container-form-internal .tengah-eksternal .input-container .percentage {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-weight: 300;
+    margin-right: 5%;
+    height: 35px;
+    line-height: 35px;
+    background: none;
+    border-radius: 0 5px 5px 0;
+    text-align: center;
+    color: #4D547A; 
+}
+
+
+.container-form-internal .kiri-eksternal select.status-dropdown {
+    width: 200px;
+    height: 35px;
+    margin-left: 3%;
+    margin-top: 5%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    padding-left: 10px;
+}
