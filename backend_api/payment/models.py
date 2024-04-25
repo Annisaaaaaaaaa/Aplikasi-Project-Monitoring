@@ -8,8 +8,8 @@ from django.dispatch import receiver
 import os
 
 class TypeChoice(models.TextChoices):
-  BTC = "Billing To Customer", _("Billing To Customer")
-  BFS = "Billing From Subcon", _("Billing From Subcon")
+  BTC = "billing to customer", _("Billing To Customer")
+  BFS = "billing from subcon", _("Billing From Subcon")
 
 class Payment(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)

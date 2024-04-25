@@ -34,7 +34,7 @@ class Invoice(models.Model):
     
 
     def __str__(self):
-        return self.status
+        return self.name
 
     class Meta:
         verbose_name = 'Invoices'

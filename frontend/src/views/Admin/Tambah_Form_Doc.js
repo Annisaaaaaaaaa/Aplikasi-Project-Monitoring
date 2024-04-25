@@ -173,7 +173,7 @@ const confirmBeforeSubmit = async () => {
 
                       <div className="miau4">
                           <div className="kiri-user">
-                          <div className="tittle-form" style={{ marginBottom: '12%' }}>
+                          <div className="tittle-form" style={{ marginBottom: '2%' }}>
                               Project 
                           </div>
                               <div className="select-container">
@@ -252,7 +252,7 @@ const confirmBeforeSubmit = async () => {
                           <p>Upload Dokument</p>
                           <span>bisa lebih dari satu dokumen</span>
                           <div className="group-button">
-                          <div className="file-input-container">
+                          <div className="file-input-doc">
                                 <label htmlFor="file-upload" className="label-file"  style={{ marginLeft: '45%', backgroundColor: '#597CB1',  alignItems: 'center', color:'white', fontWeight: '500'}}>Upload</label>
                                 <input id="file-upload"  type="file" name="document_file" onChange={handleFileChange} />
                                 <span id="file-name"></span>

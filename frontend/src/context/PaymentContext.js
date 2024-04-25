@@ -16,7 +16,7 @@ export const PaymentProvider = ({ children }) => {
   const [searchValue, setSearchValue] = useState('');
   const [projects, setProjects] = useState([]);
   const [clients, setClients] = useState([]);
-
+  const [invoices, setInvoices] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -38,9 +38,17 @@ export const PaymentProvider = ({ children }) => {
           Authorization: `Bearer ${token}`
         }
       });
+
+      // Fetch Project data
+      const invoiceResponse = await axios.get('http://localhost:8000/api/v1/invoice/', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
   
       setPayment(paymentResponse.data);
       setProjects(projectResponse.data);
+      setInvoices(invoiceResponse.data);
       setError(null);
     } catch (error) {
       console.error('Error fetching data:', error.message);
@@ -56,7 +64,7 @@ export const PaymentProvider = ({ children }) => {
   
   console.log('Payments:', payments);
   console.log('Projects:', projects);
-    
+  console.log('Invoices:', invoices);
 
 
 const exportToExcel = async () => {
@@ -267,6 +275,7 @@ const handleSearch = async (searchTerm) => {
 const contextData = {
   projects,
   payments,
+  invoices,
   error,
   loading,
   fetchData,

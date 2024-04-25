@@ -99,6 +99,10 @@ def export_payments_to_pdf(request):
     if year:
         payments = payments.filter(payment_date__year=year)
 
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
+
     # Create a buffer to store PDF data
     buffer = BytesIO()
 
@@ -193,6 +197,10 @@ def export_payments_to_json(request):
     if year:
         payments = payments.filter(payment_date__year=year)
 
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
+
     # Convert data to a list of dictionaries
     data_list = []
     for payment in payments:
@@ -266,6 +274,10 @@ def export_payments_to_csv(request):
     if year:
         payments = payments.filter(payment_date__year=year)
 
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
+
     # Write data rows to the CSV file
     for payment in payments:
         # Convert payment_date to string without timezone information
@@ -314,6 +326,10 @@ def export_payments_to_excel(request):
 
     if year:
         payments = payments.filter(payment_date__year=year)
+
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
 
     # Create a named style for hyperlinks
     hyperlink_style = NamedStyle(name='hyperlink_style', font=Font(color="0000FF", underline='single'))
@@ -374,6 +390,13 @@ class PaymentDetail(generics.RetrieveAPIView):
 class PaymentListCreate(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 # Edit
 class PaymentRetrieveUpdate(generics.RetrieveUpdateAPIView):

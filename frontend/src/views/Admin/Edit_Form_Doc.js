@@ -3,13 +3,18 @@ import axios from 'axios';
 import { useParams, useHistory } from 'react-router-dom';
 import { useDocumentContext } from './../../context/DocumentContext';
 import AuthContext from '../../context/AuthContext';
-import '../../Css/add_doc.css';
+import '../../Css/form_edit_doc.css';
+import Swal from 'sweetalert2';
 
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambarpop from '../../assets/img/popular.png';
 import gambardoc from '../../assets/img/gambardoc.png';
 import gambarup from '../../assets/img/icon_up.png';
+
+import tbhfile from '../../images/doc/tbhfile.png'
+import docu from '../../images/doc/Docu.png'
+
 
 function Update_doc() {
   const history = useHistory();
@@ -30,9 +35,9 @@ function Update_doc() {
   const [projects, setProjects] = useState([]);
   const [users, setUsers] = useState([]);
   const [statusOptions] = useState([
-    'belum dibayar',
-    'dibayar',
-    'overdue',
+    'laporan',
+    'project',
+    'user',
     // Add other status options as needed
   ]);
 
@@ -74,7 +79,7 @@ function Update_doc() {
           category: data.category || '',
           upload_date: data.upload_date || '',
           description: data.description || '',
-          document_file: data.document_file || '',
+          document_file: '', // No need to set document_file here
         });
       } catch (error) {
         console.error('Error fetching document data:', error.message);
@@ -92,14 +97,39 @@ function Update_doc() {
     }));
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, document_file: e.target.files[0] });
-  };
+  // const handleFileChange = (e) => {
+  //   // No need to directly set formData.document_file here
+  //   // We handle adding the file to FormData in handleSubmit
+  //   setFormData({ ...formData, document_file: e.target.files[0] });
+  // };
+
+  const [selectedFile, setSelectedFile] = useState(null);
+
+const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        // Lakukan apa pun yang perlu dilakukan dengan file di sini
+        // Contoh: menyimpan file, memprosesnya, dll.
+        // Misalnya:
+        setSelectedFile({
+            name: file.name,
+            content: `File ${file.name} selected.` // Perbaikan disini
+        });
+    } else {
+        setSelectedFile(null);
+    }
+};
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
     try {
+      const confirmed = await confirmBeforeSubmit();
+        if (!confirmed) {
+            return;
+      }
+
       const token = authTokens ? authTokens.access : null;
       if (!token) {
         throw new Error('Authentication token is missing');
@@ -107,18 +137,12 @@ function Update_doc() {
   
       const formDataForUpload = new FormData();
   
-      // Tambahkan semua bidang ke FormData
+      // Add all fields to FormData
       Object.entries(formData).forEach(([key, value]) => {
-        if (key === 'document_file' && !formData.document_file) {
-          // Jika tidak ada file baru yang dipilih, gunakan nilai yang ada dalam state formData
-          formDataForUpload.append(key, value);
-        } else if (key !== 'document_file') {
-          // Tambahkan bidang ke FormData kecuali document_file
-          formDataForUpload.append(key, value);
-        }
+        formDataForUpload.append(key, value);
       });
   
-      // Tambahkan file baru jika ada
+      // Add new file if present
       if (formData.document_file) {
         formDataForUpload.append('document_file', formData.document_file);
       }
@@ -148,6 +172,20 @@ function Update_doc() {
     }
   };
   
+  const confirmBeforeSubmit = async () => {
+    const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to add this document?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, add it!',
+    });
+
+    return result.isConfirmed;
+};
+  
 
   if (loading) {
     return <p>Loading...</p>;
@@ -158,39 +196,80 @@ function Update_doc() {
   }
 
     return (
-       <div>
-          <Sidebar />
-          <Navbar />
-          <div className="form-add-user">
-              <div className="tiitle-add-user">
-                  <div className="add-user-kanan">
-                      <div className="icon-add-client">
-                          <img src={gambarpop} alt="logo" />
-                      </div>
-                      <div className="kiri-icon-user">
-                        UPDATE DOCUMENT
-                      </div>
-                  </div>
-              </div>
-              <p>Masukkan Informasi Umum. Bagian Document</p>
+      <div>
+      <Sidebar />
+     <Navbar />
+     <form onSubmit={handleSubmit}>
+ <div className="upload-doc" id="upload-doc">
+     <label htmlFor="file-input">
+     <img src={tbhfile} alt="logo" />
+         <p id="file-text">Add file <span>or drop files here</span></p>
+     </label>
+     <input id="file-input" type="file" name="document_file" style={{ display: 'none' }} onChange={handleFileChange} />
+ </div>
+ {selectedFile && (
+     <div id="file-preview">
+         <p>File Preview:</p>
+         <div id="preview-container" dangerouslySetInnerHTML={{ __html: selectedFile.content }}></div>
+     </div>
+ )}
 
-              <div className="miau-container">
-              <form onSubmit={handleSubmit}>
-                      <div className="miau5">
-                          <div className="tittle-form-email">
-                              Name
-                          </div>
-                          <div className="input-form-email">
-                              <input type="text" name='name' value={formData.name} onChange={handleInputChange} placeholder="SCOP Projek A" />
-                          </div>
-                      </div>
+ <div className="exel-form">
+     <div className="tiitle-doc">
+         <div className="add-doc-kanan">
+             <div className="icon-docu">
+             <img src={docu} alt="logo" /> 
+             </div>
+             <div className="kiri-title-doc">
+                 DOCUMENT NAME : {formData.name} 
+             </div>
+         </div>
+     </div>
+     <div className="p-judul-doc">
+         <p>Di Unggah pada {formData.upload_date} </p>
+     </div>
 
-                      <div className="miau4">
-                          <div className="kiri-user">
-                          <div className="tittle-form" style={{ marginBottom: '12%' }}>
-                              Project 
-                          </div>
-                              <div className="select-container">
+     <div className="miau-container">
+         <div className="miau4">
+             <div className="kiri-user">
+                 <div className="tittle-form">
+                     <p> Pengunggah </p>
+                 </div>
+                 <div className="input-form-select">
+                 <select name="uploader" value={formData.uploader} onChange={handleInputChange}>
+                                      <option value="">Uploader</option>
+                                      {users.map((user) => (
+                                          <option key={user.id} value={user.id}>
+                                              {user.email}
+                                          </option>
+                                      ))}
+                                  </select>
+
+                 </div>
+             </div>
+             <div className="kanan-user">
+                 <div className="tittle-form">
+                     <p>Kategori </p>
+                 </div>
+                 <div className="input-form-select">
+                 <select name="category" value={formData.category} onChange={handleInputChange}>
+                                <option value="">Category</option>
+                                {statusOptions.map((category) => (
+                                    <option key={category} value={category}>
+                                    {category}
+                                    </option>
+                                ))}
+                                </select>
+
+                 </div>
+             </div>
+         </div>
+
+         <div className="miau5">
+             <div className="tittle-form-email-doc">
+                 <p>Projek</p>
+             </div>
+             <div className="select-container-edit">
                                   <select name="project" value={formData.project} onChange={handleInputChange}>
                                       <option value="">Project</option>
                                       {projects.map((project) => (
@@ -200,83 +279,23 @@ function Update_doc() {
                                       ))}
                                   </select>
                               </div>
-                          </div>
-                          <div className="kanan-user">
-                              <div className="tittle-form">
-                                  Uploader 
-                              </div>
-                              <div className="input-form">
-                              <div className="select-container">
-                                  <select name="uploader" value={formData.uploader} onChange={handleInputChange}>
-                                      <option value="">Uploader</option>
-                                      {users.map((user) => (
-                                          <option key={user.id} value={user.id}>
-                                              {user.email}
-                                          </option>
-                                      ))}
-                                  </select>
-                              </div>
-                              </div>
-                          </div>
-                      </div>
 
-                      <div className="miau5">
-                          <div className="tittle-form-email">
-                          Category
-                          </div>
-                          <div className="input-form-email">
-                            <div className="select-container">
-                              <select name="category" value={formData.category} onChange={handleInputChange}>
-                                <option value="">Category</option>
-                                {statusOptions.map((category) => (
-                                    <option key={category} value={category}>
-                                    {category}
-                                    </option>
-                                ))}
-                                </select>
-                              </div>
-                          </div>
-                      </div>
+             <div className="tittle-form-email-doc">
+                 <p>Deskripsi</p>
+             </div>
+             <div style={{ marginLeft: '0'}}>
+                 <textarea  name="description" value={formData.description} onChange={handleInputChange} rows="4"></textarea>
+             </div>
 
-                      <div className="miau5">
-                          <div className="tittle-form-email">
-                          Uploader date
-                          </div>
-                          <div className="input-form-email">
-                          <input type="date" name="upload_date" value={formData.upload_date} onChange={handleInputChange} />
-                          </div>
-                      </div>
+             <div className="btn-edit-doc">
+                 <button type="submit">EDIT</button>
+             </div>
+         </div>
+     </div>
+ </div>
+ </form>
+</div>
 
-                      <div className="miau8">
-                        <div className="tittle-form-8">
-                            <p>Description</p>
-                        </div>
-                        <textarea name="description" value={formData.description} onChange={handleInputChange}></textarea>
-                    </div>
-
-                      <div className="tambah-doc">
-                          <button type="submit">UPDATE</button>
-                      </div>
-                  </form>
-              </div>
-              <div className="exel-form-doc">
-                  <div className="exel-content-doc">
-                   <img src={gambardoc} alt="logo" />
-                      <div className="exel-des-doc">
-                          <p>Upload Dokument</p>
-                          <span>bisa lebih dari satu dokumen</span>
-                          <div className="group-button">
-                          <div className="file-input-container">
-                                <label htmlFor="file-upload" className="label-file"  style={{ marginLeft: '45%', backgroundColor: '#597CB1',  alignItems: 'center', color:'white', fontWeight: '500'}}>Upload</label>
-                                <input id="file-upload" type="file" name="document_file" onChange={handleFileChange} />
-                                <span id="file-name"></span>
-                            </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-       </div>
     );
 }
 

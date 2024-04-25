@@ -296,6 +296,7 @@ const filterByCategory = async () => {
         console.error('Error searching documents by category:', error.message);
         // Tambahkan logika untuk menghilangkan bagian yang tidak ingin ditampilkan saat tidak ada data yang ditemukan
         setFilteredDocumentsByCategory([]);
+        setSelectedCategory('');
     }
 };
 
@@ -343,7 +344,7 @@ const filterByCategory = async () => {
             };
         })
         .filter((document) =>
-            (document.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                (document.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 document.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 document.projectName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 document.uploaderName.toLowerCase().includes(searchTerm.toLowerCase()))
@@ -367,6 +368,21 @@ const filterByCategory = async () => {
         })
         .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
+        if (loading) {
+            return (
+              <div className="gambarorg">
+                <img src={gambarorg} alt="logo" />
+              </div>
+            );
+          }
+        
+          if (error) {
+            return <p>Error: {error}</p>;
+          }
+        
+          if (!documents || documents.length === 0) {
+            return <p>No Data found.</p>;
+          }
 
     return (
         <div>

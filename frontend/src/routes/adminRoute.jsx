@@ -17,6 +17,9 @@ import Update_doc from '../views/Admin/Edit_Form_Doc';
 import Tambah_Form_Invoice from '../views/Admin/Tambah_Form_Invoice';
 import Form_Tambah_Payment from '../views/Admin/Tambah_Form_Payment';
 import PaymentEditForm from '../views/Admin/Edit_Form_Payment';
+import Form_Edit_Client from '../views/Admin/Edit_Form_Client';
+import DetailFormInvoice from '../component/Invoice/InvoicePage';
+import DetailFormPayment from '../component/Payment/PaymentPage';
 
 const adminRoutes = [
   {
@@ -87,6 +90,12 @@ const adminRoutes = [
     allowedRoles: [4]
   },
   {
+    path: '/admin/Edit_Form_Client/:clientId',
+    exact: true,
+    component: Form_Edit_Client,
+    allowedRoles: [4]
+  },
+  {
     path: '/Form_Tambah_Invoice',
     exact: true,
     component: Tambah_Form_Invoice,
@@ -96,6 +105,18 @@ const adminRoutes = [
     path: '/invoice-edit/:invoiceId',
     exact: true,
     component: InvoiceEditForm,
+    allowedRoles: [4] 
+  },
+  {
+    path: '/invoice-detail/:invoiceId',
+    exact: true,
+    component: DetailFormInvoice,
+    allowedRoles: [4] 
+  },
+  {
+    path: '/payment-detail/:paymentId',
+    exact: true,
+    component: DetailFormPayment,
     allowedRoles: [4] 
   },
   {

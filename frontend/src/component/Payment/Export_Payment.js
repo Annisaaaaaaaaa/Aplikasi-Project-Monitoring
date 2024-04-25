@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import '../../Css/document-admin.css';
 import Swal from 'sweetalert2';
 import AuthContext from '../../context/AuthContext';
-import { InvoiceProvider } from './../../context/InvoiceContext';
+import { PaymentProvider } from './../../context/PaymentContext';
 
 function Export_Payment() {
     const [exportOption, setExportOption] = useState('all');

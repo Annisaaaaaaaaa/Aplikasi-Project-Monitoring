@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import '../../Css/Dashboard.css';
 import { PaymentProvider } from '../../context/PaymentContext';
 import PaymentTable from '../../component/Payment/PaymentTable';
-
+import Export_Payment from './../../component/Payment/Export_Payment';
 import { usePaymentContext } from '../../context/PaymentContext';
 
 function Payment_admin() {
@@ -14,8 +14,11 @@ function Payment_admin() {
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
-    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importInvoices } = usePaymentContext(); 
+    const { payments, fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importInvoices } = usePaymentContext(); 
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+    const totalItems = payments.length;
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
@@ -124,28 +127,7 @@ function Payment_admin() {
                         <Link to="/form_tambah_payment" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
                             <i className="fas fa-plus"></i> Tambah
                         </Link>
-                        <div className="export__file">
-                            <label htmlFor="export-file" className="export__file-btn" title="Export File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Export</label>
-
-                                <input type="checkbox" id="export-file" />
-                                <div className="export__file-options">
-                                    <label>
-                                        Export As &nbsp; &#10140;
-                                    </label>
-                                    <label htmlFor="export-file" id="toPDF" onClick={handleExportPdf}>
-                                        PDF 
-                                    </label>
-                                    <label htmlFor="export-file" id="toJSON" onClick={handleExportJson}>
-                                        JSON 
-                                    </label>
-                                    <label htmlFor="export-file" id="toCSV" onClick={handleExportCsv}>
-                                        CSV 
-                                    </label>
-                                    <label htmlFor="export-file" id="toEXCEL" onClick={handleExportExcel}>
-                                        EXCEL 
-                                    </label>
-                                </div>
-                                </div>
+                        <Export_Payment/>
                             <button className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px'}}>
                                 <i className="fas fa-upload"></i> Import
                             </button>
@@ -165,41 +147,25 @@ function Payment_admin() {
                             <h1>Data Payment</h1>
                         </section>
                         <section className="table__body">
-                           <PaymentTable/>
+                           <PaymentTable currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
                         </section>
                     </main>
                     <div className="pagination">
-                        <ul>
+                    <ul>
                             <li>
-                                <span>
-                                    <i className="fas fa-angel-left"></i>Prev
-                                </span>
+                            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                                <i className="fas fa-angel-left"></i>Prev
+                            </button>
                             </li>
-                            <li className="numb">
-                                <span>1</span>
+                            {[...Array(Math.ceil(totalItems / itemsPerPage)).keys()].map((number) => (
+                            <li key={number + 1} className="numb">
+                                <button onClick={() => setCurrentPage(number + 1)}>{number + 1}</button>
                             </li>
-                            <li className="numb">
-                                <span>2</span>
-                            </li>
-                            <li className="dots">
-                                <span>...</span>
-                            </li>
-                            <li className="numb">
-                                <span>4</span>
-                            </li>
-                            <li className="numb">
-                                <span>5</span>
-                            </li>
-                            <li className="dots">
-                                <span>...</span>
-                            </li>
-                            <li className="numb">
-                                <span>7</span>
-                            </li>
+                            ))}
                             <li>
-                                <span>
-                                    Next <i className="fas fa-angel-right"></i>
-                                </span>
+                            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(totalItems / itemsPerPage)}>
+                                Next <i className="fas fa-angel-right"></i>
+                            </button>
                             </li>
                         </ul>
                     </div>

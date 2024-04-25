@@ -93,6 +93,10 @@ def export_invoices_to_pdf(request):
     if year:
         invoices = invoices.filter(date__year=year)
 
+    # If there are no documents found, return a JSON response indicating so
+    if not invoices.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
+
     # Create a buffer to store PDF data
     buffer = BytesIO()
 
@@ -182,6 +186,10 @@ def export_invoices_to_json(request):
     if year:
         invoices = invoices.filter(date__year=year)
 
+    # If there are no documents found, return a JSON response indicating so
+    if not invoices.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
+
     # Convert data to a list of dictionaries
     data_list = []
     for invoice in invoices:
@@ -249,6 +257,10 @@ def export_invoices_to_csv(request):
     if year:
         invoices = invoices.filter(date__year=year)
 
+    # If there are no documents found, return a JSON response indicating so
+    if not invoices.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
+
     # Write data rows to the CSV file
     for invoice in invoices:
         # Convert date fields to string without timezone information
@@ -301,6 +313,10 @@ def export_invoices_to_excel(request):
     # Filter invoices by year if provided
     if year:
         invoices = invoices.filter(date__year=year)
+
+    # If there are no documents found, return a JSON response indicating so
+    if not invoices.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
 
     # Create a named style for hyperlinks
     hyperlink_style = NamedStyle(name='hyperlink_style', font=Font(color="0000FF", underline='single'))
@@ -363,6 +379,13 @@ class InvoiceListCreate(generics.ListCreateAPIView):
 class InvoiceRetrieveUpdate(generics.RetrieveUpdateAPIView):
     queryset = Invoice.objects.all()
     serializer_class = InvoiceSerializer
+
+    def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 # Delete
 class InvoiceDestroy(generics.DestroyAPIView):

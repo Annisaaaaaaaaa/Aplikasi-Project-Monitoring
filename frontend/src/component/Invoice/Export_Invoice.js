@@ -261,7 +261,8 @@ function Export_Invoice() {
                                     <label htmlFor="export-file" id="toEXCEL" onClick={handleExportExcel}>
                                         EXCEL 
                                     </label> */}
-                                    <select onChange={(e) => setExportOption(e.target.value)}>
+                                    <center>
+                                        <select onChange={(e) => setExportOption(e.target.value)}>
                                     <option value="all">All PDF</option>
                                     <option value="month">Month</option>
                                     <option value="year">Year</option>
@@ -283,10 +284,12 @@ function Export_Invoice() {
                                         <option value="2030">2030</option>
                                     </select>
                                     )}
+                                    </center>
                                     <label htmlFor="export-file" id="pdf" onClick={handleExportpdf}>
                                         EXPORT PDF 
                                     </label>
 
+                                    <center>
                                     <select onChange={(e) => setExportOptionJSON(e.target.value)}>
                                     <option value="allJSON">All JSON</option>
                                     <option value="monthJSON">Month</option>
@@ -309,10 +312,12 @@ function Export_Invoice() {
                                         <option value="2030">2030</option>
                                     </select>
                                     )}
+                                    </center>
                                     <label htmlFor="export-file" id="pdf" onClick={handleExportjson}>
                                         EXPORT JSON 
                                     </label>
 
+                                    <center>
                                     <select onChange={(e) => setExportOptionExcel(e.target.value)}>
                                     <option value="allExcel">All Excel</option>
                                     <option value="monthExcel">Month</option>
@@ -335,10 +340,12 @@ function Export_Invoice() {
                                         <option value="2030">2030</option>
                                     </select>
                                     )}
+                                    </center>
                                     <label htmlFor="export-file" id="excel" onClick={handleExportexcel}>
                                         EXPORT EXCEL 
                                     </label>
 
+                                    <center>
                                     <select onChange={(e) => setExportOptionCsv(e.target.value)}>
                                     <option value="allCsv">All Csv</option>
                                     <option value="monthCsv">Month</option>
@@ -361,6 +368,7 @@ function Export_Invoice() {
                                         <option value="2030">2030</option>
                                     </select>
                                     )}
+                                    </center>
                                     <label htmlFor="export-file" id="csv" onClick={handleExportcsv}>
                                         EXPORT CSV 
                                     </label>
