@@ -6,6 +6,7 @@ import AuthContext from './../../context/AuthContext';
 import EditProjectInform from './../../component/Project/ProjectInformForm';
 import EditProjectDetail from './../../component/Project/ProjectDetailForm';
 import EditProjectForm from './../../component/Project/ProjectEngineerForm';
+import EditProjectInitial from '../../component/Project/ProjectInitialEdit';
 
 const EditProjectStepper = ({ match }) => {
   const history = useHistory();
@@ -24,13 +25,15 @@ const EditProjectStepper = ({ match }) => {
 
   return (
     <div>
-      {step === 1 && <EditProjectInform projectId={projectId} />}
-      {step === 2 && <EditProjectDetail projectId={projectId} handleNextStep={handleNextStep} />}
-      {step === 3 && <EditProjectForm projectId={projectId} />}
+      {step === 1 && <EditProjectInitial projectId={projectId} handleNextStep={handleNextStep}/>}
+      {step === 2 && <EditProjectInform projectId={projectId} handleNextStep={handleNextStep}/>}
+      {step === 3 && <EditProjectDetail projectId={projectId} handleNextStep={handleNextStep} />}
+      {step === 4 && <EditProjectForm projectId={projectId} />}
       
       <div>
-        {step !== 1 && <button onClick={handlePrevStep}>Previous Step</button>}
-        {step !== 3 && <button onClick={handleNextStep}>Next Step</button>}
+        {step !== 1 && <button onClick={handlePrevStep}>Previous</button>}
+        <br></br>
+        {step !== 4 && <button onClick={handleNextStep}>Next</button>}
       </div>
     </div>
   );

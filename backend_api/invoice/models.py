@@ -19,36 +19,23 @@ class TypeChoice(models.TextChoices):
   BFS = "billing from subcon", _("Billing From Subcon")
     
 
-class Invoice(models.Model):   
-    date = models.DateField(default=timezone.now)
-    uploader = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, default=None)
-
+class Invoice(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    note = models.TextField(blank=True, null=True)
-    document_file = models.FileField(upload_to='doc/invoice/')
-    name = models.CharField(max_length=255, blank=True, null=True)
-    status = models.CharField(max_length=255, choices=StatusChoice.choices, default=StatusChoice.BELUM)
-
-
     to_contact = models.ForeignKey(Client, on_delete=models.CASCADE)
     sent_date = models.DateField(blank=True, null=True)
     due_date = models.DateField(blank=True, null=True)
-<<<<<<< HEAD
-    amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True) 
-=======
     date = models.DateField(default=timezone.now)
     amount = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     status = models.CharField(max_length=255, choices=StatusChoice.choices, default=StatusChoice.BELUM)
     type = models.CharField(max_length=50, choices=TypeChoice.choices, default=TypeChoice.BTC)  # Pilihan tipe invoice
     no_invoice = models.CharField(max_length=255, null=True)  # Nomor invoice
-    name = models.CharField(max_length=255, null=True)  # Nama invoice
+    # name = models.CharField(max_length=255, null=True)  # Nama invoice
     purchase_order = models.CharField(max_length=255, null=True)  # Nomor PO
     note = models.TextField(blank=True, null=True)
     document_file = models.FileField(upload_to='doc/invoice/')
     
->>>>>>> fafb99055096343141f8c333118656595f67a770
 
-    def __str__(self):
+    def _str_(self):
         return self.status
 
     class Meta:

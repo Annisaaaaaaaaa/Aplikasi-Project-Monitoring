@@ -29,19 +29,14 @@ from tablib import Dataset
 from .resources import ProjectResource
 from datetime import datetime
 
-#Create dan List
 class ProjectListCreate(generics.ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-    # def create(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(data=request.data)
-    #     serializer.is_valid(raise_exception=True)
-    #     self.perform_create(serializer)
-    #     project_id = serializer.data['id']  # Mendapatkan ID proyek baru
-    #     return Response({'id': project_id}, status=status.HTTP_201_CREATED)  # Mengembalikan ID proyek
+class ProjectRetrieve(generics.RetrieveAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
     
-# Edit
 class ProjectRetrieveUpdate(generics.RetrieveUpdateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
@@ -53,39 +48,31 @@ class ProjectRetrieveUpdate(generics.RetrieveUpdateAPIView):
         self.perform_update(serializer)
         return Response(serializer.data)
 
-# Delete
 class ProjectDestroy(generics.DestroyAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
-# Search
 class ProjectListSearch(generics.ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['id', 'name'] 
 
-
-# ASC, DSC
 class ProjectList(generics.ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
 
     def list(self, request, *args, **kwargs):
-        # Mendapatkan nilai 'order_by' dan 'order' dari parameter query string
         order_by = request.query_params.get('order_by', 'year')
         order = request.query_params.get('order', 'asc')
 
-        # Validasi nilai 'order'
         if order not in ['asc', 'desc']:
             return Response({"error": "Invalid order value. Use 'asc' or 'desc'."}, status=400)
 
-        # Validasi nilai 'order_by'
         valid_order_by_fields = ['year', 'name']  
         if order_by not in valid_order_by_fields:
             return Response({"error": f"Invalid order_by value. Use one of {valid_order_by_fields}."}, status=400)
 
-        # Mengurutkan queryset berdasarkan bidang yang dipilih
         queryset = self.filter_queryset(self.get_queryset().order_by(f"{'-' if order == 'desc' else ''}{order_by}"))
 
         serializer = self.get_serializer(queryset, many=True)
@@ -95,15 +82,13 @@ class ProjectList(generics.ListCreateAPIView):
 def import_projects(request):
     if request.method == 'POST':
         dataset = Dataset()
-
-        # Set headers for the dataset
         dataset.headers = [
             'year', 'pid', 'name', 'description', 'customer',
             'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
             'am', 'pic', 'pm', 'start_date', 'end_date',
             'status', 'top', 'sow', 'oos', 'detail',
-            'remarks', 'weight', 'priority', 'type', 'market_segment',
-            'tech_use', 'resiko', 'beban_proyek', 'completion_percentage'
+            'remarks', 'priority', 'type', 'market_segment',
+            'tech_use', 'resiko', 'beban_proyek', 
         ]
 
         new_projects = request.FILES['file']
@@ -112,11 +97,7 @@ def import_projects(request):
             return JsonResponse({'error': 'File must be in Excel (xlsx) format.'})
 
         imported_data = dataset.load(new_projects.read(), 'xlsx')
-
         for data_row in imported_data:
-            # ... (lanjutkan debug di bagian lain)
-
-            # Convert date strings to datetime objects if needed
             date_fields = ['contract_date', 'start_date', 'end_date']
             for field in date_fields:
                 if field in data_row and data_row[field]:
@@ -125,16 +106,11 @@ def import_projects(request):
                     except ValueError:
                         return JsonResponse({'error': f'Invalid date format for {field}.'})
 
-            # Creating a resource instance
             resource = ProjectResource()
             
-            # Pass the dataset directly to import_data
             result = resource.import_data(dataset, dry_run=True, raise_errors=False)
 
             if not result.has_errors():
-                # You can choose to use dry_run=False if the import is successful
-                # resource.import_data(dataset, dry_run=False)
-
                 return JsonResponse({'success': 'Projects imported successfully.'})
             else:
                 return JsonResponse({'error': 'There was an error importing the file.'})
@@ -144,32 +120,27 @@ def import_projects(request):
 def export_projects_to_pdf(request):
     projects = Project.objects.all()
 
-    # Create a buffer to store PDF data
     buffer = BytesIO()
 
-    table_width = 500  # You should adjust this based on your actual table width
+    table_width = 500  
     left_margin = (letter[1] - table_width) / 2
     right_margin = (letter[1] - table_width) / 2
 
-    # Create the PDF object, using the buffer as its "file"
     pdf = SimpleDocTemplate(buffer, pagesize=landscape(letter), leftMargin=left_margin, rightMargin=right_margin)
 
-    # Set up PDF content
     styles = getSampleStyleSheet()
     style = ParagraphStyle('TableHeader', parent=styles['Heading2'], textColor=colors.black, spaceAfter=6, alignment=1)
     pdf_title = Paragraph("projects Data", style)
 
-    # Define column names manually
     field_names = [
         'year', 'pid', 'name', 'description', 'customer',
         'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
         'am', 'pic', 'pm', 'start_date', 'end_date',
         'status', 'top', 'sow', 'oos', 'detail',
-        'remarks', 'weight', 'priority', 'type', 'market_segment',
+        'remarks', 'priority', 'type', 'market_segment',
         'tech_use', 'resiko', 'beban_proyek'
     ]
 
-    # Set up data rows
     data = [field_names]
     for project in projects:
         row = [
@@ -194,7 +165,6 @@ def export_projects_to_pdf(request):
             project.oos if project.oos else '',
             project.detail if project.detail else '',
             project.remarks if project.remarks else '',
-            str(project.weight) if project.weight else '',
             project.priority if project.priority else '',
             project.type if project.type else '',
             project.market_segment if project.market_segment else '',
@@ -204,10 +174,8 @@ def export_projects_to_pdf(request):
         ]
         data.append(row)
 
-    # Create table
     table = Table(data, splitByRow=1)
 
-    # Add style to the table
     style = TableStyle(
         [
             ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
@@ -218,32 +186,24 @@ def export_projects_to_pdf(request):
             ('BOTTOMPADDING', (0, 0), (-1, 0), 14),
             ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
             ('GRID', (0, 0), (-1, -1), 1, colors.black),
-            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),  # Ensure vertical alignment to middle
-            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),  # Add inner grid for better visibility
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),  
+            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),  
             ('BOX', (0, 0), (-1, -1), 0.25, colors.black),
         ]
     )
     table.setStyle(style)
 
-    # Build the PDF
     elements = [pdf_title, table]
     pdf.build(elements)
 
-    # FileResponse sets the Content-Disposition header so that browsers
-    # present the option to save the file
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename=projects.pdf'
     response.write(buffer.getvalue())
-
     return response
 
-
-
 def export_projects_to_json(request):
-    # Retrieve projects data
     projects = Project.objects.all()
 
-    # Convert data to a list of dictionaries
     data_list = []
     for project in projects:
         data_list.append({
@@ -268,49 +228,39 @@ def export_projects_to_json(request):
             'OOS': project.oos if project.oos else '',
             'Detail': project.detail if project.detail else '',
             'Remarks': project.remarks if project.remarks else '',
-            'Weight': str(project.weight) if project.weight else '',
             'Priority': project.priority if project.priority else '',
             'Type': project.type if project.type else '',
             'Market Segment': project.market_segment if project.market_segment else '',
             'Tech Use': project.tech_use if project.tech_use else '',
             'Resiko': project.resiko if project.resiko else '',
             'Beban Proyek': str(project.beban_proyek) if project.beban_proyek else '',
-
         })
 
-    # Convert data to JSON
     json_data = json.dumps(data_list, indent=2)
 
-    # Create the HttpResponse object with the appropriate JSON header
     response = HttpResponse(json_data, content_type='application/json')
     response['Content-Disposition'] = 'attachment; filename=projects.json'
-
     return response
 
 def export_projects_to_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename=projects.csv'
 
-    # Create a CSV writer using the HttpResponse object as the "file."
     writer = csv.writer(response)
 
-    # Write the header row to the CSV file
     field_names = [
         'year', 'pid', 'name', 'description', 'customer',
         'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
         'am', 'pic', 'pm', 'start_date', 'end_date',
         'status', 'top', 'sow', 'oos', 'detail',
-        'remarks', 'weight', 'priority', 'type', 'market_segment',
+        'remarks', 'priority', 'type', 'market_segment',
         'tech_use', 'resiko', 'beban_proyek'
     ]
-    writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
+    writer.writerow(field_names[:-1])  
 
-    # Write data rows to the CSV file
     projects = Project.objects.all()
 
     for project in projects:
-        # Convert date fields to string without timezone information
         contract_date_str = project.contract_date.strftime('%Y-%m-%d') if project.contract_date else ''
         start_date_str = project.start_date.strftime('%Y-%m-%d') if project.start_date else ''
         end_date_str = project.end_date.strftime('%Y-%m-%d') if project.end_date else ''
@@ -337,7 +287,6 @@ def export_projects_to_csv(request):
             project.oos if project.oos else '',
             project.detail if project.detail else '',
             project.remarks if project.remarks else '',
-            str(project.weight) if project.weight else '',
             project.priority if project.priority else '',
             project.type if project.type else '',
             project.market_segment if project.market_segment else '',
@@ -346,8 +295,7 @@ def export_projects_to_csv(request):
             str(project.beban_proyek) if project.beban_proyek else '',
         ]
 
-        # Write the row to the CSV file
-        writer.writerow(row_data[:-1])  # Exclude the 'Download Link' field
+        writer.writerow(row_data[:-1])  
 
     return response
 
@@ -356,30 +304,25 @@ from django.http import FileResponse
 import tempfile
 
 def export_projects_to_excel(request):
-    # Create a new Excel workbook and add a worksheet
     wb = Workbook()
     ws = wb.active
 
-    # Define column names manually
     field_names = [
         'year', 'pid', 'name', 'description', 'customer',
         'sales', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date',
         'am', 'pic', 'pm', 'start_date', 'end_date',
         'status', 'top', 'sow', 'oos', 'detail',
-        'remarks', 'weight', 'priority', 'type', 'market_segment',
+        'remarks', 'priority', 'type', 'market_segment',
         'tech_use', 'resiko', 'beban_proyek' 
     ]
 
-    # Write headers to the worksheet
-    ws.append(field_names[:-1])  # Exclude the 'Download Link' field
+    ws.append(field_names[:-1])  
 
     projects = Project.objects.all()
 
     hyperlink_style = NamedStyle(name='hyperlink_style', font=Font(color="0000FF", underline='single'))
 
-    # Write data to the worksheet
     for project, row_num in zip(projects, range(2, len(projects) + 2)):
-        # Convert date fields to string without timezone information
         contract_date_str = project.contract_date.strftime('%Y-%m-%d') if project.contract_date else ''
         start_date_str = project.start_date.strftime('%Y-%m-%d') if project.start_date else ''
         end_date_str = project.end_date.strftime('%Y-%m-%d') if project.end_date else ''
@@ -408,7 +351,6 @@ def export_projects_to_excel(request):
             project.oos if project.oos else '',
             project.detail if project.detail else '',
             project.remarks if project.remarks else '',
-            str(project.weight) if project.weight else '',
             project.priority if project.priority else '',
             project.type if project.type else '',
             project.market_segment if project.market_segment else '',
@@ -419,19 +361,12 @@ def export_projects_to_excel(request):
         for col_num, value in enumerate(row_data):
             ws.cell(row=row_num, column=col_num + 1).value = value
 
-    # Add filter to header row
     ws.auto_filter.ref = ws.dimensions
     
-    # Create a temporary file to save the workbook
     tmp_file = tempfile.NamedTemporaryFile(delete=False)
     wb.save(tmp_file.name)
     tmp_file.close()
 
-    # Serve the file using Django FileResponse
     response = FileResponse(open(tmp_file.name, 'rb'), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response['Content-Disposition'] = 'attachment; filename=projects.xlsx'
-
     return response
-
-
-

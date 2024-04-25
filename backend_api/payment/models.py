@@ -38,15 +38,4 @@ def delete_payment_document(sender, instance, **kwargs):
     # Hapus file saat objek Invoice dihapus
     if instance.document_file:
         if os.path.isfile(instance.document_file.path):
-<<<<<<< HEAD
             os.remove(instance.document_file.path)
-=======
-            os.remove(instance.document_file.path)
-
-# Signal to update invoice status to 'dibayar' when payment is made
-@receiver(pre_save, sender=Payment)
-def update_invoice_status(sender, instance, **kwargs):
-    if instance.no_invoice:
-        instance.no_invoice.status = 'dibayar'
-        instance.no_invoice.save()
->>>>>>> fafb99055096343141f8c333118656595f67a770

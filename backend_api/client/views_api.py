@@ -144,14 +144,96 @@ def import_clients(request):
 
     return JsonResponse({'error': 'Invalid request method.'})
 
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse, FileResponse
+from django.utils.html import escape
 from io import BytesIO
-from reportlab.lib.pagesizes import landscape, letter
+from reportlab.lib.pagesizes import landscape, letter, inch
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from django.utils.html import escape
-from reportlab.lib.pagesizes import landscape, letter, inch
+from openpyxl import Workbook
+from openpyxl.styles import NamedStyle, Font
+import csv
+import json
+from .models import Client
+
+def export_clients_to_csv(request):
+    # Create the HttpResponse object with the appropriate CSV header.
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename=clients.csv'
+
+    # Create a CSV writer using the HttpResponse object as the "file."
+    writer = csv.writer(response)
+
+    # Write the header row to the CSV file
+    field_names = ['Name', 'PIC Phone', 'PIC Email', 'PIC Title',
+                   'Industry', 'Website URL', 'Company Size', 'Company Address',
+                   'Company Email', 'Company Phone', 'Additional Info',
+                   'Date Joined', 'Status', 'Logo']
+    writer.writerow(field_names)
+
+    # Write data rows to the CSV file
+    clients = Client.objects.all()
+
+    for client in clients:
+        date_joined_str = client.date_joined.strftime('%Y-%m-%d') if client.date_joined else ''
+        logo_url = request.build_absolute_uri(client.logo.url) if client.logo else ''
+
+        # Create a list with formatted values
+        row_data = [
+            client.name if client.name else '',
+            client.pic_phone if client.pic_phone else '',
+            client.pic_email if client.pic_email else '',
+            client.pic_title if client.pic_title else '',
+            client.industry if client.industry else '',
+            client.website_url if client.website_url else '',
+            client.company_size if client.company_size else '',
+            client.company_address if client.company_address else '',
+            client.company_email if client.company_email else '',
+            client.company_phone if client.company_phone else '',
+            client.additional_info if client.additional_info else '',
+            date_joined_str,
+            client.get_status_display(),
+            logo_url,
+        ]
+
+        # Write the row to the CSV file
+        writer.writerow(row_data)
+
+    return response
+
+def export_clients_to_json(request):
+    # Retrieve clients data
+    clients = Client.objects.all()
+
+    # Convert data to a list of dictionaries
+    data_list = []
+    for client in clients:
+        data_list.append({
+            'Name': client.name if client.name else '',
+            'PIC Phone': client.pic_phone if client.pic_phone else '',
+            'PIC Email': client.pic_email if client.pic_email else '',
+            'PIC Title': client.pic_title if client.pic_title else '',
+            'Industry': client.industry if client.industry else '',
+            'Website URL': client.website_url if client.website_url else '',
+            'Company Size': client.company_size if client.company_size else '',
+            'Company Address': client.company_address if client.company_address else '',
+            'Company Email': client.company_email if client.company_email else '',
+            'Company Phone': client.company_phone if client.company_phone else '',
+            'Additiona Info': client.additional_info if client.additional_info else '',
+            'Date Joined': str(client.date_joined) if client.date_joined else '',
+            'Status': client.get_status_display(),
+            'Logo': request.build_absolute_uri(client.logo.url) if client.logo else '',
+        })
+
+    # Convert data to JSON
+    json_data = json.dumps(data_list, indent=2)
+
+    # Create the HttpResponse object with the appropriate JSON header
+    response = HttpResponse(json_data, content_type='application/json')
+    response['Content-Disposition'] = 'attachment; filename=clients.json'
+
+    return response
 
 def export_clients_to_pdf(request):
     # Retrieve clients data
@@ -179,6 +261,8 @@ def export_clients_to_pdf(request):
     # Set up data rows
     data = [field_names]
     for client in clients:
+        date_joined_str = client.date_joined.strftime('%Y-%m-%d') if client.date_joined else ''
+        logo_url = request.build_absolute_uri(client.logo.url) if client.logo else ''
         row = [
             client.name if client.name else '',
             client.pic_phone if client.pic_phone else '',
@@ -191,9 +275,9 @@ def export_clients_to_pdf(request):
             client.company_email if client.company_email else '',
             client.company_phone if client.company_phone else '',
             client.additional_info if client.additional_info else '',
-            str(client.date_joined) if client.date_joined else '',
+            date_joined_str,
             client.get_status_display(),
-            escape(request.build_absolute_uri(client.logo.url)),
+            escape(logo_url),
         ]
         data.append(row)
 
@@ -229,99 +313,19 @@ def export_clients_to_pdf(request):
 
     return response
 
-def export_clients_to_json(request):
-    # Retrieve clients data
-    clients = Client.objects.all()
-
-    # Convert data to a list of dictionaries
-    data_list = []
-    for client in clients:
-        data_list.append({
-            'Name': client.name if client.name else '',
-            'PIC Phone': client.pic_phone if client.pic_phone else '',
-            'PIC Email': client.pic_email if client.pic_email else '',
-            'PIC Title': client.pic_title if client.pic_title else '',
-            'Industry': client.industry if client.industry else '',
-            'Website URL': client.website_url if client.website_url else '',
-            'Company Size': client.company_size if client.company_size else '',
-            'Company Address': client.company_address if client.company_address else '',
-            'Company Email': client.company_email if client.company_email else '',
-            'Company Phone': client.company_phone if client.company_phone else '',
-            'Additiona Info': client.additional_info if client.additional_info else '',
-            'Date Joined': str(client.date_joined) if client.date_joined else '',
-            'Status': client.get_status_display(),
-            'Download Link': request.build_absolute_uri(client.logo.url),
-        })
-
-    # Convert data to JSON
-    json_data = json.dumps(data_list, indent=2)
-
-    # Create the HttpResponse object with the appropriate JSON header
-    response = HttpResponse(json_data, content_type='application/json')
-    response['Content-Disposition'] = 'attachment; filename=clients.json'
-
-    return response
-
-def export_clients_to_csv(request):
-    # Create the HttpResponse object with the appropriate CSV header.
-    response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=clients.csv'
-
-    # Create a CSV writer using the HttpResponse object as the "file."
-    writer = csv.writer(response)
-
-    # Write the header row to the CSV file
-    field_names = ['name', 'pic_phone', 'pic_email', 'pic_title',
-            'industry', 'website_url', 'company_size', 'company_address',
-            'company_email', 'company_phone', 'additional_info',
-            'date_joined', 'status', 'logo']
-    writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
-
-    # Write data rows to the CSV file
-    clients = Client.objects.all()
-
-    for client in clients:
-
-        date_joined_str = client.date_joined.strftime('%Y-%m-%d') if client.date_joined else ''
-
-        # Create a list with formatted values
-        row_data = [
-            client.name if client.name else '',
-            client.pic_phone if client.pic_phone else '',
-            client.pic_email if client.pic_email else '',
-            client.pic_title if client.pic_title else '',
-            client.industry if client.industry else '',
-            client.website_url if client.website_url else '',
-            client.company_size if client.company_size else '',
-            client.company_address if client.company_address else '',
-            client.company_email if client.company_email else '',
-            client.company_phone if client.company_phone else '',
-            client.additional_info if client.additional_info else '',
-            date_joined_str,
-            client.get_status_display(),
-            request.build_absolute_uri(client.logo.url),
-        ]
-
-        # Write the row to the CSV file
-        writer.writerow(row_data[:-1])  # Exclude the 'Download Link' field
-
-    return response
-
-
-
 def export_clients_to_excel(request):
     # Create a new Excel workbook and add a worksheet
     wb = Workbook()
     ws = wb.active
 
     # Define column names manually
-    field_names = ['name', 'pic_phone', 'pic_email', 'pic_title',
-                   'industry', 'website_url', 'company_size', 'company_address',
-                   'company_email', 'company_phone', 'additional_info',
-                   'date_joined', 'status', 'logo']
+    field_names = ['Name', 'PIC Phone', 'PIC Email', 'PIC Title',
+                   'Industry', 'Website URL', 'Company Size', 'Company Address',
+                   'Company Email', 'Company Phone', 'Additional Info',
+                   'Date Joined', 'Status', 'Logo']
 
     # Write headers to the worksheet
-    ws.append(field_names[:-1])  # Exclude the 'Download Link' field
+    ws.append(field_names)
 
     clients = Client.objects.all()
 
@@ -330,6 +334,7 @@ def export_clients_to_excel(request):
     # Write data to the worksheet
     for client, row_num in zip(clients, range(2, len(clients) + 2)):
         date_joined_str = client.date_joined.strftime('%Y-%m-%d') if client.date_joined else ''
+        logo_url = request.build_absolute_uri(client.logo.url) if client.logo else ''
 
         # Create a list with formatted values
         row_data = [
@@ -346,30 +351,32 @@ def export_clients_to_excel(request):
             client.additional_info if client.additional_info else '',
             date_joined_str,
             client.get_status_display(),
-            request.build_absolute_uri(client.logo.url),
+            logo_url,
         ]
 
         for col_num, value in enumerate(row_data):
-            if col_num == len(field_names) - 1:  # Check if it's the 'Download Link' column
+            if col_num == len(field_names) - 1:  # Check if it's the 'Logo' column
                 # Add hyperlink as text
                 ws.cell(row=row_num, column=col_num + 1).value = value
             else:
                 # Add other values as usual
                 ws.cell(row=row_num, column=col_num + 1).value = value
 
-        # Set hyperlink style for the 'Download Link' column
+        # Set hyperlink style for the 'Logo' column
         ws.cell(row=row_num, column=len(field_names)).style = hyperlink_style
 
     # Add filter to header row
     ws.auto_filter.ref = ws.dimensions
 
-    # Save workbook to a temporary file
-    tmp_file = tempfile.NamedTemporaryFile(delete=False)
-    wb.save(tmp_file.name)
-    tmp_file.close()
+    # Create a temporary file to save the workbook
+    temp_file = BytesIO()
+    wb.save(temp_file)
 
-    # Serve the file using Django FileResponse
-    response = FileResponse(open(tmp_file.name, 'rb'), content_type='application/vnd.openxmlformats-officeclient.spreadsheetml.sheet')
+    # Create the response with the Excel file
+    response = HttpResponse(
+        temp_file.getvalue(),
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
     response['Content-Disposition'] = 'attachment; filename=clients.xlsx'
 
     return response

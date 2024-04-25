@@ -13,11 +13,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='invoice',
-            name='name',
-            field=models.CharField(blank=True, max_length=255, null=True),
-        ),
+        # migrations.AddField(
+        #     model_name='invoice',
+        #     name='name',
+        #     field=models.CharField(blank=True, max_length=255, null=True),
+        # ),
         migrations.AddField(
             model_name='invoice',
             name='uploader',

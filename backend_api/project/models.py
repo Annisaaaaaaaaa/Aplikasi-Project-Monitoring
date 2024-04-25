@@ -20,8 +20,8 @@ class StatusProject(models.TextChoices):
     DONE = "Done", _("Done")
 
 class Project(models.Model):
-
-    year = models.IntegerField()
+    #sales
+    year = models.IntegerField(blank=True, null=True)
     pid = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
@@ -29,37 +29,35 @@ class Project(models.Model):
     sales = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
     amount_tax = models.IntegerField(blank=True, null=True)
     amount_exc_tax = models.IntegerField(blank=True, null=True)
-    top = models.CharField(max_length=255, blank=True, null=True)
-
-
-    am = models.ForeignKey(User, on_delete=models.CASCADE, related_name='am_projects', blank=True, null=True)
-    pic = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pic_projects', blank=True, null=True)
-    pm = models.ForeignKey(User, on_delete=models.CASCADE, related_name='project_pm', default=False, blank=True, null=True)  # Change related_name here
-    start_date = models.DateField(blank=True, null=True)
-    end_date = models.DateField(blank=True, null=True)
-    status = models.CharField(max_length=20, choices=StatusProject.choices, default=StatusProject.ON_GOING)
-    priority = models.CharField(max_length=10, choices=PriorityChoice.choices, default=PriorityChoice.SEDANG, blank=True, null=True)
+    #admin
     contract_no = models.CharField(max_length=255, blank=True, null=True)
     contract_date = models.DateField(blank=True, null=True)
-
+    am = models.ForeignKey(User, on_delete=models.CASCADE, related_name='am_projects', blank=True, null=True)
+    pic = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pic_projects', blank=True, null=True)
+    pm = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pm_projects', blank=True, null=True)
+    #pm
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=True, null=True)
+    status = models.CharField(max_length=20, choices=StatusProject.choices, default=StatusProject.ON_GOING, blank=True, null=True)
+    top = models.CharField(max_length=255, blank=True, null=True)
     sow = models.CharField(max_length=255, blank=True, null=True)
     oos = models.CharField(max_length=255, blank=True, null=True)
     detail = models.CharField(max_length=255, blank=True, null=True)
     remarks = models.CharField(max_length=255, blank=True, null=True)
+    priority = models.CharField(max_length=10, choices=PriorityChoice.choices, default=PriorityChoice.SEDANG, blank=True, null=True)
     type = models.CharField(max_length=255, blank=True, null=True)
     market_segment = models.CharField(max_length=255, blank=True, null=True)
     tech_use = models.TextField(blank=True, null=True)
     resiko = models.CharField(max_length=255, blank=True, null=True)
     beban_proyek = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    completion_percentage = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)
 
-    engineers = models.ManyToManyField(User, through='EngineerProject', related_name='project_engagements')
+    engineers = models.ManyToManyField(User, through='EngineerProject', related_name='project_engagements', blank=True, null=True)
 
     # completion_percentage = models.IntegerField(blank=True, null=True)  
 
-    def __str__(self):
+    def _str_(self):
         return self.name
     
     class Meta:
@@ -67,15 +65,11 @@ class Project(models.Model):
         db_table = 'apm_project'
         ordering = ['-created_at']
 
-
 class EngineerProject(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='engineer_projects')
-    engineer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='engineer_engagements')  
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='engineer_projects', blank=True, null=True)
+    engineer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='engineer_engagements', blank=True, null=True)  
     presentase_beban_kerja = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
-    status = models.CharField(max_length=20, choices=StatusProject.choices, default=StatusProject.ON_GOING)
-
-    class Meta:
-        unique_together = ('project', 'engineer')
+    status = models.CharField(max_length=20, choices=StatusProject.choices, default=StatusProject.ON_GOING, blank=True, null=True)
 
     def clean(self):
         # Hitung total presentase beban kerja untuk proyek ini
@@ -92,6 +86,5 @@ class EngineerProject(models.Model):
             raise ValidationError('Total presentase beban kerja melebihi 100%')
 
 
-    def __str__(self):
+    def _str_(self):
         return f"{self.engineer} - {self.project}"
-    

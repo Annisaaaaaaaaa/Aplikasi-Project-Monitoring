@@ -172,7 +172,7 @@ const handleSubmit = async (e) => {
                             <div className="miau">
                                 <div className="kiri">
                                     <div className="tittle-form">
-                                        <p>Company/Industry Name </p>
+                                        <p>Company Name </p>
                                     </div>
                                     <div className="input-form">
                                         <input

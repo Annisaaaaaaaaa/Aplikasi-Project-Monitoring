@@ -1,0 +1,376 @@
+.panjang img{
+    margin-left: 2.5%;
+    margin-top: 2%;
+}
+
+/**** Form ****/
+
+
+.form-detailing-container{
+    display: flex;
+}
+
+.form-detailing2 {
+    box-sizing: border-box;
+    width: 40%;
+    height: 730px;
+    margin-left: 55%;
+    margin-top: -38%;
+    background: linear-gradient(209.53deg, rgba(242, 244, 245, 0.6) 26.39%, rgba(233, 236, 244, 0.6) 75.71%, rgba(220, 228, 255, 0.6) 104.63%);
+    box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    border: 1px solid rgb(219, 219, 219); /* Tambahkan border warna hitam */
+}
+
+
+.form-detailing{
+    width: 550px;
+    height: 550px;
+    margin-top: 9%;
+    margin-left: 12%;
+    background: rgba(115, 134, 192, 0.8);
+    border-radius: 25px 25px 5px 25px;
+}
+
+.lingkaran {
+    padding-left: 40px;
+    padding-top: 7px;
+}
+
+.form-detailing-kanan2{
+    position: absolute;
+    width: 580px;
+    height: 490px;
+    margin-left: 13%;
+    margin-top: -30%;
+    background: #BDCAEE;
+    border-radius: 8px 0px 15px 20px;
+}
+.bg-form-atas-detailing {
+    position: absolute;
+    margin-left: 20.7%;
+    margin-top: -34%;
+    width: 450px;
+    height: 80px;
+    background: #BDCAEE;
+    backdrop-filter: blur(22.5px);
+    border-radius: 20px;
+    clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 10% 100%)
+}
+
+.bg-form-atas-detailing p{
+    margin-left: 25%;
+    margin-top: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 33px;
+    color: rgba(79, 91, 150, 0.9);
+}
+
+.form-detailing2 h2{
+    margin-left: 15%;
+    padding-top: 3%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 38px;
+    /* identical to box height */
+    color: #4F5B96;
+}
+
+.form-detailing2 h1{
+    margin-left: 15%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 15px;
+    color: #606060;
+}
+
+.miau-container-detailing {
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.miau-container-detailing2 {
+    padding-left: 5%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.miau4{
+    display: flex;  
+}
+
+.miau4 .kiri-miau4{
+    margin-left: 4%;
+    float: left;
+}
+
+.miau4 .kanan-user{
+    margin-left: 14%;
+    float: right;
+}
+
+.miau4-detailing{
+    display: flex;  
+}
+
+.miau8-detailing {
+    clear: both;
+  
+    padding-bottom: 3%;
+    padding-left: 2%;
+}
+
+.miau9-detailing {
+    padding-top: 12%;
+}
+
+.miau4-detailing .kiri-miau4-detailing{
+    margin-left: 4%;
+    float: left;
+}
+
+.miau4-detailing .kanan-user-detailing{
+    margin-left: 14%;
+    float: right;
+}
+
+.miau5-detailing {
+    margin-left: 3%;
+    width: 85%;
+    height: auto;
+    border: none;
+    
+}
+
+.miau5-detailing input{
+    width: 500px;
+    height: 40px; 
+    border: none;
+    resize: none; 
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+}
+
+.miau5 {
+    clear: both;
+    padding-top: 6%;
+    padding-left: 2%;
+}
+
+.input-form-email-kanan2-detailing textarea {
+    margin-top: 5%;
+    padding: 0;
+    width: 250%; 
+    height: 100%; 
+    border: none;
+    padding: 5px;
+    resize: none; 
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+}
+
+textarea:focus {
+    outline: none; 
+}
+
+ textarea{
+    margin-top: 5%;
+    padding: 0;
+    width: 90%; 
+    height: 130%; 
+    border: none;
+    padding: 5px;
+    resize: none; 
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+}
+
+
+.tittle-form{
+    margin-left: 8%;
+    margin-top: 4%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+}
+
+.tittle-form-email{
+    margin-top: 2%;
+    margin-left: 5%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+}
+
+.input-form input{
+    width: 230px;
+    height: 40px;
+    margin-left: 8%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+}
+
+.input-form-date input{
+    width: 230px;
+    height: 40px;
+    margin-left: 8%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+}
+
+.input-form-email input{
+    width: 300%;
+    height: 40px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+}
+
+.tittle-form-kanan{
+    margin-left: 8%;
+    margin-top: 4%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+    width: 100%; /* Atur lebar relatif sesuai kebutuhan */
+    white-space: nowrap; /* Hindari teks wrap ke baris berikutnya */
+    overflow: hidden; /* Sembunyikan bagian yang melebihi lebar */
+    text-overflow: ellipsis; 
+}
+
+.tittle-form-email-kanan-detailing{
+    margin-left: 8%;
+    margin-top: 4%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+    width: 100%; /* Atur lebar relatif sesuai kebutuhan */
+    white-space: nowrap; /* Hindari teks wrap ke baris berikutnya */
+    overflow: hidden; /* Sembunyikan bagian yang melebihi lebar */
+    text-overflow: ellipsis; 
+}
+
+.input-form-kanan-detailing input{
+    width: 130%;
+    height: 40px;
+    margin-left: 8%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+}
+
+.input-form-email-kanan-detailing input{
+    width: 250%;
+    height: 40px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+}
+
+.input-form-email-kanan2-detailing input{
+    width: 180%;
+    height: 40px;
+    margin-left: 3%;
+    margin-top: 1%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+}
+
+.tambah-detailing {
+    position: relative; 
+    display: flex;
+    margin-bottom: -80%;
+    margin-left: -50%;
+    padding-right: 70%;
+}
+
+.tambah-detailing button {
+    display: flex;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffff;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(89.96deg, #7CBCF7 0.04%, #80ADE5 63.75%, #548ADA 110.92%);
+    border-radius: 14px;
+    border: none;
+    padding: 10px 20px; 
+    cursor: pointer;
+}
+
+.tambah-detailing button img {
+    margin-right: 8px; 
+}
+
+.back {
+    position: relative; 
+    margin-left: 75%;
+    margin-top: -3%;
+}
+
+.back button {
+    display: flex;
+    font-weight: 500;
+    color: #2A3096;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid #2A3096;
+    padding: 8px 16px; 
+    cursor: pointer;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.back button img {
+    margin-right: 5px; 
+}

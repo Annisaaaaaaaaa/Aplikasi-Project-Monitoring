@@ -10,19 +10,15 @@ import { ClientProvider } from '../context/ClientContext';
 import { InvoiceProvider } from '../context/InvoiceContext';
 import { PaymentProvider } from '../context/PaymentContext';
 import { ProjectProvider } from '../context/ProjectContext';
-<<<<<<< HEAD
 import { ActivityProvider } from '../context/ActivityContext';
 import { UserProvider } from '../context/UserContext';
 import { ProfileProvider } from '../context/ProfileContext';
-=======
->>>>>>> fafb99055096343141f8c333118656595f67a770
 
 const Navigation = () => {
   const { authTokens } = useContext(AuthContext);
   const [redirectTo, setRedirectTo] = useState(null);
 
   return (
-<<<<<<< HEAD
     <UserProvider>
       <ProfileProvider>
         <ProjectProvider>
@@ -68,31 +64,6 @@ const Navigation = () => {
         </ProjectProvider>
         </ProfileProvider>
     </UserProvider>
-=======
-    <ProjectProvider>
-    <PaymentProvider>
-    <InvoiceProvider>
-    <DocumentProvider>
-    <ClientProvider>
-    <Switch>
-      {routes.map((route, index) => (
-        <PrivateRoute
-          key={index}
-          path={route.path}
-          exact={route.exact}
-          component={route.component}
-          allowedRoles={route.allowedRoles}
-        />
-      ))}
-      <Route path="/login" exact component={Login} />
-      <Redirect to="/login" />
-    </Switch>
-    </ClientProvider>
-    </DocumentProvider>
-    </InvoiceProvider>
-    </PaymentProvider>
-    </ProjectProvider>
->>>>>>> fafb99055096343141f8c333118656595f67a770
   );
 };
 

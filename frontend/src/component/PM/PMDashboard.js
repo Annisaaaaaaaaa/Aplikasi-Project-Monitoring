@@ -8,6 +8,7 @@ const PMDashboard = () => {
 
         <Sidebar />
         <Navbar />
+        <h1>PM Dashboard</h1>
     </div>
   );
 };

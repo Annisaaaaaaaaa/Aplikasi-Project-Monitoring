@@ -7,6 +7,7 @@ const SalesDashboard = () => {
     <div>
         <Sidebar />
         <Navbar />
+        <h1>Sales Dashboard</h1>
     </div>
   );
 };

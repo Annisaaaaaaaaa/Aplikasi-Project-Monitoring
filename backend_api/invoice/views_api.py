@@ -212,10 +212,6 @@ def export_invoices_to_json(request):
     return response
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> fafb99055096343141f8c333118656595f67a770
 def export_invoices_to_csv(request):
     # Retrieve filter parameters
     month = request.GET.get('month')

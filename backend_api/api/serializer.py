@@ -123,18 +123,10 @@ class UserLoginSerializer(TokenObtainPairSerializer):
         
 
 
-<<<<<<< HEAD
 #YAA
 
 #Table Groups
 class GroupSerializer(serializers.ModelSerializer):
-=======
-class UserSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(
-        write_only=True, required=True, validators=[validate_password])
-    password2 = serializers.CharField(write_only=True, required=True)
-
->>>>>>> fafb99055096343141f8c333118656595f67a770
     class Meta:
         model = Group
         fields = '__all__'

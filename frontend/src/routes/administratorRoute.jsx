@@ -5,12 +5,16 @@ import UserList from '../component/Administrator/USerList';
 import UserAdd from '../component/Administrator/AddUser';
 import UserEdit from '../component/Administrator/EditUser';
 import UserImportExcel from '../component/Administrator/ImportUserExcel';
-import ProjectForm from '../component/Project/TambahFormProject';
+// import ProjectForm from '../component/Project/TambahFormProject';
 import ProjectInitials from '../component/Project/ProjectInitialForm';
-import ProjectInform from '../component/Project/Inform';
-import ProjectDetail from '../component/Project/Detail';
-import ProjectEngineer from '../component/Project/Engineer';
+// import ProjectInform from '../component/Project/Inform';
+// import ProjectDetail from '../component/Project/Detail';
+// import ProjectEngineer from '../component/Project/Engineer';
 import Project from '../component/Project/Project';
+import EditProjectDetail from '../component/Project/ProjectDetailForm';
+import EditProjectInform from '../component/Project/ProjectInformForm';
+import ProjectInitialForm from '../component/Project/ProjectInitialForm';
+import EditProjectForm from '../component/Project/ProjectEngineerForm';
 
 const administratorRoutes = [
   {
@@ -50,34 +54,34 @@ const administratorRoutes = [
     allowedRoles: [1,2,3,4,5], 
   },
 
-  {
-    path: '/administrator/project',
-    exact: true,
-    component: ProjectForm,
-    allowedRoles: [1,2,3,4,5], 
-  },
+  // {
+  //   path: '/administrator/project',
+  //   exact: true,
+  //   component: ProjectForm,
+  //   allowedRoles: [1,2,3,4,5], 
+  // },
   {
     path: '/administrator/project/initial',
     exact: true,
-    component: ProjectInitials,
+    component: ProjectInitialForm,
     allowedRoles: [1,2,3,4,5], 
   },
   {
     path: '/administrator/project/detail',
     exact: true,
-    component: ProjectDetail,
+    component: EditProjectDetail,
     allowedRoles: [1,2,3,4,5], 
   },
   {
     path: '/administrator/project/informasi',
     exact: true,
-    component: ProjectInform,
+    component: EditProjectInform,
     allowedRoles: [1,2,3,4,5], 
   },
   {
     path: '/administrator/project/engineer',
     exact: true,
-    component: ProjectEngineer,
+    component: EditProjectForm,
     allowedRoles: [1,2,3,4,5], 
   },
   {
@@ -89,7 +93,7 @@ const administratorRoutes = [
   {
     path: '/administrator/project/edit/:id',
     exact: true,
-    component: ProjectEngineer,
+    component: EditProjectForm,
     allowedRoles: [1,2,3,4,5], 
   },
   

@@ -9,12 +9,20 @@ import Users_admin from '../views/Admin/Users_admin';
 import Invoice_admin from '../views/Admin/Invoice_admin';
 import Payment_admin from '../views/Admin/Payment_admin';
 import Form_Tambah_Client from '../views/Admin/Tambah_Form_Client';
+import Form_Edit_Client from '../views/Admin/Edit_Form_Client';
+import Form_Tambah_Project from '../views/Admin/Tambah_Form_Project';
 import InvoiceEditForm from '../views/Admin/Edit_Form_Invoice';
 import Form_Tambah_Doc from '../views/Admin/Tambah_Form_Doc';
 import Update_doc from '../views/Admin/Edit_Form_Doc';
 import Tambah_Form_Invoice from '../views/Admin/Tambah_Form_Invoice';
 import Form_Tambah_Payment from '../views/Admin/Tambah_Form_Payment';
 import PaymentEditForm from '../views/Admin/Edit_Form_Payment';
+import ProjectInitialForm from '../component/Project/ProjectInitialForm';
+import EditProjectForm from '../component/Project/ProjectEngineerForm';
+import EditProjectInform from '../component/Project/ProjectInformForm';
+import EditProjectDetail from '../component/Project/ProjectDetailForm';
+import EditProjectStepper from '../views/Admin/Edit_Form_Project';
+import ProjectDetailPage from '../component/Project/HalamanDetail';
 
 const adminRoutes = [
   {
@@ -83,6 +91,36 @@ const adminRoutes = [
     exact: true,
     component: Form_Tambah_Client,
     allowedRoles: [4]
+  },
+  {
+    path: '/client-edit/:clientId',
+    exact: true,
+    component: Form_Edit_Client,
+    allowedRoles: [4] 
+  },
+  {
+    path: '/Form_Tambah_Project',
+    exact: true,
+    component: Form_Tambah_Project,
+    allowedRoles: [4]
+  },
+  {
+    path: '/project/initial',
+    exact: true,
+    component: ProjectInitialForm,
+    allowedRoles: [4]
+  },
+  {
+    path: '/project-edit/:projectId',
+    exact: true,
+    component: EditProjectStepper,
+    allowedRoles: [4] 
+  },
+  {
+    path: '/project-detail/:projectId',
+    exact: true,
+    component: ProjectDetailPage,
+    allowedRoles: [4] 
   },
   {
     path: '/Form_Tambah_Invoice',

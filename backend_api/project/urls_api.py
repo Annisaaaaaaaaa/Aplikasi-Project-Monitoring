@@ -6,6 +6,7 @@ from .views_api import ProjectRetrieveUpdate, ProjectListSearch, ProjectDestroy,
 urlpatterns = [
     path('', views_api.ProjectListCreate.as_view(), name='project-list-create'),
     path('edit/<int:pk>/', ProjectRetrieveUpdate.as_view(), name='project-retrieve-update'),
+    path('detail/<int:pk>/', views_api.ProjectRetrieve.as_view(), name='project-retrieve'),
     path('search/', ProjectListSearch.as_view(), name='project-list-search'),
     path('delete/<int:pk>/', ProjectDestroy.as_view(), name='project-destroy'),  
     path('order/', ProjectList.as_view(), name='project-list'),

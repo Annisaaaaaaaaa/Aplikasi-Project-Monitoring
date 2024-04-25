@@ -30,6 +30,10 @@ const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
     history.push(`/project-edit/${projectId}/`);
   };
 
+  const handleDetail = (projectId) => {
+    history.push(`/project-detail/${projectId}`);
+  };
+
   const confirmDelete = (projectId) => {
     console.log('Menghapus klien dengan ID:', projectId);
 
@@ -60,7 +64,7 @@ const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
 
   const sortedAndSlicedProjects = projects
   .map((project) => {
-    const customerName = clients.find((client) => client.id === project.customer)?.name || 'N/A';
+    const customerName = clients && clients.find ? clients.find((client) => client.id === project.customer)?.name || 'N/A' : 'N/A';
 
     return {
       ...project,
@@ -182,7 +186,8 @@ const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
               <td style={cellStyle}>{project.end_date}</td>
               <td style={cellStyle}>
                 <button onClick={() => handleEdit(project.id)}>Edit</button>
-                <button onClick={() => confirmDelete(project.id)}>Delete</button>
+                {/* <button onClick={() => confirmDelete(project.id)}>Delete</button> */}
+                <button onClick={() => handleDetail(project.id)}>Detail</button>
               </td>
             </tr>
           ))}
