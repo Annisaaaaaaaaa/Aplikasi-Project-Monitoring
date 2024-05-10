@@ -43,7 +43,7 @@ export const DocumentProvider = ({ children }) => {
       });
   
       // Fetch User data
-      const userResponse = await axios.get('http://localhost:8000/api/user/', {
+      const userResponse = await axios.get('http://localhost:8000/api/users/tambah/', {
         headers: {
           Authorization: `Bearer ${token}`
         }

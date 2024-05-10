@@ -116,18 +116,18 @@ class Workload(models.Model):
 
 
     #ini nyobain
-    def calculate_workload_percentage(self):
-        # Jika tidak ada alokasi default, kembalikan pesan yang sesuai
-        if self.default_allocation == 0:
-            return "Tidak ada alokasi"
+    # def calculate_workload_percentage(self):
+    #     # Jika tidak ada alokasi default, kembalikan pesan yang sesuai
+    #     if self.default_allocation == 0:
+    #         return "Tidak ada alokasi"
 
-        # Hitung total kontribusi dari proyek dan aktivitas
-        total_contribution = self.project_contribution + self.activity_contribution
+    #     # Hitung total kontribusi dari proyek dan aktivitas
+    #     total_contribution = self.project_contribution + self.activity_contribution
 
-        # Hitung presentase workload berdasarkan kontribusi dan alokasi default
-        workload_percentage = (total_contribution / self.default_allocation) * 100
+    #     # Hitung presentase workload berdasarkan kontribusi dan alokasi default
+    #     workload_percentage = (total_contribution / self.default_allocation) * 100
 
-        return "{:.2f}%".format(workload_percentage)
+    #     return "{:.2f}%".format(workload_percentage)
 
 
 
@@ -145,3 +145,7 @@ class Workload(models.Model):
         # Hitung total workload
         instance.total_workload = instance.project_contribution + instance.activity_contribution
         instance.save()
+
+
+    class Meta:
+        db_table = "apm_workload"

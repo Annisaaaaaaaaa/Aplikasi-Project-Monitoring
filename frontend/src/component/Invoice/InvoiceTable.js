@@ -164,14 +164,13 @@ const buttonHoverStyle = {
 
 
 const detail = {
-  width: '20px',
-  height: '20px',
+  width: '25px',
+  height: '25px',
   position: 'relative',
   borderRadius: '50%',
   background: 'linear-gradient(89.94deg, rgba(172, 180, 252, 0.6) 2.11%, rgba(146, 158, 201, 0.6) 75.47%, rgba(71, 67, 247, 0.6) 102.23%)',
   marginLeft: '55px', // Menambahkan margin right sebesar 15px
 };
-
 
 const [isHoveredFilter, setIsHoveredFilter] = useState(false);
 const [isHoveredRefresh, setIsHoveredRefresh] = useState(false);
@@ -497,8 +496,8 @@ const filterByStatus = async () => {
 </td>
 
               <td style={cellStyle}>
-                <button onClick={() => handleEdit(invoice.id)}>Edit</button>
-                <button onClick={() => confirmDelete(invoice.id)}>Delete</button>
+                <button onClick={() => handleEdit(invoice.id)} className='edit-button'>Edit</button>
+                <button onClick={() => confirmDelete(invoice.id)} className='delete-button'>Delete</button>
                 <button onClick={() => handleDetail(invoice.id)} style={detail}></button>
               </td>
             </tr>

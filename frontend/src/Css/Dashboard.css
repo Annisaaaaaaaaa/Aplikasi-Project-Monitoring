@@ -1079,7 +1079,7 @@ input[type="search"]::placeholder {
 
 
   .edit-button {
-    background-color: #4caf50; /* Warna latar belakang hijau */
+    background-color: #4568c0; /* Warna latar belakang hijau */
     color: white; /* Warna teks putih */
     padding: 10px 20px; /* Padding 10px atas/bawah, 20px kiri/kanan */
     border: none; /* Tanpa border */
@@ -1089,7 +1089,7 @@ input[type="search"]::placeholder {
   }
   
   .delete-button {
-    background-color: #f44336; /* Warna latar belakang merah */
+    background-color: #c9281c; /* Warna latar belakang merah */
     color: white;
     padding: 10px 20px; 
     border: none;

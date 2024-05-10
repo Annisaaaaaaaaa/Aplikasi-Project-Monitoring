@@ -157,8 +157,8 @@ const buttonStyle = {
 };
 
 const detail = {
-  width: '20px',
-  height: '20px',
+  width: '25px',
+  height: '25px',
   position: 'relative',
   borderRadius: '50%',
   background: 'linear-gradient(89.94deg, rgba(172, 180, 252, 0.6) 2.11%, rgba(146, 158, 201, 0.6) 75.47%, rgba(71, 67, 247, 0.6) 102.23%)',
@@ -487,8 +487,8 @@ const filterByStatus = async () => {
               <td style={cellStyle}>{payment.receiver_name}</td>
               <td style={cellStyle}>{payment.type}</td>
               <td style={cellStyle}>
-                <button onClick={() => handleEdit(payment.id)}>Edit</button>
-                <button onClick={() => confirmDelete(payment.id)}>Delete</button>
+                <button onClick={() => handleEdit(payment.id)} className='edit-button'>Edit</button>
+                <button onClick={() => confirmDelete(payment.id)}  className='delete-button'>Delete</button>
                 <button onClick={() => handleDetail(payment.id)} style={detail}></button>
               </td>
             </tr>

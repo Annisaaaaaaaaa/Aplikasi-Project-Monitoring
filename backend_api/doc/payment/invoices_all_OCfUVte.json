@@ -1,0 +1,35 @@
+[
+  {
+    "Project": "aplikasi projek monitoring",
+    "To Contact": "Project Manager",
+    "Sent Date": "2024-04-24",
+    "Due Date": "2024-04-24",
+    "Date": "2024-04-24",
+    "Amount": "7.00",
+    "Status": "Dibayar",
+    "Note": "hi",
+    "Download Link": "http://localhost:8000/doc/invoice/invoices_all_vxCg72M.pdf"
+  },
+  {
+    "Project": "aplikasi projek monitoring",
+    "To Contact": "Project Manager",
+    "Sent Date": "2024-05-10",
+    "Due Date": "2024-04-23",
+    "Date": "2024-04-23",
+    "Amount": "45.00",
+    "Status": "Dibayar",
+    "Note": "hi",
+    "Download Link": "http://localhost:8000/doc/invoice/documents_2_2030_XhSjDOV.json"
+  },
+  {
+    "Project": "aplikasi projek monitoring",
+    "To Contact": "Project Manager",
+    "Sent Date": "2024-04-23",
+    "Due Date": "2024-04-23",
+    "Date": "2024-04-23",
+    "Amount": "100.00",
+    "Status": "Dibayar",
+    "Note": "hi",
+    "Download Link": "http://localhost:8000/doc/invoice/documents_2_2030.json"
+  }
+]

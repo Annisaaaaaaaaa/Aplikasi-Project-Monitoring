@@ -19,12 +19,13 @@ class ProjectAdmin(ImportExportModelAdmin):
             'fields': ('name', 'pid', 'year', 'customer', 'sales', 'am', 'pm')
         }),
         ('Project Details', {
-            'fields': ('description', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date', 'start_date', 'end_date', 'status', 'top', 'sow', 'oos', 'detail', 'remarks', 'weight', 'priority', 'type', 'market_segment', 'tech_use', 'resiko')
+            'fields': ('description', 'amount_tax', 'amount_exc_tax', 'contract_no', 'contract_date', 'start_date', 'end_date', 'status', 'top', 'sow', 'oos', 'detail', 'remarks', 'priority', 'type', 'market_segment', 'tech_use', 'resiko')  # Remove 'weight'
         }),
         ('Workload', {
             'fields': ('beban_proyek',)
         }),
     )
+
 
 @admin.register(EngineerProject)
 class EngineerProjectAdmin(ImportExportModelAdmin):

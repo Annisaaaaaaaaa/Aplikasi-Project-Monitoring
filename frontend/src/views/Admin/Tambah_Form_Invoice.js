@@ -185,7 +185,7 @@ const Tambah_Form_Invoice = () => {
             </button>
             <div className="form-group">
               <span className="nama">Name</span>
-              <input type="text" id="name" className="isi-name" placeholder="Enter your name" value={formData.name} onChange={handleInputChange} name="name" />
+              <input type="text" id="name" className="isi-name" placeholder="File Name" value={formData.name} onChange={handleInputChange} name="name" />
             </div>
             <div className="form-group">
               <span className="nama-p">Project</span>
@@ -201,7 +201,7 @@ const Tambah_Form_Invoice = () => {
             <div className="c-dropdown">
               <div className="in">
                 <span>Invoice Number</span>
-                <input type="number" id="numberInput" className="drop" value={formData.no_invoice} onChange={handleInputChange} name="no_invoice" placeholder="Ex. 0123" />
+                <input type="number" id="numberInput" className="drop" value={formData.no_invoice} onChange={handleInputChange} name="no_invoice" placeholder="Ex. DS/01/2024" />
               </div>
               <div className="stat">
                 <span>Status</span>
@@ -255,7 +255,7 @@ const Tambah_Form_Invoice = () => {
             </div>
                 <p className="client-name">Client Name</p>
               <select className="drop-cn" name="to_contact" value={formData.to_contact} onChange={handleInputChange}>
-                <option value="">Select To Contact</option>
+                <option value="">Select Client Name</option>
                 {clients.map((client) => (
                   <option key={client.id} value={client.id}>
                     {client.name}
@@ -274,7 +274,7 @@ const Tambah_Form_Invoice = () => {
                 <input type="date" name="date" className="datt-inv" value={formData.date} onChange={handleInputChange} />
 
               <p className="nopo">PO</p>
-              <input type="text" id="name" className="no-po" placeholder="Enter your name" name="purchase_order" value={formData.purchase_order} onChange={handleInputChange}/>
+              <input type="text" id="name" className="no-po" placeholder="Purchase Order" name="purchase_order" value={formData.purchase_order} onChange={handleInputChange}/>
 
               <p className="am-inv">Amount</p>
               <input type="number" id="numberInput" className="inv-number-input" value={formData.amount} onChange={handleInputChange} name="amount" placeholder="Ex. 0123"/>

@@ -114,7 +114,7 @@ const DetailFormPayment = () => {
     try {
       const formData = new FormData();
       formData.append('file', selectedFile);
-      const response = await axios.post('http://localhost:8000/api/v1/upload', formData, {
+      const response = await axios.post('http://localhost:8000/api/v1/payment/', formData, {
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           setProgress(progress);
@@ -161,6 +161,30 @@ const DetailFormPayment = () => {
     });
 };
 
+const getProjectName = (projectId) => {
+  const project = projects.find((proj) => proj.id === projectId);
+  return project ? project.name : '';
+};
+
+const getInvoiceName = (invoiceId) => {
+  const invoice = invoices.find((inv) => inv.id === invoiceId);
+  return invoice ? invoice.name : '';
+};
+
+// const getInvoiceSend = (invoiceId) => {
+//   const invoice = invoices.find((se) => se.id === invoiceId);
+//   return invoice ? invoice.send_date : '';
+// };
+
+const getInvoiceDue = (invoiceId) => {
+  const invoice = invoices.find((du) => du.id === invoiceId);
+  return invoice ? invoice.due_date : '';
+};
+
+const getInvoiceSD = (invoiceId) => {
+  const invoice = invoices.find((sd) => sd.id === invoiceId);
+  return invoice ? invoice.sent_date : '';
+};
 
 const confirmDelete = (paymentId) => {
     Swal.fire({
@@ -235,11 +259,7 @@ const confirmDelete = (paymentId) => {
           <div className="con-rigth-dpay">
             <div className="re1-dpay">
               <img src={po} alt="Logo" className="icon-dpay" />
-              <div className="header1-dpay">{projects.map((project) => (
-              <div key={project.id} value={project.id}>
-                {project.name}
-              </div>
-            ))} </div>
+              <div className="header1-dpay">{getProjectName(formData.project)}</div>
               <div className="complete-dpay">{formData.no_invoice} {invoices.map((invoice) => (
                   <div key={invoice.id} value={invoice.id}>
                     {invoice.no_invoice}
@@ -249,12 +269,12 @@ const confirmDelete = (paymentId) => {
               <button className="back-dpay">Back</button>
               <img src={gc2} alt="Logo" className="ic-1-dpay" />
               <div className="text-1-dpay">Project</div>
-              <div className="ans-1-dpay">{formData.project}</div>
+              <div className="ans-1-dpay">{getProjectName(formData.project)}</div>
               <div className="ic-2-dpay">
                 <img src={inv} alt="Logo" />
               </div>
               <div className="text-2-dpay">Invoice</div>
-              <div className="ans-2-dpay">{formData.no_invoice}</div>
+              <div className="ans-2-dpay">{getInvoiceName(formData.no_invoice)}</div>
               <div className="ic-3-dpay">
                 <img src={bc} alt="Logo" />
               </div>
@@ -290,9 +310,9 @@ const confirmDelete = (paymentId) => {
               <div className="teks-1-dpay">PAYER NAME</div>
               <div className="jw-1-dpay">{formData.payer_name}</div>
               <div className="teks-2-dpay">SEND DATE</div>
-              <div className="jw-2-dpay">{formData.send_date}</div>
+              <div className="jw-2-dpay">{getInvoiceSD(formData.no_invoice)}</div>
               <div className="teks-3-dpay">DUE DATE</div>
-              <div className="jw-3-dpay">{formData.due_date}</div>
+              <div className="jw-3-dpay">{getInvoiceDue(formData.no_invoice)}</div>
             </div>
             <div className="re3-dpay">  
               <div className="catatan-dpay">Catatan.</div>

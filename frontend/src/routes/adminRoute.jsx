@@ -17,7 +17,7 @@ import Update_doc from '../views/Admin/Edit_Form_Doc';
 import Tambah_Form_Invoice from '../views/Admin/Tambah_Form_Invoice';
 import Form_Tambah_Payment from '../views/Admin/Tambah_Form_Payment';
 import PaymentEditForm from '../views/Admin/Edit_Form_Payment';
-import Form_Edit_Client from '../views/Admin/Edit_Form_Client';
+// import Form_Edit_Client from '../views/Admin/Edit_Form_Client';
 import DetailFormInvoice from '../component/Invoice/InvoicePage';
 import DetailFormPayment from '../component/Payment/PaymentPage';
 

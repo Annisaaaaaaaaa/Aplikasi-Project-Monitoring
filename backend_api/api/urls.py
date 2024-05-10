@@ -32,7 +32,7 @@ urlpatterns = [
 
     #yg atas sesat
     path('api/groups/', GroupList.as_view(), name='group-list'),
-    path('users/tambah', views.UserListCreate.as_view(), name='user-list-create'),
+    path('users/tambah/', views.UserListCreate.as_view(), name='user-list-create'),
     path('users/<int:pk>/', views.UserRetrieveUpdateDestroy.as_view(), name='user-detail'),
     path('profiles/administrator/', ProfileListView.as_view(), name='profile-list'),
     path('user/delete/<int:pk>/', UserDeleteView.as_view(), name='user_delete'),

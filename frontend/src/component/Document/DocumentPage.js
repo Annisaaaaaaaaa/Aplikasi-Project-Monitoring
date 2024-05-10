@@ -59,7 +59,7 @@ const DetailDocument = ({ document }) => {
                             <img src={gambarpop} alt="logo" />
                         </div>
                         <div className="kiri-icon-user">
-                            CREATE DOCUMENT
+                            DETAIL DOCUMENT
                         </div>
                     </div>
                 </div>

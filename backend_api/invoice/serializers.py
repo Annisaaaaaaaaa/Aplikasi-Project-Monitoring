@@ -11,7 +11,6 @@ class InvoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Invoice
         fields = '__all__'
-        # Tambahkan metode validate untuk memastikan bahwa document_file opsional saat update
         extra_kwargs = {
                 'document_file': {'required': False}  
             }

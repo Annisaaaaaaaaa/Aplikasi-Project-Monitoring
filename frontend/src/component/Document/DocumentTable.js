@@ -88,6 +88,15 @@ const DocumentTable = ({ currentPage, itemsPerPage, totalItems }) => {
         color: '#fff', 
     };
 
+    const detail = {
+        width: '25px',
+        height: '25px',
+        position: 'relative',
+        borderRadius: '50%',
+        background: 'linear-gradient(89.94deg, rgba(172, 180, 252, 0.6) 2.11%, rgba(146, 158, 201, 0.6) 75.47%, rgba(71, 67, 247, 0.6) 102.23%)',
+        marginLeft: '55px', // Menambahkan margin right sebesar 15px
+      };
+
     const [isHoveredFilter, setIsHoveredFilter] = useState(false);
     const [isHoveredRefresh, setIsHoveredRefresh] = useState(false);
     const [isHoveredCategory, setIsHoveredCategory] = useState(false);
@@ -465,9 +474,9 @@ const filterByCategory = async () => {
                             <td style={cellStyle}>{document.category}</td>
                             <td style={cellStyle}>{document.upload_date}</td>
                             <td style={cellStyle}>
-                                <button onClick={() => handleEdit(document.id)}>Edit</button> || &nbsp;
-                                <button onClick={() => confirmDelete(document.id)}>Delete</button>
-                                <button onClick={() => toggleDetail(document.id)}>Detail</button>
+                                <button onClick={() => handleEdit(document.id)} className='edit-button'>Edit</button> 
+                                <button onClick={() => confirmDelete(document.id)} className='delete-button'>Delete</button>
+                                <button onClick={() => toggleDetail(document.id)} style={detail}></button>
                             </td>
                         </tr>
                     ))}

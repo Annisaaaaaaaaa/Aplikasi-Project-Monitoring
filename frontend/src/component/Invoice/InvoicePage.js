@@ -116,7 +116,7 @@ const DetailFormInvoice = () => {
     try {
       const formData = new FormData();
       formData.append('file', selectedFile);
-      const response = await axios.post('http://localhost:8000/api/v1/upload', formData, {
+      const response = await axios.post('http://localhost:8000/api/v1/invoice/', formData, {
         onUploadProgress: (progressEvent) => {
           const progress = Math.round((progressEvent.loaded / progressEvent.total) * 100);
           setProgress(progress);
@@ -136,7 +136,7 @@ const DetailFormInvoice = () => {
     setError(null);
     try {
       // Lakukan pengecekan token dan kirim data form dengan axios
-      history.push('/payment-admin');
+      history.push('/invoice-admin');
     } catch (error) {
       console.error('Error submitting form:', error.message);
       setError(error.message);
@@ -144,6 +144,17 @@ const DetailFormInvoice = () => {
       setLoading(false);
     }
   };
+
+  const getProjectName = (projectId) => {
+    const project = projects.find((proj) => proj.id === projectId);
+    return project ? project.name : '';
+  };
+  
+  const getClientName = (clientId) => {
+    const client = clients.find((cl) => cl.id === clientId);
+    return client ? client.name : '';
+  };
+  
 
   const handleEdit = (invoiceId) => {
     Swal.fire({
@@ -237,15 +248,15 @@ const confirmDelete = (invoiceId) => {
           <div className="con-rigth-inv">
             <div className="re1-inv">
               <img src={po} alt="Logo" className="icon-inv" />
-              <div className="header1-inv">PEMBAYARAN {formData.project} BATCH 2 PER TANGGAL {formData.date}</div>
-              <div className="complete-inv">{formData.status}</div>
-              <div className="header2-inv">{formData.type}
+              <div className="header1-inv">PEMBAYARAN {getProjectName(formData.project)} BATCH 2 PER TANGGAL {formData.date}</div>
+              <div className="complete-inv" style={{marginTop: '38px'}}>{formData.status}</div>
+              <div className="header2-inv" style={{marginBottom: '10px'}}>{formData.type}<br/>
                 <span/>{formData.no_invoice}<span/>
               </div>
               <button className="back-inv">Back</button>
               <img src={gc2} alt="Logo" className="ic-1-inv" />
               <div className="text-1-inv">Project</div>
-              <div className="ans-1-inv">{formData.project}</div>
+              <div className="ans-1-inv">{getProjectName(formData.project)}</div>
               <div className="ic-2-inv">
                 <img src={inv} alt="Logo" />
               </div>
@@ -255,7 +266,7 @@ const confirmDelete = (invoiceId) => {
                 <img src={bc} alt="Logo" />
               </div>
               <div className="text-3-inv">Receiver</div>
-              <div className="ans-3-inv">{formData.to_contact}</div>
+              <div className="ans-3-inv">{getClientName(formData.to_contact)}</div>
               {invoices.map((invoice) => (
               <div key={invoice.id} value={invoice.id}>
                 <button className="delete-inv" onClick={() => confirmDelete(invoice.id)}>
@@ -275,7 +286,7 @@ const confirmDelete = (invoiceId) => {
               <div className="nominal-inv">{formData.amount}</div>
               <div className="amount-inv">AMOUNT</div>
               <div className="teks-1-inv">PAYER NAME</div>
-              <div className="jw-1-inv">{formData.payer_name}</div>
+              <div className="jw-1-inv">{getClientName(formData.to_contact)}</div>
               <div className="teks-2-inv">SEND DATE</div>
               <div className="jw-2-inv">{formData.sent_date}</div>
               <div className="teks-3-inv">DUE DATE</div>

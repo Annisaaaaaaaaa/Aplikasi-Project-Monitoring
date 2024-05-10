@@ -3,7 +3,7 @@ import { useProjectContext } from './../../context/ProjectContext';
 import gambarorg from '../../assets/img/gambarorg.png';
 import { useHistory } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
-import 'animate.css';
+// import 'animate.css';
 
 const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
   const { projects, users, clients, error, loading, editProject, deleteProject } = useProjectContext();

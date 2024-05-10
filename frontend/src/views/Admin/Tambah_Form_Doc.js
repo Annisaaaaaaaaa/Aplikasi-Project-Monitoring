@@ -2,9 +2,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import AuthContext from './../../context/AuthContext';
-import '../../Css/add_doc.css';
 import Swal from 'sweetalert2';
-
+import './../../Css/tambahdoc.css';
 
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
@@ -53,7 +52,7 @@ function Form_Tambah_Doc() {
         });
 
         // Fetch clients
-        const usersResponse = await axios.get('http://localhost:8000/api/user/', {
+        const usersResponse = await axios.get('http://localhost:8000/api/users/tambah/', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -148,7 +147,7 @@ const confirmBeforeSubmit = async () => {
           <Sidebar />
           <Navbar />
           <div className="form-add-user">
-              <div className="tiitle-add-user">
+              <div className="tiitle-add-user" style={{ display: 'flex' }}>
                   <div className="add-user-kanan">
                       <div className="icon-add-client">
                           <img src={gambarpop} alt="logo" />
@@ -160,20 +159,20 @@ const confirmBeforeSubmit = async () => {
               </div>
               <p>Masukkan Informasi Umum. Bagian Document</p>
 
-              <div className="miau-container">
+              <div className="miau-container" style={{ display: 'flex' }}>
                   <form onSubmit={handleSubmit}>
                       <div className="miau5">
                           <div className="tittle-form-email">
                               Name
                           </div>
-                          <div className="input-form-email">
+                          <div className="input-form-email" style={{ width: '177px' }}>
                               <input type="text" name='name' value={formData.name} onChange={handleInputChange} placeholder="SCOP Projek A" />
                           </div>
                       </div>
 
                       <div className="miau4">
                           <div className="kiri-user">
-                          <div className="tittle-form" style={{ marginBottom: '2%' }}>
+                          <div className="tittle-form" style={{ marginBottom: '5%' }}>
                               Project 
                           </div>
                               <div className="select-container">
@@ -193,7 +192,7 @@ const confirmBeforeSubmit = async () => {
                               </div>
                               <div className="input-form">
                               <div className="select-container">
-                                  <select name="uploader" value={formData.uploader} onChange={handleInputChange}>
+                                  <select name="uploader" value={formData.uploader} onChange={handleInputChange} style={{ width: '235px' }}>
                                       <option value="">Uploader</option>
                                       {users.map((user) => (
                                           <option key={user.id} value={user.id}>
@@ -229,7 +228,7 @@ const confirmBeforeSubmit = async () => {
                           Uploader date
                           </div>
                           <div className="input-form-email">
-                          <input type="date" name="upload_date" value={formData.upload_date} onChange={handleInputChange} />
+                          <input type="date" name="upload_date" value={formData.upload_date} onChange={handleInputChange} style={{ width: '520px' }}/>
                           </div>
                       </div>
 
@@ -237,7 +236,7 @@ const confirmBeforeSubmit = async () => {
                         <div className="tittle-form-8">
                             <p>Description</p>
                         </div>
-                        <textarea name="description" value={formData.description} onChange={handleInputChange}></textarea>
+                        <textarea name="description" value={formData.description} onChange={handleInputChange} style={{ width: '530px' }}></textarea>
                     </div>
 
                       <div className="tambah-doc">
@@ -250,7 +249,7 @@ const confirmBeforeSubmit = async () => {
                    <img src={gambardoc} alt="logo" />
                       <div className="exel-des-doc">
                           <p>Upload Dokument</p>
-                          <span>bisa lebih dari satu dokumen</span>
+                          <span>upload data dokumen</span>
                           <div className="group-button">
                           <div className="file-input-doc">
                                 <label htmlFor="file-upload" className="label-file"  style={{ marginLeft: '45%', backgroundColor: '#597CB1',  alignItems: 'center', color:'white', fontWeight: '500'}}>Upload</label>

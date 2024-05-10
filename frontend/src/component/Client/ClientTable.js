@@ -3,7 +3,7 @@ import { useClientContext } from './../../context/ClientContext';
 import { useHistory } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import gambarorg from '../../assets/img/gambarorg.png';
-import 'animate.css';
+// import 'animate.css';
 
 const ClientTable = ({ currentPage, itemsPerPage, totalItems }) => {
   const { clients, error, loading, editClient, deleteClient } = useClientContext();

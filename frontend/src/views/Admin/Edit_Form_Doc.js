@@ -55,7 +55,7 @@ function Update_doc() {
           },
         });
 
-        const usersResponse = await axios.get('http://localhost:8000/api/user/', {
+        const usersResponse = await axios.get('http://localhost:8000/api/users/tambah/', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
