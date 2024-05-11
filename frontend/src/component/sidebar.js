@@ -7,7 +7,7 @@ import projek from '../assets/img/projek.png';
 import client from '../assets/img/client.png';
 import invoice from '../assets/img/invoice.png';
 import payment from '../assets/img/payment.png';
-import note from '../assets/img/note.png';
+import aktivitas from '../assets/img/activity.png';
 import doc from '../assets/img/doc.png';
 import users from '../assets/img/user.png';
 import logout from '../assets/img/log.png';
@@ -179,9 +179,9 @@ function Sidebar() {
                             </ul>
                         </li>
                         <li onClick={handleMenuItemClick}>
-                            <a href="#">
-                                <img src={note} alt="logo" />
-                                <span className="text">Note</span>
+                            <a href="/aktivitas-admin">
+                                <img src={aktivitas} alt="logo" />
+                                <span className="text">Activity</span>
                             </a>
                         </li>
                         <li onClick={handleMenuItemClick}>

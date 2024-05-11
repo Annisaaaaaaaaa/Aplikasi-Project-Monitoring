@@ -70,13 +70,13 @@ function Add_user() {
                           </div>
                       </div>
 
-                      <div className="miau5">
+                     
                           <div className="tittle-form-email">
                               Email
                           </div>
                           <div className="input-form-email">
                               <input type="email" value={email} onChange={(e) => handleInputChange(e, setEmail)} placeholder="Ex. PT Bongkar Turet" />
-                          </div>
+                  
                       </div>
                       <div className="tittle-form">
                           Role

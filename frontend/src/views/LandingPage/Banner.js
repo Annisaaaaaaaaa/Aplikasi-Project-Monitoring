@@ -85,8 +85,8 @@ export const Banner = () => {
               kemajuan, alokasi sumber daya, identifikasi risiko, dan kolaborasi
               tim proyek dengan efisien."
             </p>
-            <button><span><Link to='/login' style={{ color: 'white' }}>Login<ArrowRightCircle size={25} /></Link></span></button>
-           
+            <button><span><Link to='/login' style={{ color: 'white' }}>Login<ArrowRightCircle size={25} /></Link>
+            </span></button>
           </Col>
           <Col xs={12} md={6} xl={5}>
             <img src={headerImg} alt="Header Img" />

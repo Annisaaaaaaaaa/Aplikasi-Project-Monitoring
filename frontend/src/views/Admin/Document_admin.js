@@ -128,7 +128,7 @@ function Document_admin() {
 
                     <div className="bungkus">
                         <div className="group-button">
-                        <Link to="/form_tambah_doc" className="button-client" style={{ textDecoration: 'none' }}>
+                        <Link to="/Add_doc" className="button-client" style={{ textDecoration: 'none' }}>
                             <i className="fas fa-plus"></i> Tambah
                         </Link>
                             <button className="button-client">

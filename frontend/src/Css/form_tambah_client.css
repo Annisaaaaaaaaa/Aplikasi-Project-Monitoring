@@ -189,7 +189,7 @@ input::placeholder{
 }
 
 
-.exel-form {
+.exel-client .exel-form-client {
     position: absolute;
     width: 29%;
     height: 50%;

@@ -59,16 +59,16 @@ function Add_doc() {
               </div>
               <p>Masukkan Informasi Umum. Bagian Document</p>
 
-              <div className="miau-container">
+              <div className="miau-container-adddoc">
                   <form onSubmit={handleSubmit}>
-                      <div className="miau5">
-                          <div className="tittle-form-email">
+                     
+                          <div className="tittle-form-email-adddoc">
                               Name
                           </div>
                           <div className="input-form-email">
                               <input type="email"  onChange={(e) => handleInputChange(e, setEmail)} placeholder="SCOP Projek A" />
                           </div>
-                      </div>
+
 
                       <div className="miau4">
                           <div className="kiri-user">
@@ -89,17 +89,17 @@ function Add_doc() {
                           </div>
                       </div>
 
-                      <div className="miau5">
-                          <div className="tittle-form-email">
+                      
+                          <div className="tittle-form-email-adddoc">
                           Category
                           </div>
                           <div className="input-form-email">
                               <input type="email"  onChange={(e) => handleInputChange(e, setEmail)} placeholder="Add Cetegory" />
                           </div>
-                      </div>
+               
 
                       <div className="miau8">
-                        <div className="tittle-form-8">
+                        <div className="tittle-form-email-adddoc">
                             <p>Description</p>
                         </div>
                         <textarea 
@@ -114,7 +114,7 @@ function Add_doc() {
                       </div>
                   </form>
               </div>
-              <div className="exel-form-doc">
+              <div className="exel-form-addDoc">
                   <div className="exel-content-doc">
                    <img src={gambardoc} alt="logo" />
                       <div className="exel-des-doc">

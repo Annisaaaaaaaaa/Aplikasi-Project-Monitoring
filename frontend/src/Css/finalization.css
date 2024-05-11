@@ -1,0 +1,314 @@
+
+
+
+.panjang img{
+    margin-left: 2.5%;
+    margin-top: 2%;
+}
+
+/*** Finalization Section ***/
+
+.container-finalization {
+    box-sizing: border-box;
+    width: 85%;
+    height: 280px;
+    margin-left: 11%;
+    margin-top: 2%;
+    background: linear-gradient(90deg, #CED7F0 0%, #B3C8FB 16.98%, #AEBCDB 36.47%, #BECBE6 62.3%, #CED7F0 84.89%, #C0D1FF 98.7%);
+    box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+}
+
+.container-button-finalization button img{
+    width: 20%;
+}
+
+.container-ban {
+    display: flex;
+}
+
+.container-ban img {
+    margin-left: 5%;
+    width: 20%;
+}
+
+.container-ban h1{
+    margin-top: 4%;
+    margin-left: 5%;
+    padding-bottom: 10%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 40px;
+    line-height: 12px;
+    color: rgba(52, 65, 131, 0.75);
+}
+
+.container-finalization p{
+    margin-top: -9%;
+    margin-left: 30%;
+    padding-bottom: 10%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 30px;
+    line-height: 12px;
+    color: rgba(52, 65, 131, 0.75);
+}
+
+.container-finalization h2{
+    margin-top: -8%;
+    margin-left: 30%;
+    padding-bottom: 10%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #2E2E2E;
+}
+
+.container-button-finalization{
+    display: flex;
+    margin-top: -3%;
+}
+
+.container-button-finalization button{
+    margin-left: 31%;
+    font-weight: 700;
+    font-size: 15px;
+    width: 8%;
+    color: #2A3096;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid #2A3096;
+    padding: 8px 16px; 
+    cursor: pointer;
+    background: transparent;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.container-button-finalization button img{
+    margin-right: 10%;
+}
+
+.button-kanan-finalization button{
+    display: flex;
+    width: 100px;
+    color: #ffff;
+    padding: 8px 16px; 
+    background: linear-gradient(90.46deg, #4F89E1 1.42%, #4B7BC2 1.43%, #4F89E1 20.63%, #64A7FC 107.99%);
+    border-radius: 10px;
+    border: none;
+}
+
+.back {
+    position: relative; 
+    margin-left: 75%;
+    margin-top: -3%;
+    margin-bottom: 5%;
+}
+
+.back button {
+    display: flex;
+    font-weight: 500;
+    color: #2A3096;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    border: 1px solid #2A3096;
+    padding: 8px 16px; 
+    cursor: pointer;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.back button img {
+    margin-right: 5px; 
+}
+
+/*** Detail Documen ***/
+
+.container-detail-finalization {
+    display: flex;
+    margin-left: 12%;
+}
+
+.kiri-detail-finalization{
+    padding: 30px;
+    margin-top: 2%;
+    margin-left: 3%;
+    width: 390px;
+    height: 269px;
+    border: 2px solid #7387C0;
+    backdrop-filter: blur(75px);
+    border-radius: 8px;
+}
+
+.kiri-detail-finalization img{
+    margin-left: 45%;
+    margin-top: 10%;
+    width: 10%;
+}
+
+.kiri-detail-finalization button img {
+    width: 20%;
+}
+
+.kiri-detail-finalization p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    color: #7387C0;
+}
+
+.kiri-detail-finalization h2{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #5C5C5C;
+}
+
+.kiri-detail-finalization button{
+    margin-left: 30%;
+    margin-top: 8%;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    width: 130px;
+    color: #000;
+    border: none;
+    height: 15%;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #7387C0;
+    border-radius: 5px;
+}
+
+.kiri-detail-finalization button img{
+    margin-left: -5%;
+}
+
+.tengah-detail-finalization{
+    padding: 30px;
+    margin-top: 2%;
+    margin-left: 3%;
+    width: 390px;
+    height: 269px;
+    border: 2px solid #3592AF;
+    backdrop-filter: blur(75px);
+    border-radius: 8px;
+}
+
+.tengah-detail-finalization img{
+    margin-left: 45%;
+    margin-top: 10%;
+    width: 10%;
+}
+
+.tengah-detail-finalization p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    color: #3592AF;
+}
+
+.tengah-detail-finalization h2{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #5C5C5C;
+}
+
+.tengah-detail-finalization button{
+    margin-left: 30%;
+    margin-top: 8%;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    width: 130px;
+    color: #000;
+    border: none;
+    height: 15%;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #3592AF;
+    border-radius: 5px;
+}
+
+.tengah-detail-finalization button img{
+    margin-left: -5%;
+}
+
+.kanan-detail-finalization{
+    padding: 30px;
+    margin-top: 2%;
+    margin-left: 3%;
+    width: 390px;
+    height: 269px;
+    border: 2px solid #A576CB;
+    backdrop-filter: blur(75px);
+    border-radius: 8px;
+}
+
+.kanan-detail-finalization img{
+    margin-left: 45%;
+    margin-top: 10%;
+    width: 10%;
+}
+
+.kanan-detail-finalization p{
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    color: #A576CB;
+}
+
+.kanan-detail-finalization h2{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #5C5C5C;
+}
+
+.kanan-detail-finalization button{
+    margin-left: 30%;
+    margin-top: 8%;
+    align-items: center;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    width: 130px;
+    color: #000;
+    border: none;
+    height: 15%;
+    padding-left: 5px;
+    padding-right: 5px;
+    background: #A576CB;
+    border-radius: 5px;
+}
+
+.kanan-detail-finalization button img{
+    margin-left: -5%;
+}

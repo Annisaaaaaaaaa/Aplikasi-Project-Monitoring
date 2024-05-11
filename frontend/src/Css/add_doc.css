@@ -87,7 +87,8 @@
 .miau8 textarea{
     width: 165%;
     height: 40%;
-    margin-top: 0%;
+    margin-top: -90%;
+    margin-left: 20%;
     border: none;
     background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
     backdrop-filter: blur(75px);
@@ -98,7 +99,6 @@
 
 .tittle-form-8 {
     margin-top: 4%;
-    margin-bottom: 3%;
     margin-right: 100%;
     font-family: 'Poppins';
     font-style: normal;
@@ -155,7 +155,7 @@
     padding-left: 10px;
 }
 
-.miau-container section {
+.miau-container-doc section {
     width: 100vmin;
     height: 100vh;
     margin-left: 28%;
@@ -308,7 +308,7 @@ label h4{
     color: #334062;
 }
 
-.exel-form-doc {
+.exel-form-addDoc {
     position: absolute;
     width: 29%;
     height: 50%;
@@ -373,6 +373,18 @@ label h4{
 .exel-form-user button:nth-child(1) {
     background-color: #2C904D; 
 }
+
+.tittle-form-email-adddoc{
+    margin-top: 3%;
+    margin-left: 9%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+    color: #4D547A;
+}
+
 
 
 

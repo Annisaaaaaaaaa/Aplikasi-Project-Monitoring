@@ -8,18 +8,22 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "animate.css": "^4.1.1",
     "axios": "^1.6.7",
     "dayjs": "^1.11.7",
     "jquery": "^3.7.1",
     "jwt-decode": "^3.1.2",
+    "mammoth": "^1.7.1",
+    "path-browserify": "^1.0.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.0",
     "react-bootstrap-icons": "^1.10.3",
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
-    "react-scripts": "^5.0.1",
+    "react-toastify": "^10.0.5",
     "sweetalert2": "^11.7.5",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4",
     "xlsx": "^0.18.5"
   },
@@ -48,6 +52,7 @@
     ]
   },
   "devDependencies": {
-    "dotenv": "^16.4.4"
+    "dotenv": "^16.4.4",
+    "react-scripts": "^5.0.1"
   }
 }

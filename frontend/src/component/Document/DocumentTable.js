@@ -83,18 +83,19 @@ const DocumentTable = () => {
         document.uploaderName.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const handleEdit = (documentId) => {
-      const newData = {}; 
-      editDocument(documentId, newData);
-    };
-  
-    const confirmDelete = (documentId) => {
-      console.log('Menghapus klien dengan ID:', documentId);
-    
-      if (window.confirm('Apakah Anda yakin ingin menghapus Data Document ini?')) {
-        deleteDocument(documentId);
-      }
-    };
+  const handleEdit = (documentId) => {
+    const newData = {};
+    editDocument(documentId, newData);
+    history.push(`/edit_doc/${documentId}`);
+  };
+
+  const confirmDelete = (documentId) => {
+    console.log('Menghapus klien dengan ID:', documentId);
+
+    if (window.confirm('Apakah Anda yakin ingin menghapus Data Document ini?')) {
+      deleteDocument(documentId);
+    }
+  };
 
   if (loading) {
     return (

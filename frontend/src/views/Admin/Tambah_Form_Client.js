@@ -147,19 +147,20 @@ function Form_Tambah_Client() {
                     </div>
                 </div>
 
-                <div className="exel-form">
-                    <div className="exel-content">
-                     <img src={gambarexel} alt="logo" />
-                        <div className="exel-des">
-                            <p>Atau Import Informasi Dari Excel</p>
-                            <span>dengan klik button berikut</span>
-                            <div className="group-button">
-                                <button>Import</button>
+                <div className='exel-client'>
+                    <div className="exel-form-client">
+                        <div className="exel-content">
+                        <img src={gambarexel} alt="logo" />
+                            <div className="exel-des">
+                                <p>Atau Import Informasi Dari Excel</p>
+                                <span>dengan klik button berikut</span>
+                                <div className="group-button">
+                                    <button>Import</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div className="form-bawah">
                     <div className="ess2">
                         <p>Additional Information. </p>

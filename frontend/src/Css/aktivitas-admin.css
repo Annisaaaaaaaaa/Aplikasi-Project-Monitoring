@@ -1,0 +1,212 @@
+.ds-utama-aktivitas{
+    position: relative;
+    width: calc(90% - 50px);
+    height: 300px;
+    margin-top: 50px;
+    margin-left: 10%;
+    transition: all 0.3s ease;
+    background: linear-gradient(87.42deg, rgba(129, 123, 200, 0.5) 4.46%, rgba(212, 208, 255, 0.5) 43.68%, rgba(239, 238, 255, 0.5) 56.38%, rgba(212, 208, 255, 0.5) 79.91%, rgba(160, 192, 240, 0.5) 92.97%, rgba(184, 212, 255, 0.5) 98.22%);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+}
+
+.gambaraktivitas {
+    position: absolute; 
+    bottom: 37%; 
+    margin-left: 12%;
+    width: 32%;
+    flex: 1;
+ }
+
+.duatiga-admin-aktivitas{
+    position: absolute;
+    width: calc(10%);
+    height: 100%;
+    margin-left: 50%;
+    top: 202px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 100px;
+    line-height: 150px;
+    text-align: center;
+
+    background: linear-gradient(265.85deg, rgba(142, 108, 216, 0.85) -2.3%, rgba(88, 173, 209, 0.85) 62.22%, rgba(100, 141, 179, 0.85) 84.21%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.duatiga-admin2-aktivitas{
+    position: absolute;
+    width: calc(10%);
+    height: 100%;
+    margin-left: 65%;
+    top: 180px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 130px;
+    line-height: 150px;
+    text-align: center;
+
+    background: linear-gradient(265.85deg, rgba(142, 108, 216, 0.85) -2.3%, rgba(88, 173, 209, 0.85) 62.22%, rgba(100, 141, 179, 0.85) 84.21%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.duatiga-admin3-aktivitas{
+    position: absolute;
+    width: calc(10%);
+    height: 100%;
+    margin-left: 80%;
+    top: 202px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 100px;
+    line-height: 150px;
+    text-align: center;
+
+    background: linear-gradient(265.85deg, rgba(142, 108, 216, 0.85) -2.3%, rgba(88, 173, 209, 0.85) 62.22%, rgba(100, 141, 179, 0.85) 84.21%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+.total-admin-aktivitas{ 
+    position: absolute;
+    width: calc(100%);
+    height: 22px;
+    margin-left: 52.5%;
+    top: 340px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 22px;
+    /* identical to box height, or 129% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #8B9CDA;
+}
+
+.total-admin2-aktivitas{ 
+    position: absolute;
+    width: calc(100%);
+    height: 22px;
+    margin-left: 67%;
+    top: 340px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 22px;
+    /* identical to box height, or 129% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #8B9CDA;
+}
+
+.total-admin3-aktivitas{ 
+    position: absolute;
+    width: calc(100%);
+    height: 22px;
+    margin-left: 82.5%;
+    top: 340px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 22px;
+    /* identical to box height, or 129% */
+    display: flex;
+    align-items: center;
+    text-align: center;
+    
+    color: #8B9CDA;
+}
+
+.garis-admin-aktivitas {
+    position: absolute;
+    width: calc(8%);
+    height: 0px;
+    margin-left: 58%;
+    top: 290px;
+    border: 2px solid rgba(93, 110, 167, 0.35);
+    transform: rotate(-90deg);
+}
+
+.garis-admin2-aktivitas {
+    position: absolute;
+    width: calc(8%);
+    height: 0px;
+    margin-left: 75%;
+    top: 290px;
+    border: 2px solid rgba(93, 110, 167, 0.35);
+    transform: rotate(-90deg);
+}
+
+.group-button-aktivitas {
+    display: flex;
+    gap: 20px; 
+}
+
+.group-button-aktivitas button {
+    padding: 14px;
+    width: 130px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 2px 2px 4px rgba(44, 62, 80, 0.6);
+    color: #100B32;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.group-button-aktivitas :nth-child(1) {
+    background-color: #DAA1DB; 
+}
+
+.group-button-aktivitas  :nth-child(2) {
+    background-color: #95C6FF; 
+}
+
+.group-button-aktivitas :nth-child(3) {
+    background-color: #95C6FF; 
+}
+
+.bungkus-aktivitas {
+    display: flex;
+    align-items: center;
+    margin-top: 3%;
+    margin-left: 10%;
+}
+
+main.table-project-aktivitas {
+    width: calc(90% - 50px);
+    height: 90vh;
+    margin-top: 2px;
+    margin-bottom: -20%;
+    margin-left: 10%;
+    background-color: #fff5;
+
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+
+    overflow: hidden;
+}
+
