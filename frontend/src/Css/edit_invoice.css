@@ -1,0 +1,741 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Reset Css */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    /* background: url('img/bg4.png'); */
+}
+  /* Lebar scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px; /* Sesuaikan dengan lebar yang diinginkan */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #fff; /* Warna latar belakang track */
+}
+
+/* Handle atau thumb */
+::-webkit-scrollbar-thumb {
+    background: #fff; /* Warna thumb */
+}
+
+/* Handle pada hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #fff; /* Warna thumb saat hover */
+}
+
+body{
+    background-color: #F4F4F4;
+    /* background: url('img/bg4.png'); */
+    overflow-x: hidden;
+    height: fit-content;
+}
+
+.bungkus-edit-inv {
+   flex: 1;
+   padding-left: 50px;
+   padding-top: 50px;
+   margin-bottom: 3%;
+}
+
+/******* Dashboard ******/
+.bungkuss-edit-inv{
+      /* Rectangle 134 */
+
+position: absolute;
+width: 1231px;
+height: 690px;
+left: 145px;
+top: 105px;
+
+}
+/* CON-LEFT */
+
+.con-kiri-edit-inv{
+    /* Rectangle 88 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 586px;
+height: 600px;
+left: 10px;
+top: 0px;
+
+background: linear-gradient(209.53deg, rgba(242, 244, 245, 0.65) -5.64%, rgba(233, 236, 244, 0.65) 75.55%, rgba(204, 215, 255, 0.65) 104.63%);
+box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(5px);
+/* Note: backdrop-filter has minimal browser support */
+border-radius: 15px;
+
+}
+
+.ikon-edit-inv{
+    /* Create Order */
+
+position: absolute;
+width: 26px;
+height: 26px;
+left: 50px;
+top: 50px;
+
+}
+
+.header-edit-inv{
+    /* ADD INVOICE. */
+
+position: absolute;
+width: 479px;
+height: 41px;
+left: 100px;
+top: 45px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 27px;
+line-height: 40px;
+/* identical to box height */
+
+color: #4F5B96;
+
+
+}
+
+.isi-edit-inv{
+    /* Form di bawah wajib di isi semua. */
+
+position: absolute;
+width: 206px;
+height: 15px;
+left: 100px;
+top: 80px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+color: #606060;
+
+}
+
+.nama-edit-inv{
+    /* Name */
+
+position: absolute;
+width: 47px;
+height: 23px;
+left: 50px;
+top: 120px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.isi-name-edit-inv{
+    position: absolute;
+    width: 487px;
+    height: 35px;
+    left: 50px;
+    top: 150px;
+
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border-radius: 5px;
+    border: none;
+    padding: 20px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+.nama-p-edit-inv{
+    /* Name */
+
+position: absolute;
+width: 47px;
+height: 23px;
+left: 50px;
+top: 200px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.drop-3-edit-inv {
+    position: absolute;
+    width: 487px;
+    height: 35px;
+    left: 50px;
+    top: 230px;
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border-radius: 5px;
+    border: none;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    color: #4D547A;
+    overflow: hidden; 
+}
+
+
+.in-edit-inv span{
+    /* Projek */
+
+position: absolute;
+width: 200px;
+height: 23px;
+left: 50px;
+top: 280px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.drop-edit-inv {
+    position: absolute;
+    width: 240px;
+    height: 35px;
+    left: 50px;
+    top: 310px;
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border: none;
+    border-radius: 5px;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+.stat-edit-inv span{
+    /* Status */
+
+position: absolute;
+width: 78px;
+height: 23px;
+left: 300px;
+top: 280px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+}
+
+.drop-2-edit-inv {
+    position: absolute;
+    width: 240px;
+    height: 35px;
+    left: 300px;
+    top: 310px;
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border: none;
+    border-radius: 5px;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+.upf-edit-inv span{
+    /* Upload Faktur */
+
+position: absolute;
+width: 140px;
+height: 23px;
+left: 50px;
+top: 360px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+}
+
+.notes-edit-inv span{
+position: absolute;
+width: 78px;
+height: 23px;
+left: 50px;
+top: 450px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.deskField-edit-inv {
+    width: 487px; /* Lebar textarea */
+    height: 83px; /* Tinggi textarea */
+    position: absolute; /* Posisi absolut */
+    left: 50px; /* Posisi horizontal */
+    top: 480px; /* Posisi vertikal */
+    resize: vertical; /* Biarkan pengguna menyesuaikan tinggi vertikal */
+    font-family: Arial, sans-serif; /* Font teks */
+    font-size: 14px; /* Ukuran teks */
+    padding-left: 20px;
+    padding-top: 5px;
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border-radius: 5px;
+    border: none;
+
+}
+
+  /* SISI KANAN */
+  .con-kanan-edit-inv{
+
+position: absolute;
+width: 654px;
+height: 597px;
+left: 600px;
+top: 90px;
+
+  }
+
+  .atas-edit-inv{
+    /* Rectangle 80 */
+
+    position: absolute;
+    width: 40%;
+    height: 70px;
+    left: 40px;
+    top: 48px;
+    background: #C0CFF8;
+    backdrop-filter: blur(22.5px);
+    border-radius: 20px;
+    clip-path: polygon(0% 0%, 90% 0%, 99% 99%, 0% 80%);
+}
+
+  .bawah-edit-inv{
+    position: absolute;
+    width: 90%;
+    height: 65%;
+    left: 40px;
+    top: 90px;
+    background: #C0CFF8;
+    backdrop-filter: blur(22.5px);
+    border-radius: 5px 20px 20px 20px;
+  }
+
+  .custom-infoo-edit-inv{
+    position: absolute;
+    width: 479px;
+    height: 33px;
+    left: 20px;
+    top: 10px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 33px;
+    /* identical to box height */
+
+    color: #4F5B96;
+  }
+
+  .inv-type-edit-inv{
+        
+    position: absolute;
+    width: 148px;
+    height: 23px;
+    left: 20px;
+    top: 50px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    color: #4D547A;
+  }
+
+  .drop-inv-edit-inv{
+    position: absolute;
+    width: 510px;
+    height: 35px;
+    left: 20px;
+    top: 80px;
+
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    border: none;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+
+  }
+
+  .client-name-edit-inv{
+    position: absolute;
+    width: 100px;
+    height: 23px;
+    left: 20px;
+    top: 130px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #4D547A;
+
+  }
+
+  .client-input-edit-inv {
+    position: absolute;
+    width: 480px;
+    height: 35px;
+    left: 20px;
+    top: 160px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    border: none;
+    display: flex; /* Menggunakan display flex */
+    justify-content: center; /* Memusatkan horisontal */
+    align-items: center; /* Memusatkan vertikal */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    color: #4D547A;
+  }
+  
+  .send-inv-edit-inv{
+
+    position: absolute;
+    width: 120px;
+    height: 23px;
+    left: 20px;
+    top: 210px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #4D547A;
+  }
+
+  .inv-send-input-edit-inv{
+    position: absolute;
+    width: 202px;
+    height: 35px;
+    left: 20px;
+    top: 240px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: none;
+
+    display: flex; /* Menggunakan display flex */
+    justify-content: center; /* Memusatkan horisontal */
+    align-items: center; /* Memusatkan vertikal */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4D547A;
+  }
+
+  .due-inv-edit-inv{
+
+    position: absolute;
+    width: 70px;
+    height: 23px;
+    left: 50%;
+    top: 210px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #4D547A;
+  }
+
+  .duee-inv-edit-inv{
+    position: absolute;
+    width: 202px;
+    height: 35px;
+    left: 50%;
+    top: 240px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: none;
+
+    display: flex; /* Menggunakan display flex */
+    justify-content: center; /* Memusatkan horisontal */
+    align-items: center; /* Memusatkan vertikal */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4D547A;
+  }
+
+  .am-inv-edit-inv{
+    /* Amount */
+
+    position: absolute;
+    width: 63px;
+    height: 23px;
+    left: 20px;
+    top: 285px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #4D547A;
+
+
+  }
+
+  .inv-number-input-edit-inv {
+    position: absolute;
+    width: 480px;
+    height: 35px;
+    left: 20px;
+    top: 315px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 10px;
+    border: none;
+    display: flex; /* Menggunakan display flex */
+    justify-content: center; /* Memusatkan horisontal */
+    align-items: center; /* Memusatkan vertikal */
+    overflow: hidden; /* Menghilangkan tampilan scrollbar */
+    padding: 15px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4D547A;
+
+}
+
+/* Menghilangkan tombol spin pada input number */
+.inv-number-input-edit-inv::-webkit-inner-spin-button,
+.inv-number-input-edit-inv::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    display: none;
+}
+
+
+
+
+  .save-inv-edit-inv {
+    /* Rectangle 13 */
+    position: absolute;
+    width: 83.33px;
+    height: 36px;
+    left: 75%;
+    top: 100%; /* Menjadikan posisi vertikal di tengah */
+    transform: translateY(-50%); /* Menggeser posisi tombol ke atas sebesar setengah dari tingginya */
+    
+    background: linear-gradient(89.96deg, #548ADA 0.04%, #80ADE5 77.84%, #7CBCF7 122.56%);
+    border-radius: 10px;
+    border: none;
+    
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center; /* Menengahkan teks secara horizontal */
+    
+    color: #FFFFFF;
+}
+
+
+  .bg-invoice-edit-inv {
+    position: absolute;
+    width: 427.51px;
+    height: 263.18px;
+    left: 65%;
+    top: 0px;
+    transform: rotate(1.76deg);
+    z-index: 9999; 
+}
+
+.back-inv-edit-inv{
+  
+    position: absolute;
+    width: 70px;
+    height: 31px;
+    left: 450px;
+    top: 65px;
+
+    border: 0.8px solid #597CB1;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #2A3096;
+}
+
+.back-inv-edit-inv img{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    left: 10px;
+    top: 10px;
+
+}
+
+.add-inv-edit-inv img{
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    left: 0px;
+    top: 0px;
+
+}
+
+.upload-faktur-file-edit-inv {
+    margin-top: 68%;
+    margin-left: 8%;
+ }
+ 
+ .faktur-label-file-edit-inv {
+    
+     background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.5) 0.65%, rgba(140, 99, 206, 0.5) 100%);
+     border: 0.2px solid #BBAAB8;
+     backdrop-filter: blur(75px);
+     border-radius: 10px;
+     color: #c4caee;
+     padding: 10px 50px;
+     cursor: pointer;
+ }
+ 
+ .faktur-label-file-edit-inv:hover {
+     background-color: #548ADA;
+ }
+ 
+ .faktur-label-file-edit-inv + input[type="file"] {
+     position: absolute;
+     top: 100%; 
+     left: 0;
+     opacity: 0;
+ }
+

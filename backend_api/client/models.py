@@ -25,7 +25,7 @@ class Client(models.Model):
     # Optional Fields
     industry = models.CharField(max_length=255, blank=True, null=True)
     website_url = models.URLField(blank=True, null=True)
-    logo = models.ImageField(upload_to='client_logos/', blank=True, null=True)
+    logo = models.ImageField(upload_to='client_logos/')
     company_size = models.CharField(max_length=255, choices=SizeCompany.choices, default=SizeCompany.SEDANG)
     company_address = models.CharField(max_length=255, blank=True, null=True)
     contact_person_name = models.CharField(max_length=255, blank=True, null=True)
@@ -36,7 +36,6 @@ class Client(models.Model):
     date_joined = models.DateField(blank=True, null=True)
     
     status = models.CharField(max_length=20, choices=StatusChoice.choices, default=StatusChoice.AKTIVE)
-    last_activity = models.DateTimeField()
 
     created_at = models.DateTimeField(db_index=True, default=timezone.now)
     updated_at = models.DateTimeField(auto_now=True)

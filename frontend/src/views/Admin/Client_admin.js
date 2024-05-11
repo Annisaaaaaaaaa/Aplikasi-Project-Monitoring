@@ -10,12 +10,14 @@ import { ClientProvider } from './../../context/ClientContext';
 import ClientTable from './../../component/Client/ClientTable';
 
 function Client_admin() {
+    const { clients, fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importClients  } = useClientContext(); 
     const [searchValue, setSearchValue] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
-    const [selectedFile, setSelectedFile] = useState(null);
-    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf, importFromExcel, importFromJson, importFromCsv, importFromPdf  } = useClientContext(); 
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 7;
+    const totalItems = clients.length;
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
@@ -37,47 +39,22 @@ function Client_admin() {
 
     const searchTable = () => {
         tableRows.forEach((row, i) => {
-            const rowData = {
-                industry: row.querySelectorAll('td')[1].textContent.toLowerCase(),
-                name: row.querySelectorAll('td')[2].textContent.toLowerCase(),
-            };
-    
-            const searchData = searchValue.toLowerCase();
-    
-            const industryMatch = rowData.industry.indexOf(searchData) >= 0;
-            const nameMatch = rowData.name.indexOf(searchData) >= 0;
-    
-            row.classList.toggle('hide', !(industryMatch || nameMatch));
+            let tableData = row.textContent.toLowerCase(),
+                searchData = searchValue.toLowerCase();
+
+            row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
             row.style.setProperty('--delay', i / 25 + 's');
         });
-    
+
         document.querySelectorAll('tbody tr:not(.hide)').forEach((visibleRow, i) => {
             visibleRow.style.backgroundColor = i % 2 === 0 ? 'transparent' : '#0000000b';
         });
     };
-    
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
-        searchTable(); // Call searchTable whenever searchValue changes
     };
     
-
-    const handleSort = (index) => {
-        const newSortOrder = { ...sortOrder };
-        newSortOrder[index] = !newSortOrder[index];
-
-        // Sort the table rows based on the clicked column
-        const sortedRows = [...tableRows].sort((a, b) => {
-            let firstRowData = a.querySelectorAll('td')[index].textContent.toLowerCase(),
-                secondRowData = b.querySelectorAll('td')[index].textContent.toLowerCase();
-
-            return newSortOrder[index] ? (firstRowData > secondRowData ? 1 : -1) : (firstRowData < secondRowData ? 1 : -1);
-        });
-
-        setSortOrder(newSortOrder);
-        setTableRows(sortedRows);
-    };
 
     const handleExportExcel = async () => {
         try {
@@ -111,72 +88,21 @@ function Client_admin() {
         }
     };
 
-    const handleImport = async (importFunction) => {
-        if (!selectedFile) {
-            alert('Please select a file to import.');
-            return;
-        }
-    
-        try {
+    const handleImport = async () => {
+        const fileInput = document.getElementById('import-file');
+        const file = fileInput.files[0];
+
+        if (file) {
             const formData = new FormData();
-            formData.append('file', selectedFile);
+            formData.append('file', file);
 
-              // Panggil fungsi import yang sesuai dengan parameter importFunction
-            let response;
-            switch (importFunction) {
-                case 'excel':
-                    response = await importFromExcel(formData);
-                    break;
-                case 'csv':
-                    response = await importFromCsv(formData);
-                    break;
-                case 'json':
-                    response = await importFromJson(formData);
-                    break;
-                case 'pdf':
-                    response = await importFromPdf(formData);
-                    break;
-                default:
-                    throw new Error('Unsupported import function');
+            try {
+                await importClients(formData);
+                // Refresh the data after import
+                fetchData();
+            } catch (error) {
+                console.error('Error handling import:', error.message);
             }
-             // Handle response dari backend jika diperlukan
-            console.log('Import successful:', response); // Contoh: Tampilkan respons dari backend
-
-            // Tambahkan logika tambahan di sini jika diperlukan
-        } catch (error) {
-            console.error('Error importing file:', error.message);
-        }
-    };
-    
-    const handleImportExcel = async () => {
-        try {
-            await importFromExcel();
-        } catch (error) {
-            console.error('Error handling export to Excel:', error.message);
-        }
-    };
-
-    const handleImportCsv = async () => {
-        try {
-            await importFromCsv();
-        } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
-        }
-    };
-
-    const handleImportPdf = async () => {
-        try {
-            await importFromPdf();
-        } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
-        }
-    };
-
-    const handleImportJson = async () => {
-        try {
-            await importFromJson();
-        } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
         }
     };
 
@@ -280,41 +206,25 @@ function Client_admin() {
                             <h1>Data Client</h1>
                         </section>
                         <section className="table__body">
-                                <ClientTable />
+                                <ClientTable currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
                         </section>
                     </main>
                     <div className="pagination">
                         <ul>
                             <li>
-                                <span>
-                                    <i className="fas fa-angel-left"></i>Prev
-                                </span>
+                            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                                <i className="fas fa-angel-left"></i>Prev
+                            </button>
                             </li>
-                            <li className="numb">
-                                <span>1</span>
+                            {[...Array(Math.ceil(totalItems / itemsPerPage)).keys()].map((number) => (
+                            <li key={number + 1} className="numb">
+                                <button onClick={() => setCurrentPage(number + 1)}>{number + 1}</button>
                             </li>
-                            <li className="numb">
-                                <span>2</span>
-                            </li>
-                            <li className="dots">
-                                <span>...</span>
-                            </li>
-                            <li className="numb">
-                                <span>4</span>
-                            </li>
-                            <li className="numb">
-                                <span>5</span>
-                            </li>
-                            <li className="dots">
-                                <span>...</span>
-                            </li>
-                            <li className="numb">
-                                <span>7</span>
-                            </li>
+                            ))}
                             <li>
-                                <span>
-                                    Next <i className="fas fa-angel-right"></i>
-                                </span>
+                            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(totalItems / itemsPerPage)}>
+                                Next <i className="fas fa-angel-right"></i>
+                            </button>
                             </li>
                         </ul>
                     </div>

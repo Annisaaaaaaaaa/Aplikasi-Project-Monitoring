@@ -23,3 +23,8 @@ class AktivitiesProjectAdmin(admin.ModelAdmin):
             'fields': ('tanggung_jawab',)
         }),
     )
+
+
+@admin.register(EngineerActivity)
+class EngineerActivityAdmin(admin.ModelAdmin):
+    list_display = ('activity', 'engineer', 'persentase_beban_kerja', 'status') 

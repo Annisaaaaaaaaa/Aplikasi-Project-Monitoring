@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Sidebar from '../../component/sidebar';
 import Navbar from '../../component/header';
 import gambardoc from '../../assets/img/gambardoc.png';
@@ -7,13 +8,23 @@ import '../../Css/document-admin.css';
 import { useDocumentContext } from './../../context/DocumentContext';
 import { DocumentProvider } from './../../context/DocumentContext';
 import DocumentTable from './../../component/Document/DocumentTable';
+import Swal from 'sweetalert2';
+import AuthContext from '../../context/AuthContext';
+import Export_Doc from '../../component/Document/Export_Doc';
 
 function Document_admin() {
     const [searchValue, setSearchValue, handleSearch] = useState('');
     const [tableRows, setTableRows] = useState([]);
     const [tableHeadings, setTableHeadings] = useState([]);
     const [sortOrder, setSortOrder] = useState({});
-    const { fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf } = useDocumentContext(); 
+    const { documents, fetchData, exportToExcel, exportToCsv, exportToJson, exportToPdf } = useDocumentContext(); 
+    const [totalDocuments, setTotalDocuments] = useState(); 
+
+    const { authTokens } = useContext(AuthContext);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 5;
+    const totalItems = documents.length;
+
 
     useEffect(() => {
         const rows = document.querySelectorAll('tbody tr');
@@ -76,37 +87,28 @@ function Document_admin() {
         setTableRows(sortedRows);
     };
 
-    const handleExportExcel = async () => {
-        try {
-            await exportToExcel();
-        } catch (error) {
-            console.error('Error handling export to Excel:', error.message);
-        }
-    };
+    useEffect(() => {
+        const fetchDocumentCount = async () => {
+            try {
+                const token = authTokens ? authTokens.access : null;
+                if (!token) {
+                    throw new Error('Authentication token is missing');
+                }
 
-    const handleExportCsv = async () => {
-        try {
-            await exportToCsv();
-        } catch (error) {
-            console.error('Error handling export to Csv:', error.message);
-        }
-    };
+                const response = await axios.get('http://127.0.0.1:8000/api/v1/document/count/', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
-    const handleExportPdf = async () => {
-        try {
-            await exportToPdf();
-        } catch (error) {
-            console.error('Error handling export to Pdf:', error.message);
-        }
-    };
+                setTotalDocuments(response.data.count);
+            } catch (error) {
+                console.error('Error fetching document count:', error.message);
+            }
+        };
 
-    const handleExportJson = async () => {
-        try {
-            await exportToJson();
-        } catch (error) {
-            console.error('Error handling export to Json:', error.message);
-        }
-    };
+        fetchDocumentCount();
+    }, []);
 
     return (
         <DocumentProvider>
@@ -121,42 +123,25 @@ function Document_admin() {
                         <div className="gambardoc">
                             <img src={gambardoc} alt="logo" />
                         </div>
-                        <div className="duatiga"> 0 </div>
-                        <div className="total">Total Client</div>
+                        <div className="duatiga"> {totalDocuments} </div> {/* Tampilkan jumlah dokumen */}
+                        <div className="total">Total <br></br>Documents</div>
                         <div className="garis"></div>
                     </div>
 
                     <div className="bungkus">
                         <div className="group-button">
+<<<<<<< HEAD
                         <Link to="/Add_doc" className="button-client" style={{ textDecoration: 'none' }}>
+=======
+                        <Link to="/form_tambah_document" className="button-client" style={{ textDecoration: 'none' }}>
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
                             <i className="fas fa-plus"></i> Tambah
                         </Link>
                             <button className="button-client">
                                 <i className="fas fa-download"></i> Export
                             </button>
                             
-                            <div className="export__file">
-                            <label htmlFor="export-file" className="export__file-btn" title="Export File" style={{ textAlign: 'center', marginTop: '49px', marginLeft: '10px'}}>Export</label>
-
-                                <input type="checkbox" id="export-file" />
-                                <div className="export__file-options">
-                                    <label>
-                                        Export As &nbsp; &#10140;
-                                    </label>
-                                    <label htmlFor="export-file" id="toPDF" onClick={handleExportPdf}>
-                                        PDF 
-                                    </label>
-                                    <label htmlFor="export-file" id="toJSON" onClick={handleExportJson}>
-                                        JSON 
-                                    </label>
-                                    <label htmlFor="export-file" id="toCSV" onClick={handleExportCsv}>
-                                        CSV 
-                                    </label>
-                                    <label htmlFor="export-file" id="toEXCEL" onClick={handleExportExcel}>
-                                        EXCEL 
-                                    </label>
-                                </div>
-                            </div>
+                            <Export_Doc/>
                         </div>
                         <div className="input-group" style={{ marginTop: '34px'}}>
                             <input
@@ -174,43 +159,26 @@ function Document_admin() {
                             
                         </section>
                         <section className="table__body">
-                                
-                                        <DocumentTable />
+                                        <DocumentTable currentPage={currentPage} itemsPerPage={itemsPerPage} totalItems={totalItems} />
                         </section>
                     </main>
 
                     <div className="pagination">
                         <ul>
                             <li>
-                                <span>
-                                    <i className="fas fa-angel-left"></i>Prev
-                                </span>
+                            <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                                <i className="fas fa-angel-left"></i>Prev
+                            </button>
                             </li>
-                            <li className="numb">
-                                <span>1</span>
+                            {[...Array(Math.ceil(totalItems / itemsPerPage)).keys()].map((number) => (
+                            <li key={number + 1} className="numb">
+                                <button onClick={() => setCurrentPage(number + 1)}>{number + 1}</button>
                             </li>
-                            <li className="numb">
-                                <span>2</span>
-                            </li>
-                            <li className="dots">
-                                <span>...</span>
-                            </li>
-                            <li className="numb">
-                                <span>4</span>
-                            </li>
-                            <li className="numb">
-                                <span>5</span>
-                            </li>
-                            <li className="dots">
-                                <span>...</span>
-                            </li>
-                            <li className="numb">
-                                <span>7</span>
-                            </li>
+                            ))}
                             <li>
-                                <span>
-                                    Next <i className="fas fa-angel-right"></i>
-                                </span>
+                            <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(totalItems / itemsPerPage)}>
+                                Next <i className="fas fa-angel-right"></i>
+                            </button>
                             </li>
                         </ul>
                     </div>

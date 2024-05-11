@@ -1,0 +1,995 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Reset Css */
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    /* background: url('img/bg4.png'); */
+}
+  /* Lebar scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px; /* Sesuaikan dengan lebar yang diinginkan */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #fff; /* Warna latar belakang track */
+}
+
+/* Handle atau thumb */
+::-webkit-scrollbar-thumb {
+    background: #fff; /* Warna thumb */
+}
+
+/* Handle pada hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #fff; /* Warna thumb saat hover */
+}
+
+body{
+    background-color: #F4F4F4;
+    /* background: url('img/bg4.png'); */
+    overflow-x: hidden;
+    height: fit-content;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    /* background-image: url('Img/bg3.png'); */
+}
+
+.navbar-edt-payment {
+   flex: 1;
+   padding-left: 50px;
+   padding-top: 30px;
+   margin-bottom: 3%;
+}
+
+/* .navbar img {
+    margin-right: 4%;
+    margin-top: 20px;
+    margin-left: 20px;
+	width: 100px;
+	height: 100px;
+	background: linear-gradient(137.73deg, #9CAFDE 18.79%, #989EDA 76.19%);
+	border-radius: 100%;
+} */
+
+.welcome .judul{
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(180deg, #598BAA 15.5%, #5DA9BA 40.22%, #9C9FDF 66.11%, #6982A8 93.88%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+/*** Dashboard **/
+
+.parent-edt-payment{
+    position: absolute;
+width: 1231px;
+height: 690px;
+left: 145px;
+top: 105px;
+}
+
+.ds-utama {
+    position: relative;
+    width: calc(95% - 50px);
+    height: 300px;
+    margin-top: 50px;
+    transition: all 0.3s ease;
+    background: linear-gradient(87.42deg, rgba(129, 123, 200, 0.5) 4.46%, rgba(212, 208, 255, 0.5) 43.68%, rgba(239, 238, 255, 0.5) 56.38%, rgba(212, 208, 255, 0.5) 79.91%, rgba(160, 192, 240, 0.5) 92.97%, rgba(184, 212, 255, 0.5) 98.22%);
+    backdrop-filter: blur(5px);
+    border-radius: 20px;
+}
+
+
+/* CON-LEFT */
+
+.con-left-edt-payment{
+    /* Rectangle 88 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 586px;
+height: 630px;
+left: 20px;
+top: 0px;
+
+background: linear-gradient(209.53deg, rgba(242, 244, 245, 0.65) -5.64%, rgba(233, 236, 244, 0.65) 75.55%, rgba(204, 215, 255, 0.65) 104.63%);
+box-shadow: 0px 5px 5px -25px rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(5px);
+/* Note: backdrop-filter has minimal browser support */
+border-radius: 15px;
+
+}
+
+.icon-edt-payment{
+position: absolute;
+width: 26px;
+height: 26px;
+left: 50px;
+top: 30px;
+
+}
+
+.text-1-edt-payment{
+    /* ADD INVOICE. */
+
+position: absolute;
+width: 479px;
+height: 41px;
+left: 100px;
+top: 20px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 25px;
+line-height: 40px;
+/* identical to box height */
+
+color: #4F5B96;
+
+
+}
+
+.ket-edt-payment{
+    /* Form di bawah wajib di isi semua. */
+
+position: absolute;
+width: 206px;
+height: 15px;
+left: 100px;
+top: 55px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 15px;
+/* identical to box height */
+
+color: #606060;
+
+}
+
+.name-edt-payment{
+    /* Name */
+
+position: absolute;
+width: 47px;
+height: 23px;
+left: 50px;
+top: 98px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.f-name-edt-payment{
+    position: absolute;
+    width: 487px;
+    height: 35px;
+    left: 50px;
+    top: 130px;
+
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border-radius: 5px;
+    border: none;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+.name2-edt-payment{
+position: absolute;
+width: 55px;
+height: 23px;
+left: 50px;
+top: 180px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+
+color: #4D547A;
+}
+.f-name2-edt-payment{
+
+    position: absolute;
+    width: 487px;
+    height: 35px;
+    left: 50px;
+    top: 210px;
+
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border-radius: 5px;
+    border: none;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+
+.projek-edt-payment span{
+    /* Projek */
+
+position: absolute;
+width: 78px;
+height: 23px;
+left: 50px;
+top: 260px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.dropdown-edt-payment {
+    position: absolute;
+    width: 220px;
+    height: 35px;
+    left: 50px;
+    top: 290px;
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border: none;
+    border-radius: 5px;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+.status-edt-payment span{
+    /* Status */
+
+position: absolute;
+width: 78px;
+height: 23px;
+left: 280px;
+top: 260px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+}
+
+.dropdown-2-edt-payment {
+    position: absolute;
+    width: 220px;
+    height: 35px;
+    left: 300px;
+    top: 290px;
+    background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border: none;
+    border-radius: 5px;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+.namep-edt-payment{
+    /* Nama Penerima */
+
+position: absolute;
+width: 349px;
+height: 23px;
+left: 50px;
+top: 340px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.p-namep-edt-payment{
+ 
+    position: absolute;
+    width: 220px;
+    height: 35px;
+    left: 50px;
+    top: 370px;
+    background: linear-gradient(89.96deg, rgba(145, 183, 219, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+    border-radius: 5px;
+    border: none;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+.namer-edt-payment{
+    /* Nama Penerima */
+
+position: absolute;
+width: 349px;
+height: 23px;
+left: 300px;
+top: 340px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.p-namer-edt-payment{
+position: absolute;
+width: 220px;
+height: 35px;
+left: 300px;
+top: 370px;
+
+background: linear-gradient(89.96deg, rgba(145, 183, 219, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+border-radius: 5px;
+border: none;
+
+font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+}
+
+
+.upload-edt-payment span{
+    /* Upload Faktur */
+
+position: absolute;
+width: 340px;
+height: 23px;
+left: 50px;
+top: 420px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+}
+
+
+.note-edt-payment span{
+    /* Note */
+
+position: absolute;
+width: 78px;
+height: 23px;
+left: 50px;
+top: 500px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+}
+
+.deskripsiField-edt-payment {
+    width: 487px; /* Lebar textarea */
+    height: 83px; /* Tinggi textarea */
+    position: absolute; /* Posisi absolut */
+    left: 50px; /* Posisi horizontal */
+    top: 530px; /* Posisi vertikal */
+    resize: vertical; /* Biarkan pengguna menyesuaikan tinggi vertikal */
+    font-family: Arial, sans-serif; /* Font teks */
+    font-size: 14px; /* Ukuran teks */
+
+background: linear-gradient(89.96deg, rgba(177, 218, 255, 0.5) 1.19%, rgba(188, 204, 219, 0.5) 19.7%);
+border-radius: 5px;
+border: none;
+
+}
+
+  .bg-edt-payment {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    left: 77%;
+    top: 0px;
+    transform: rotate(1.76deg);
+    z-index: 9999; 
+}
+  /* SISI KANAN */
+  .con-rigth-edt-payment{
+
+position: absolute;
+width: 654px;
+height: 597px;
+left: 700px;
+top: 100px;
+
+  }
+  .bg-atas-edt-payment{
+position: absolute;
+width: 180px;
+height: 55px;
+left: 294px;
+top: 10px;
+
+background: #B3C1E7;
+border-radius: 0px 20px 0px 0px;
+
+}
+
+.bg-atas-edt-payment span{
+    /* Rectangle 116 */
+
+box-sizing: border-box;
+
+position: absolute;
+width: 41.65px;
+height: 55.61px;
+left: 138px;
+top: 0px;
+
+background: #6571B1;
+opacity: 0.5;
+border-radius: 50px 50px 0px 0px;
+
+}
+
+  .bg-bawah-edt-payment{
+    /* Rectangle 119 */
+
+position: absolute;
+width: 60%;
+height: 80%;
+left: 40px;
+top: 10px;
+
+background: #B3C1E7;
+border-radius: 35px;
+
+  }
+
+  .bbawah-edt-payment{
+    /* Rectangle 117 */
+
+position: absolute;
+width: 371.83px;
+height: 56.9px;
+left: 20px;
+top: 430px;
+
+  }
+
+
+  .textt-edt-payment{
+    /* CUSTOMER INFO. */
+
+position: absolute;
+width: 479px;
+height: 33px;
+left: 20px;
+top: 10px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 33px;
+/* identical to box height */
+
+color: #4F5B96;
+
+
+  }
+
+  .text-2-edt-payment{
+    /* Customer Receiver */
+
+position: absolute;
+width: 148px;
+height: 23px;
+left: 30px;
+top: 100px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+  }
+
+  .f-customer-edt-payment{
+    /* Rectangle 89 */
+
+position: absolute;
+width: 280px;
+height: 30px;
+left: 30px;
+top: 130px;
+
+background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+backdrop-filter: blur(75px);
+/* Note: backdrop-filter has minimal browser support */
+border-radius: 10px;
+border: none;
+padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #4D547A;
+  }
+
+  .send-edt-payment{
+    /* Send Date */
+
+position: absolute;
+width: 79px;
+height: 23px;
+left: 20px;
+top: 150px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+  }
+
+  .custom-date-input-edt-payment {
+    position: absolute;
+    width: 202px;
+    height: 35px;
+    left: 20px;
+    top: 190px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: none;
+
+    display: flex; /* Menggunakan display flex */
+    justify-content: center; /* Memusatkan horisontal */
+    align-items: center; /* Memusatkan vertikal */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #4D547A;
+  }
+  
+  .due-edt-payment{
+    /* Due Date */
+
+position: absolute;
+width: 70px;
+height: 23px;
+left: 50%;
+top: 150px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+color: #4D547A;
+
+
+  }
+
+  .duee-edt-payment{
+    position: absolute;
+    width: 202px;
+    height: 35px;
+    left: 50%;
+    top: 190px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: none;
+  }
+
+  .am-edt-payment{
+    /* Amount */
+
+    position: absolute;
+    width: 63px;
+    height: 23px;
+    left: 20px;
+    top: 250px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+
+    color: #4D547A;
+
+
+  }
+
+  .custom-number-input-edt-payment{
+    position: absolute;
+    width: 202px;
+    height: 35px;
+    left: 20px;
+    top: 290px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: none;
+  }
+
+  .save-edt-payment {
+    /* Rectangle 13 */
+    position: absolute;
+    width: 83.33px;
+    height: 36px;
+    left: 90%;
+    top: 80%; /* Menjadikan posisi vertikal di tengah */
+    transform: translateY(-50%); /* Menggeser posisi tombol ke atas sebesar setengah dari tingginya */
+    
+    background: linear-gradient(89.96deg, #548ADA 0.04%, #80ADE5 77.84%, #7CBCF7 122.56%);
+    border-radius: 10px;
+    border: none;
+    
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    text-align: center; /* Menengahkan teks secara horizontal */
+    
+    color: #FFFFFF;
+}
+
+
+.bg-bawah-edt-payment span{
+    /* PAYER INFO. */
+
+position: absolute;
+width: 137px;
+height: 34px;
+left: 30px;
+top: 48px;
+
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 700;
+font-size: 22px;
+line-height: 33px;
+
+color: #4F5B96;
+
+
+}
+
+.text-an-edt-payment{
+    position: absolute;
+    width: 148px;
+    height: 23px;
+    left: 30px;
+    top: 180px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+    
+    color: #4D547A;
+
+}
+
+.an-customer-edt-payment{
+    /* Rectangle 89 */
+
+position: absolute;
+width: 280px;
+height: 30px;
+left: 30px;
+top: 210px;
+
+background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+backdrop-filter: blur(75px);
+/* Note: backdrop-filter has minimal browser support */
+border-radius: 10px;
+border: none;
+
+  }
+
+  .text-mount-edt-payment{
+    position: absolute;
+    width: 148px;
+    height: 23px;
+    left: 30px;
+    top: 260px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+    
+    color: #4D547A;
+
+}
+
+.mount-customer-edt-payment{
+    /* Rectangle 89 */
+
+position: absolute;
+width: 280px;
+height: 30px;
+left: 30px;
+top: 290px;
+
+background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+backdrop-filter: blur(75px);
+/* Note: backdrop-filter has minimal browser support */
+border-radius: 10px;
+border: none;
+
+  }
+
+  .text-date-edt-payment{
+    position: absolute;
+    width: 148px;
+    height: 23px;
+    left: 30px;
+    top: 340px;
+    
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+    
+    color: #4D547A;
+
+}
+
+.date-customer-edt-payment {
+    /* Rectangle 89 */
+    position: absolute;
+    width: 160px;
+    height: 30px;
+    left: 30px;
+    top: 370px;
+    background: linear-gradient(277.42deg, rgba(60, 95, 147, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    /* Note: backdrop-filter has minimal browser support */
+    border-radius: 10px;
+    border: none;
+    padding: 5px; /* Mengatur jarak antara teks dan tepi */
+    outline: none; /* Hilangkan focus outline */
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: left; /* Mengatur teks agar rata kiri */
+    color: #4D547A;
+}
+
+
+.bg1-edt-payment{
+    position: absolute;
+    width: 184px;
+    height: 178px;
+    left: 53px;
+    top: 55px;
+    z-index: -1;
+    background: linear-gradient(0deg, #BDACEC, #BDACEC);
+    filter: blur(75px);
+}
+
+.bg2-edt-payment{
+    position: absolute;
+    width: 175px;
+    height: 162px;
+    left: calc(48% - 50px/2 + 12.5px);
+    top: 100px;
+
+    background: rgba(64, 98, 186, 0.25);
+    filter: blur(50px);
+}
+
+.bg3-edt-payment{
+   /* Ellipse 35 */
+
+position: absolute;
+width: 175px;
+height: 162px;
+left: calc(50% - 495px/2 + 577.5px);
+top: 500px;
+
+background: rgba(74, 38, 151, 0.25);
+filter: blur(50px);
+}
+
+.back-edt-payment{
+    position: absolute;
+    width: 70px;
+    height: 31px;
+    left: 450px;
+    top: 65px;
+
+    border: 0.8px solid #597CB1;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 16px;
+    /* identical to box height */
+    text-align: center;
+
+    color: #2A3096;
+    }
+
+    .back-edt-payment img{
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        left: 10px;
+        top: 10px;
+    
+    }
+
+    .file-input-container-edt-payment {
+        margin-top: 77%;
+        margin-left: 8%;
+     }
+     
+     .label-file-edt-payment {
+    
+         background: linear-gradient(277.42deg, rgba(141, 169, 211, 0.5) 0.65%, rgba(140, 99, 206, 0.5) 100%);
+         border: 0.2px solid #BBAAB8;
+         backdrop-filter: blur(75px);
+         border-radius: 10px;
+         color: #c4caee;
+         padding: 10px 50px;
+         cursor: pointer;
+     }
+     
+     .label-file-edt-payment:hover {
+         background-color: #548ADA;
+     }
+     
+     .label-file-edt-payment + input[type="file"] {
+         position: absolute;
+         top: 100%; /* Menggeser ke bawah sesuai dengan tinggi label */
+         left: 0;
+         opacity: 0;
+     }

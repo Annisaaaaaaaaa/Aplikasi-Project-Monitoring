@@ -55,6 +55,10 @@
     background: #BDCAEE;
     border-radius: 8px 0px 15px 20px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 .bg-form-atas-kanan {
     position: absolute;
     width: 450px;
@@ -68,6 +72,10 @@
 
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 .bg-form-atas-kanan p{
     margin-left: 25%;
     margin-top: 5%;
@@ -159,6 +167,7 @@
     color: #4D547A;
 }
 
+<<<<<<< HEAD
 .tittle-form-initial-sales{
     margin-top: 4%;
     margin-bottom: 8%;
@@ -182,6 +191,10 @@
     font-size: 17px;
     line-height: 26px;
     color: #4D547A;
+=======
+.input-form-email-initial textarea{
+    margin-top: 10%;
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 }
 
 .tittle-form-email-initial-des{
@@ -191,7 +204,25 @@
     font-weight: 700;
     font-size: 17px;
     line-height: 26px;
+<<<<<<< HEAD
     margin-top: 10%;
+=======
+    /* margin-top: ; */
+    color: #4D547A;
+}
+
+.tittle-form-initial select{
+    margin-bottom: 2%;
+}
+
+.tittle-form-email-initial{
+    margin-top: 2%;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 26px;
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
     color: #4D547A;
 }
 
@@ -207,10 +238,13 @@
     padding-left: 10px;
 }
 
+<<<<<<< HEAD
 .input-form-email-initial textarea{
     margin-top: 20%;
 }
 
+=======
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 .input-form-email-initial input{
     width: 85%;
     margin-bottom: 2%;
@@ -367,9 +401,13 @@
     backdrop-filter: blur(75px);
     border-radius: 12px;
     padding-left: 10px;
+<<<<<<< HEAD
 }
 
 
 
 
 
+=======
+}
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced

@@ -1,5 +1,6 @@
 from rest_framework import generics, filters
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from .models import Payment
 from .serializers import PaymentSerializer
 
@@ -30,6 +31,12 @@ from import_export.widgets import ForeignKeyWidget
 from tablib import Dataset
 from datetime import datetime
 
+
+import tempfile
+from openpyxl import Workbook
+from openpyxl.styles import NamedStyle, Font
+from django.http import FileResponse
+from datetime import datetime
 
 # Import API endpoint
 @csrf_exempt
@@ -76,10 +83,25 @@ def import_payments(request):
     return JsonResponse({'error': 'Invalid request method.'})
 
 
-
 def export_payments_to_pdf(request):
-    # Retrieve invoices data
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
+    # Retrieve payments data
     payments = Payment.objects.all()
+
+    # Filter payments by month if provided
+    if month:
+        payments = payments.filter(payment_date__month=month)
+
+    # Filter payments by year if provided
+    if year:
+        payments = payments.filter(payment_date__year=year)
+
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
 
     # Create a buffer to store PDF data
     buffer = BytesIO()
@@ -143,18 +165,46 @@ def export_payments_to_pdf(request):
 
     # FileResponse sets the Content-Disposition header for file download
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=payments.pdf'
+    if month and year:
+        response['Content-Disposition'] = 'attachment; filename=payments_{0}_{1}.pdf'.format(month, year)
+    elif month:
+        response['Content-Disposition'] = 'attachment; filename=payments_{0}.pdf'.format(month)
+    elif year:
+        response['Content-Disposition'] = 'attachment; filename=payments_{0}.pdf'.format(year)
+    else:
+        response['Content-Disposition'] = 'attachment; filename=payments_all.pdf'
+
     response.write(buffer.getvalue())
 
     return response
 
+
+from datetime import datetime
+
 def export_payments_to_json(request):
-    # Retrieve invoices data
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
+    # Retrieve payments data
     payments = Payment.objects.all()
+
+    # Filter payments by month if provided
+    if month:
+        payments = payments.filter(payment_date__month=month)
+
+    # Filter payments by year if provided
+    if year:
+        payments = payments.filter(payment_date__year=year)
+
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
 
     # Convert data to a list of dictionaries
     data_list = []
     for payment in payments:
+        payment_date_str = payment.payment_date.strftime('%Y-%m-%d') if payment.payment_date else ''
         data_list.append({
             'Project': payment.project.name if payment.project else '',
             'Payer Name': payment.payer_name if payment.payer_name else '',
@@ -162,7 +212,7 @@ def export_payments_to_json(request):
             'Receiver Name': payment.receiver_name if payment.receiver_name else '',
             'Receiver Account': payment.receiver_account_number if payment.receiver_account_number else '',
             'Amount': str(payment.amount) if payment.amount else '',
-            'Date': str(payment.payment_date) if payment.payment_date else '',
+            'Date': payment_date_str,
             'Note': payment.note if payment.note else '',
             'File Link': request.build_absolute_uri(payment.document_file.url),
         })
@@ -170,16 +220,43 @@ def export_payments_to_json(request):
     # Convert data to JSON
     json_data = json.dumps(data_list, indent=2)
 
+    # Determine the filename based on filter parameters
+    filename = 'payments.json'
+    if month and year:
+        filename = f'payments_{year}_{month}.json'
+    elif month:
+        filename = f'payments_{month}.json'
+    elif year:
+        filename = f'payments_{year}.json'
+
     # Create the HttpResponse object with the appropriate JSON header
     response = HttpResponse(json_data, content_type='application/json')
-    response['Content-Disposition'] = 'attachment; filename=payments.json'
+    response['Content-Disposition'] = f'attachment; filename={filename}'
 
     return response
 
+
+import csv
+from datetime import datetime
+
 def export_payments_to_csv(request):
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
     # Create the HttpResponse object with the appropriate CSV header.
     response = HttpResponse(content_type='text/csv')
-    response['Content-Disposition'] = 'attachment; filename=payments.csv'
+    filename = 'payments.csv'
+
+    # Adjust filename based on filter parameters
+    if month and year:
+        filename = f'payments_{year}_{month}.csv'
+    elif month:
+        filename = f'payments_{month}.csv'
+    elif year:
+        filename = f'payments_{year}.csv'
+
+    response['Content-Disposition'] = f'attachment; filename={filename}'
 
     # Create a CSV writer using the HttpResponse object as the "file."
     writer = csv.writer(response)
@@ -188,7 +265,18 @@ def export_payments_to_csv(request):
     field_names = ['Project', 'Payment Date', 'Amount', 'Note', 'Payer Name', 'Payer Account Number', 'Receiver Name', 'Receiver Account Number', 'Download Link']
     writer.writerow(field_names[:-1])  # Exclude the 'Download Link' field
 
+    # Retrieve payments data based on filter parameters
     payments = Payment.objects.all()
+
+    if month:
+        payments = payments.filter(payment_date__month=month)
+
+    if year:
+        payments = payments.filter(payment_date__year=year)
+
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
 
     # Write data rows to the CSV file
     for payment in payments:
@@ -213,7 +301,13 @@ def export_payments_to_csv(request):
 
     return response
 
+
+
 def export_payments_to_excel(request):
+    # Retrieve filter parameters
+    month = request.GET.get('month')
+    year = request.GET.get('year')
+
     # Create a new Excel workbook and add a worksheet
     wb = Workbook()
     ws = wb.active
@@ -222,9 +316,20 @@ def export_payments_to_excel(request):
     field_names = ['Project', 'Payment Date', 'Amount', 'Note', 'Payer Name', 'Payer Account Number', 'Receiver Name', 'Receiver Account Number', 'Download Link']
 
     # Write headers to the worksheet
-    ws.append(field_names[:-1]+ ['document_file'])  
+    ws.append(field_names[:-1] + ['document_file'])  
 
+    # Retrieve payments data based on filter parameters
     payments = Payment.objects.all()
+
+    if month:
+        payments = payments.filter(payment_date__month=month)
+
+    if year:
+        payments = payments.filter(payment_date__year=year)
+
+    # If there are no documents found, return a JSON response indicating so
+    if not payments.exists():
+        return JsonResponse({'message': 'No data available for the selected month and year.'}, status=404)
 
     # Create a named style for hyperlinks
     hyperlink_style = NamedStyle(name='hyperlink_style', font=Font(color="0000FF", underline='single'))
@@ -262,9 +367,24 @@ def export_payments_to_excel(request):
 
     # Serve the file using Django FileResponse
     response = FileResponse(open(tmp_file.name, 'rb'), content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-    response['Content-Disposition'] = 'attachment; filename=payments.xlsx'
+    filename = 'payments.xlsx'
+
+    # Adjust filename based on filter parameters
+    if month and year:
+        filename = f'payments_{year}_{month}.xlsx'
+    elif month:
+        filename = f'payments_{month}.xlsx'
+    elif year:
+        filename = f'payments_{year}.xlsx'
+
+    response['Content-Disposition'] = f'attachment; filename={filename}'
 
     return response
+
+# Detail payment
+class PaymentDetail(generics.RetrieveAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
 
 #Create dan List
 class PaymentListCreate(generics.ListCreateAPIView):
@@ -276,6 +396,12 @@ class PaymentRetrieveUpdate(generics.RetrieveUpdateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
 
+def put(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 # Delete
 class PaymentDestroy(generics.DestroyAPIView):
@@ -314,3 +440,56 @@ class PaymentList(generics.ListCreateAPIView):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+    
+
+# Filter berdasarkan bulan dan/atau tahun
+class PaymentListFilterByMonthYear(generics.ListAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        month = self.request.query_params.get('month')
+        year = self.request.query_params.get('year')
+
+        if month and year:
+            try:
+                month = int(month)
+                year = int(year)
+                queryset = queryset.filter(payment_date__month=month, date__year=year)
+            except ValueError:
+                return JsonResponse({"error": "Invalid month or year value."}, status=400)
+        elif month:
+            try:
+                month = int(month)
+                queryset = queryset.filter(payment_date__month=month)
+            except ValueError:
+                return JsonResponse({"error": "Invalid month value."}, status=400)
+        elif year:
+            try:
+                year = int(year)
+                queryset = queryset.filter(payment_date__year=year)
+            except ValueError:
+                return JsonResponse({"error": "Invalid year value."}, status=400)
+
+        return queryset
+
+# Filter berdasarkan type
+class PaymentListFilterByType(generics.ListAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        type = self.request.query_params.get('type')
+
+        if type:
+            queryset = queryset.filter(type=type)
+
+        return queryset
+
+# Count data
+class PaymentCount(APIView):
+    def get(self, request):
+        payment_count = Payment.objects.count()
+        return Response({'count': payment_count})

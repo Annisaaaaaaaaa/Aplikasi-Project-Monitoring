@@ -132,7 +132,11 @@ function Project_admin() {
 
                         <div className="bungkus">
                             <div className="group-button">
+<<<<<<< HEAD
                             <Link to="/project-initial" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
+=======
+                            <Link to="/project/initial" className="button-client" style={{ textAlign: 'center', marginTop: '49px', marginBottom: '10px', marginLeft: '10px', textDecoration: 'none' }}>
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
                                 Tambah
                             </Link>
                                 <div className="export__file">

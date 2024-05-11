@@ -100,9 +100,15 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
+<<<<<<< HEAD
         'NAME': 'Alamira',   
         'USER': 'Annisa',       
         'PASSWORD': 'gojo091105',
+=======
+        'NAME': 'apm-master-db',   
+        'USER': 'user',       
+        'PASSWORD': 'user123',
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
         'HOST': 'localhost',      
         'PORT': '5432',         
     }
@@ -142,11 +148,7 @@ REST_FRAMEWORK = {
         'rest_framework.parsers.MultiPartParser',
         'rest_framework.parsers.FormParser',
     ],
-     'DEFAULT_PARSER_CLASSES': [
-        'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.MultiPartParser',
-        'rest_framework.parsers.FormParser',
-    ],
+    
 'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',

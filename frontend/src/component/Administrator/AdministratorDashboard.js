@@ -1,10 +1,13 @@
 import React from 'react';
+import Sidebar from '../sidebar';
+import Navbar from '../header';
 
 const AdministratorDashboard = () => {
   return (
     <div>
-      <h1>Administrator Dashboard</h1>
-      {/* Your administrator dashboard content here */}
+        <Sidebar />
+        <Navbar />
+        <h1>Administrator Dashboard</h1>
     </div>
   );
 };

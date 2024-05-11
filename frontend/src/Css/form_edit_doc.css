@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 
 /***** Form *****/
+=======
+* Form *
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 
 .form-edit-doc {
     margin-top: 3%;
@@ -201,7 +205,10 @@ button:nth-child(1) {
 
 
 .tittle-form{
+<<<<<<< HEAD
     margin-left: 10%;
+=======
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
     margin-top: 15%;
     font-family: 'Poppins';
     font-style: normal;
@@ -213,7 +220,10 @@ button:nth-child(1) {
 
 .tittle-form-email-doc{
     margin-top: 3%;
+<<<<<<< HEAD
     margin-left: 5%;
+=======
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
     font-family: 'Poppins';
     font-style: normal;
     font-weight: 700;
@@ -223,9 +233,14 @@ button:nth-child(1) {
 }
 
 .input-form input{
+<<<<<<< HEAD
     width: 350px;
     height: 40px;
     margin-left: 18%;
+=======
+    width: 295px;
+    height: 40px;
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
     margin-top: 5%;
     border: none;
     background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
@@ -297,7 +312,11 @@ button:nth-child(1) {
     color: #606060;
 }
 
+<<<<<<< HEAD
 /*** Upload File ***/
+=======
+/* Upload File */
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 
 .upload-doc {
     margin-top: 4%;
@@ -338,8 +357,44 @@ button:nth-child(1) {
 .upload-doc label {
     cursor: pointer;
 }
+<<<<<<< HEAD
 
 
 
 
 
+=======
+.select-container-edit select{
+width: fit-content;
+margin-left: 2%;
+height: 40px;
+border: none;
+background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+backdrop-filter: blur(75px);
+border-radius: 12px;
+padding-left: 10px;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 26px;
+color: #4D547A;
+}
+
+.input-form-select select {
+    width: 295px;
+    height: 40px;
+    margin-top: 5%;
+    border: none;
+    background: linear-gradient(277.42deg, rgba(134, 156, 190, 0.25) 0.65%, rgba(108, 119, 175, 0.25) 100%);
+    backdrop-filter: blur(75px);
+    border-radius: 12px;
+    padding-left: 10px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    color: #4D547A; 
+}
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced

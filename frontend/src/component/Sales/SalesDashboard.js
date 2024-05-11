@@ -1,10 +1,13 @@
 import React from 'react';
+import Sidebar from '../sidebar';
+import Navbar from '../header';
 
 const SalesDashboard = () => {
   return (
     <div>
-      <h1>Sales Dashboard</h1>
-      {/* Your sales dashboard content here */}
+        <Sidebar />
+        <Navbar />
+        <h1>Sales Dashboard</h1>
     </div>
   );
 };

@@ -1,8 +1,6 @@
-// routes/adminRoute.js
-
 import AdminDashboard from '../component/Admin/AdminDashboard';
 import UserList from '../component/Administrator/USerList';
-import AddUser from '../component/Administrator/AddUsser';
+import AddUser from '../component/Administrator/AddUser';
 import ClientPage from '../views/Client/ClientPage'
 import Client_admin from '../views/Admin/Client_admin';
 import Project_admin from '../views/Admin/Project_admin';
@@ -11,6 +9,7 @@ import Users_admin from '../views/Admin/Users_admin';
 import Invoice_admin from '../views/Admin/Invoice_admin';
 import Payment_admin from '../views/Admin/Payment_admin';
 import Form_Tambah_Client from '../views/Admin/Tambah_Form_Client';
+<<<<<<< HEAD
 import InvoiceEditForm from '../views/Admin/Edit_Form_Invoice';
 import Form_Tambah_Doc from '../views/Admin/Tambah_Form_Doc';
 // import Update_doc from '../views/Admin/Edit_Form_Doc';
@@ -18,6 +17,19 @@ import Tambah_Form_Invoice from '../views/Admin/Tambah_Form_Invoice';
 import Edit_doc from '../views/Admin/Edit_Form_Doc';
 // import Form_Tambah_Payment from '../views/Admin/Tambah_Form_Payment';
 // import PaymentEditForm from '../views/Admin/Edit_Form_Payment';
+=======
+import Form_Edit_Client from '../views/Admin/Edit_Form_Client';
+import Form_Tambah_Project from '../views/Admin/Tambah_Form_Project';
+import InvoiceEditForm from '../views/Admin/Edit_Form_Invoice';
+import Form_Tambah_Doc from '../views/Admin/Tambah_Form_Doc';
+import Update_doc from '../views/Admin/Edit_Form_Doc';
+import Tambah_Form_Invoice from '../views/Admin/Tambah_Form_Invoice';
+import Form_Tambah_Payment from '../views/Admin/Tambah_Form_Payment';
+import PaymentEditForm from '../views/Admin/Edit_Form_Payment';
+// import Form_Edit_Client from '../views/Admin/Edit_Form_Client';
+import DetailFormInvoice from '../component/Invoice/InvoicePage';
+import DetailFormPayment from '../component/Payment/PaymentPage';
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 
 const adminRoutes = [
   {
@@ -88,6 +100,15 @@ const adminRoutes = [
     allowedRoles: [4]
   },
   {
+<<<<<<< HEAD
+=======
+    path: '/admin/Edit_Form_Client/:clientId',
+    exact: true,
+    component: Form_Edit_Client,
+    allowedRoles: [4]
+  },
+  {
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
     path: '/Form_Tambah_Invoice',
     exact: true,
     component: Tambah_Form_Invoice,
@@ -99,7 +120,22 @@ const adminRoutes = [
     component: InvoiceEditForm,
     allowedRoles: [4] 
   },
+<<<<<<< HEAD
 
+=======
+  {
+    path: '/invoice-detail/:invoiceId',
+    exact: true,
+    component: DetailFormInvoice,
+    allowedRoles: [4] 
+  },
+  {
+    path: '/payment-detail/:paymentId',
+    exact: true,
+    component: DetailFormPayment,
+    allowedRoles: [4] 
+  },
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
   {
     path: '/Form_Tambah_Document',
     exact: true,
@@ -107,6 +143,7 @@ const adminRoutes = [
     allowedRoles: [4]
   },
   {
+<<<<<<< HEAD
     path: '/edit_doc/:documentId',
     exact: true,
     component: Edit_doc,
@@ -136,6 +173,25 @@ const adminRoutes = [
   //   component: PaymentEditForm,
   //   allowedRoles: [4]
   // }
+=======
+    path: '/doc-edit/:documentId',
+    exact: true,
+    component: Update_doc,
+    allowedRoles: [4]
+  },
+  {
+    path: '/Form_Tambah_Payment',
+    exact: true,
+    component: Form_Tambah_Payment,
+    allowedRoles: [4]
+  },
+  {
+    path: '/payment-edit/:paymentId',
+    exact: true,
+    component: PaymentEditForm,
+    allowedRoles: [4]
+  }
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
   
 ];
 

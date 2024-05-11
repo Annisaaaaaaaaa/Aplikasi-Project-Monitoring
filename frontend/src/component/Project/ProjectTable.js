@@ -3,7 +3,11 @@ import { useProjectContext } from './../../context/ProjectContext';
 import gambarorg from '../../assets/img/gambarorg.png';
 import { useHistory } from 'react-router-dom'; 
 import Swal from 'sweetalert2';
+<<<<<<< HEAD
 import 'animate.css';
+=======
+// import 'animate.css';
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 
 const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
   const { projects, users, clients, error, loading, editProject, deleteProject } = useProjectContext();
@@ -30,6 +34,13 @@ const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
     history.push(`/project-edit/${projectId}/`);
   };
 
+<<<<<<< HEAD
+=======
+  const handleDetail = (projectId) => {
+    history.push(`/project-detail/${projectId}`);
+  };
+
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
   const confirmDelete = (projectId) => {
     console.log('Menghapus klien dengan ID:', projectId);
 
@@ -60,9 +71,13 @@ const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
 
   const sortedAndSlicedProjects = projects
   .map((project) => {
+<<<<<<< HEAD
     // Pastikan clients tidak kosong sebelum mencari
     const customer = clients && clients.length > 0 ? clients.find((client) => client.id === project.customer) : null;
     const customerName = customer ? customer.name : 'N/A';
+=======
+    const customerName = clients && clients.find ? clients.find((client) => client.id === project.customer)?.name || 'N/A' : 'N/A';
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
 
     return {
       ...project,
@@ -184,7 +199,8 @@ const ProjectTable = ({ currentPage, itemsPerPage, totalItems }) => {
               <td style={cellStyle}>{project.end_date}</td>
               <td style={cellStyle}>
                 <button onClick={() => handleEdit(project.id)}>Edit</button>
-                <button onClick={() => confirmDelete(project.id)}>Delete</button>
+                {/* <button onClick={() => confirmDelete(project.id)}>Delete</button> */}
+                <button onClick={() => handleDetail(project.id)}>Detail</button>
               </td>
             </tr>
           ))}

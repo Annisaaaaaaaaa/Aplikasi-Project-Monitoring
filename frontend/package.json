@@ -21,6 +21,10 @@
     "react-dom": "^18.2.0",
     "react-router-dom": "^5.2.0",
     "react-router-hash-link": "^2.4.3",
+<<<<<<< HEAD
+=======
+    "react-scripts": "^5.0.1",
+>>>>>>> 48b661b142f5356ee6610801967ed21892dddced
     "react-toastify": "^10.0.5",
     "sweetalert2": "^11.7.5",
     "util": "^0.12.5",

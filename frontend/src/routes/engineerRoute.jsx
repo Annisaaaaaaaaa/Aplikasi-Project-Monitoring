@@ -7,7 +7,7 @@ const engineerRoutes = [
     path: '/engineer/dashboard',
     exact: true,
     component: EngineerDashboard,
-    allowedRoles: [5]
+    allowedRoles: [5, 1]
   }
 ];
 
