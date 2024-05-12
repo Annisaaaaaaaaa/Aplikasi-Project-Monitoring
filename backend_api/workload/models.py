@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 from api.models import User
 from decimal import Decimal
 from django.db.models.signals import post_save
@@ -8,10 +7,7 @@ from project.models import EngineerProject
 from aktivitas_project.models import EngineerActivity
 from project.models import EngineerProject
 
-
-
 class Workload(models.Model):
-    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     default_allocation = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     project_contribution = models.DecimalField(max_digits=10, decimal_places=2, default=0, editable=False)
@@ -26,6 +22,12 @@ class Workload(models.Model):
         self.activity_contribution = Decimal('0')
         self.total_workload = Decimal('0')
 
+    # def calculate_project_contribution(self):
+    #     engineer_projects = EngineerProject.objects.filter(engineer=self.user)
+    #     project_contribution = Decimal('0')
+    #     for engineer_project in engineer_projects:
+    #         project = engineer_project.project
+    #         status = project.status
 
     def calculate_project_contribution(self):
         # Ambil proyek yang diikuti oleh pengguna
@@ -46,15 +48,15 @@ class Workload(models.Model):
 
     #ini yang bener
     def calculate_activity_contribution(self):
-        # Ambil aktivitas yang mana user tersebut berpartisipasi
         engineer_activities = EngineerActivity.objects.filter(engineer=self.user)
         activity_contribution = Decimal('0')
         for engineer_activity in engineer_activities:
-            # Ambil aktivitas projek yang statusnya On Going, Overdue, atau Waiting
             project = engineer_activity.activity
             if project.status in ['On Going', 'Overdue', 'Waiting']:
-                if engineer_activity.persentase_beban_kerja is not None and project.tanggung_jawab is not None:
-                    activity_contribution += (engineer_activity.persentase_beban_kerja / Decimal('100')) * project.tanggung_jawab
+                # Konversi presentase_beban_kerja menjadi Decimal sebelum digunakan
+                presentase_beban_kerja = Decimal(engineer_activity.presentase_beban_kerja)
+                if presentase_beban_kerja is not None and project.tanggung_jawab is not None:
+                    activity_contribution += (presentase_beban_kerja / Decimal('100')) * project.tanggung_jawab
         return activity_contribution
 
 
@@ -114,6 +116,9 @@ class Workload(models.Model):
         total_allocated = self.project_contribution + self.activity_contribution
         return "{:.2f}%".format((total_allocated / self.default_allocation) * 100)
 
+@receiver(post_save, sender=Workload)
+def update_workload(sender, instance, created, **kwargs):
+    if not kwargs.get('update_fields'):  # Check if this save is not due to updating fields
 
     #ini nyobain
     # def calculate_workload_percentage(self):
@@ -131,7 +136,7 @@ class Workload(models.Model):
 
 
 
-    def update_workload(sender, instance, created, **kwargs):
+     def update_workload(sender, instance, created, **kwargs):
         # Hitung kontribusi proyek dan aktivitas
         instance.project_contribution = instance.calculate_project_contribution()
         instance.activity_contribution = instance.calculate_activity_contribution()
@@ -142,8 +147,8 @@ class Workload(models.Model):
         if instance.activity_contribution is None:
             instance.activity_contribution = Decimal('0')
 
-        # Hitung total workload
         instance.total_workload = instance.project_contribution + instance.activity_contribution
+        instance.save(update_fields=['project_contribution', 'activity_contribution', 'total_workload'])
         instance.save()
 
 
